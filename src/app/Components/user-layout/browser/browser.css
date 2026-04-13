@@ -1,0 +1,41 @@
+#total_container{
+    background-image:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/2023_Toyota_Crown_Platinum_in_Oxygen_White,_Front_Left,_03-05-2023.jpg);
+    height: 91.8vh; /*Lo puse asi por lo que ocupa el header*/
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
+p{
+    font-size: 80px;
+    font-weight: 800;
+}
+form{
+    display: flex;
+    gap: 30px;
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    width: 170px;
+    border-radius: 5px;
+}
+label{
+    margin-bottom: 5px;
+    font-size: 14px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+button{
+    background: #2563eb;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
