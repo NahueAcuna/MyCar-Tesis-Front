@@ -1,0 +1,72 @@
+<div>
+
+  <div *ngIf="mostrarPagina1">
+    <h3>Basicos</h3>
+    <div>
+      <label>Marca:</label>
+      <input type="text">
+    </div>
+    <br>
+    <div>
+      <label>Modelo:</label>
+      <input type="text">
+    </div>
+    <br>
+    <button (click)="irAPagina2()">Continuar</button>
+  </div>
+
+  <div *ngIf="mostrarPagina2">
+    <h3>Detalles Tecnicos</h3>
+    <div>
+      <label>Caballos de fuerza:</label>
+      <input type="number">
+    </div>
+    <br>
+    <div>
+      <label>Color:</label>
+      <input type="text">
+    </div>
+    <br>
+    <div>
+      <label>Puertas:</label>
+      <input type="number">
+    </div>
+    <br>
+    <div>
+      <label>Motor:</label>
+      <input type="text">
+    </div>
+    <br>
+    <div>
+      <label>Año:</label>
+      <input type="number">
+    </div>
+    <br>
+    <button (click)="irAPagina1()">Atras</button>
+    <button (click)="irAPagina3()">Continuar</button>
+  </div>
+
+  <div *ngIf="mostrarPagina3">
+    <h3>Fotos y Precio</h3>
+    <div>
+      <label>Fotos / Videos:</label>
+      <input type="file" multiple>
+    </div>
+    <br>
+    <div>
+      <label>Precio sugerido:</label>
+      <input type="number">
+    </div>
+    <br>
+    <button (click)="irAPagina2()">Atras</button>
+    <button (click)="irAPagina4()">Continuar</button>
+  </div>
+
+  <div *ngIf="mostrarPagina4">
+    <h3>Revision</h3>
+    <br>
+    <button (click)="irAPagina3()">Modificar</button>
+    <button>Postear</button>
+  </div>
+
+</div>
