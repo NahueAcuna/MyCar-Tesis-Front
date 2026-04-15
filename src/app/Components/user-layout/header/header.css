@@ -2,7 +2,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fefefe;
+    background: #000;
     padding: 20px 20px 20px 20px;
 }
 
@@ -22,27 +22,30 @@ li{
 li::before{
     position: absolute;
     content: '';
-    border-bottom:2px solid #2563eb;
+    border-bottom:2px solid #D36D4C;
     width: 0%;
     transform: translateY(25px);
     transition: 0.4s ease-in-out;
 }
 li:hover{
-color: #2563eb;
+color: #D36D4C;
 }
 li:hover::before{
    width: 100%;
 }
 #logo{
-    font-size: 20px;
+    font-size: 28px;
     font-weight: 750;
-    color: #2563eb;
+    background: linear-gradient(to right, #FF7F0E, #974e04);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 button{
     padding: 10px 20px 10px 20px;
     border-radius: 10px;
     border: none;
-    background: #2563eb;
+    background-image: linear-gradient(to right, #FF7F0E, #864708);
     color: #fff;
     cursor: pointer;
 }

@@ -1,5 +1,5 @@
 #total_container{
-    background-image:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/2023_Toyota_Crown_Platinum_in_Oxygen_White,_Front_Left,_03-05-2023.jpg);
+    background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/a255ab72-8ae9-4188-b667-b9e45705137e.jpeg);
     height: 91.8vh; /*Lo puse asi por lo que ocupa el header*/
     width: 100%;
     background-repeat: no-repeat;
@@ -11,31 +11,65 @@
     flex-direction: column;
     gap: 40px;
 }
-p{
+#content{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+#title{
+    color: #fff;
     font-size: 80px;
     font-weight: 800;
 }
-form{
+#hero{
+    font-size: 18px;
+    color: #bfbfbf;
+}
+span {
+    background: linear-gradient(to bottom, #ffb347 0%, #ffe5b4 20%, #ff8c00 50%, #1a1a1a 80%, #000000 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+
+/*-- Las Cajas --*/
+
+#boxes{
     display: flex;
     gap: 30px;
 }
-.box{
+#boxes div{
     display: flex;
     flex-direction: column;
-    background: #fff;
+    align-items: center;
     width: 170px;
-    border-radius: 5px;
+    height: 155px;
+    border: 1px solid black;
+    background: linear-gradient(135deg, #070707 35%, #472504);
+    border-radius: 12px;
+    box-shadow: -5px 8px 25px rgba(230, 126, 34, 0.2);
+    color: #fff; 
+    text-align: center;
+    padding: 15px 15px 0 15px;
 }
-label{
-    margin-bottom: 5px;
-    font-size: 14px;
-    padding-left: 5px;
-    padding-top: 5px;
+#boxes div span{
+    font-size: 45px;
+    margin-bottom: 10px;
 }
-button{
-    background: #2563eb;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    color: #fff;
+#boxes div p{
+    position: relative;
 }
+#boxes div p::before{
+position: absolute;
+content: '';
+width: 130px;
+border-top: 2px solid orange;
+left: 50%;
+transform: translateX(-50%);
+top: -15%;
+}
+.plus{
+    font-size: 25px !important;
+}
+
+
