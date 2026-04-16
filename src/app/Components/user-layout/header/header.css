@@ -1,9 +1,21 @@
 header{
+    position: fixed;
+    z-index: 9999;
+    right: 50%;
+    top: 4%;
+    transform: translateX(50%);
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #000;
-    padding: 20px 20px 20px 20px;
+    padding: 15px 15px 15px 15px;
+    border-radius: 50px;
+    width: 50%;
+    height: 65px;
+    transition: 0.4s ease-in-out;
+}
+header:hover{
+    box-shadow: 0 0 8px #502802;
 }
 
 ul{
@@ -28,13 +40,13 @@ li::before{
     transition: 0.4s ease-in-out;
 }
 li:hover{
-color: #D36D4C;
+color: #FF7F0E;
 }
 li:hover::before{
    width: 100%;
 }
 #logo{
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 750;
     background: linear-gradient(to right, #FF7F0E, #974e04);
     -webkit-background-clip: text;
@@ -48,6 +60,10 @@ button{
     background-image: linear-gradient(to right, #FF7F0E, #864708);
     color: #fff;
     cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+button:hover{
+    background-image: linear-gradient(to right, #ff9131, #aa5c0d);
 }
 #buttons{
     display: flex;
