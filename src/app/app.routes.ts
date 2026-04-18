@@ -6,5 +6,5 @@ import { PublicationForm } from './pages/publication-form/publication-form';
 export const routes: Routes = [
     {path:'', component:Home},
     {path:'vender', component:PublicationForm},
-    {path:'publication/:id', component:PublicationDetail}
+    {path:'publicacion/:id', component:PublicationDetail}
 ];

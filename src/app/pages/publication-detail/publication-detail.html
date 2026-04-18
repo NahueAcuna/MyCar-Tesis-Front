@@ -1,1 +1,31 @@
-<p>publication-detail works!</p>
+<h1>Detalle del auto</h1>
+
+@if(publicationSelected){
+    <div class="publicationDetail">
+        <p>Descripcion: {{publicationSelected.descripcion}}</p>
+        <p>Estado: {{publicationSelected.estado}}</p>
+        <p>Tipo Publicacion: {{publicationSelected.tipoPublicacion}}</p>
+        <p>Nombre vendedor: {{publicationSelected.nombreVendedor}}</p>
+        <p>Celular vendedor: {{publicationSelected.vendedorTelefono}}</p>
+        <div class="carDetail">
+            <p>Marca: {{publicationSelected.auto.marca}}</p>
+            <p>Modelo: {{publicationSelected.auto.modelo}}</p>
+            <p>Precio: {{publicationSelected.auto.precio}}</p>
+            <p>Año: {{publicationSelected.auto.anio}}</p>
+            <p>Km: {{publicationSelected.auto.km}}</p>
+            <p>Color: {{publicationSelected.auto.color}}</p> 
+            <img 
+            [src]="'http://localhost:8080' + publicationSelected.auto.imagenesUrl[0]" 
+             width="300"
+            /> 
+        </div>
+        <div class="technicalSpecifications">
+            <h2>Ficha tecnica</h2>
+            <p>Motor: {{publicationSelected.auto.fichaTecnica.motor}}</p>
+            <p>Combustible: {{publicationSelected.auto.fichaTecnica.combustible}}</p>
+            <p>Caja: {{publicationSelected.auto.fichaTecnica.caja}}</p>
+            <p>Puertas: {{publicationSelected.auto.fichaTecnica.puertas}}</p>
+            <p>Potencia: {{publicationSelected.auto.fichaTecnica.potencia}}</p>
+        </div>
+    </div>
+}
