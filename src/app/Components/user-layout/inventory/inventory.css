@@ -1,0 +1,168 @@
+h1{
+    text-align: center;
+    padding-top: 15vh;
+    padding-bottom: 1vh;
+    font-size: 58px;
+    font-weight: 800;
+}
+h1 span{
+    background: linear-gradient(to bottom, #ffb347 0%, #ffe5b4 20%, #ff8c00 50%, #1a1a1a 80%, #000000 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
+}
+#total_container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0a0a0a;
+
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(197, 120, 57, 0.15) 0%, rgba(10, 10, 10, 0) 50%),
+       
+        radial-gradient(circle at 80% 30%, rgba(168, 100, 32, 0.12) 0%, rgba(10, 10, 10, 0) 45%),
+   
+        radial-gradient(circle at 50% 80%, rgba(133, 98, 47, 0.1) 0%, rgba(10, 10, 10, 0) 35%);
+    background-blend-mode: screen;
+    background-size: 200% 200%;
+    animation: auroraNaranja 12s ease infinite alternate;
+    color: aliceblue;
+}
+#inventory{
+    display: flex;
+    gap: 50px;
+    padding: 100px;
+}
+#filters{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #774c10;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#070707 20%, #472504);
+    padding: 40px;
+    box-shadow: 0 0 20px #472504;
+    color: aliceblue;
+    gap: 20px;
+}
+#filters input{
+    background: #000;
+    padding: 6px;
+    border: 1px solid #585858;
+    border-radius: 8px;
+    color: aliceblue;
+}
+#filters input:focus{
+     border: 1px solid #472504;
+     box-shadow: 0 0 15px #5e3206;
+     outline: none;
+}
+#filters button{
+    background: linear-gradient(to right,rgb(190, 103, 52),rgb(75, 38, 14));
+    border: 1px solid #000;
+    border-radius: 6px;
+    color: aliceblue;
+    height: 35px;
+    cursor: pointer;
+}
+#kilometraje{
+    display: flex;
+    justify-content: space-between;
+}
+svg{
+    width: 48px;
+    fill: #c2865e;
+}
+#categories_section{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid #585858;
+    border-radius: 10px;
+    padding: 18px;
+    background: linear-gradient(to top,rgb(24, 11, 4)55%,rgb(75, 38, 14));
+    transition: 0.3s ease-in-out;
+}
+#categories_section:hover{
+    scale: calc(1.02);
+}
+#categories{
+    display: flex;
+    gap: 8px;
+}
+.category{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+    padding: 16px;
+    border: 1px solid #6d2f05;
+    border-radius: 18px;
+    box-shadow: 0 0 15px #663f18;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.category:hover{
+    transform: translateY(-2px);
+}
+.category span{
+    font-size: 14px;
+}
+.input_filter{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+select{
+    background: #000;
+    padding: 6px;
+    border: 1px solid #585858;
+    border-radius: 8px;
+    color: aliceblue;
+}
+select:focus{
+         border: 1px solid #472504;
+     box-shadow: 0 0 15px #5e3206;
+     outline: none;
+}
+#title{
+    font-size: 28px;
+    font-weight: 750;
+    background: linear-gradient(to right, #FF7F0E, #050301);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+#cars{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 100px;
+}
+.car_publication{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 250px;
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 12px;
+}
+.car_publication img{
+    width: 100%;
+    height: 650%;
+    border-radius: 10px;
+}
+#information{
+    display: flex;
+    flex-direction: column;
+}
+@keyframes auroraNaranja {
+    0% {
+        background-position: 0% 0%, 100% 0%, 0% 100%;
+    }
+    50% {
+        background-position: 100% 100%, 0% 100%, 100% 0%;
+    }
+    100% {
+        background-position: 50% 50%, 50% 50%, 50% 50%;
+    }
+}

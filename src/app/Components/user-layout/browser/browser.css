@@ -36,6 +36,7 @@ span {
 
 /*-- Las Cajas --*/
 
+
 #boxes{
     display: flex;
     gap: 30px;
