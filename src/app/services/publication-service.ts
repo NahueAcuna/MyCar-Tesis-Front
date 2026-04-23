@@ -14,4 +14,7 @@ export class PublicationService {
   getPublicationById(id : string){
     return this.http.get<PublicationResponse>(`${this.url}/${id}`);
   }
+  getPublications(){
+    return this.http.get<PublicationResponse[]>(`${this.url}/tienda`);
+  }
 }
