@@ -1,7 +1,6 @@
 h1{
     text-align: center;
     padding-top: 15vh;
-    padding-bottom: 1vh;
     font-size: 58px;
     font-weight: 800;
 }
@@ -81,9 +80,7 @@ svg{
     background: linear-gradient(to top,rgb(24, 11, 4)55%,rgb(75, 38, 14));
     transition: 0.3s ease-in-out;
 }
-#categories_section:hover{
-    scale: calc(1.02);
-}
+
 #categories{
     display: flex;
     gap: 8px;
@@ -135,25 +132,53 @@ select:focus{
 #cars{
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
-    gap: 100px;
+    gap: 60px;
 }
 .car_publication{
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 250px;
-    border: 1px solid;
+    height: 340px;
+    border: 1px solid #663f18;
     border-radius: 15px;
     padding: 12px;
+    background: linear-gradient(135deg, #070707 45%, #472504);
+    box-shadow: -5px 4px 20px #472504;
+    transition: 0.4s;
+    gap: 10px;
+}
+.car_publication:hover{
+    
+    box-shadow: -4px 3px 20px #693806;
 }
 .car_publication img{
     width: 100%;
-    height: 650%;
+    height: 190px;
     border-radius: 10px;
+    object-fit: cover;
 }
 #information{
     display: flex;
     flex-direction: column;
+}
+#name_price{
+    display: flex;
+    justify-content: space-between;
+}
+#anio_description{
+    color: #727070;
+}
+.car_publication button{
+    padding: 5px 10px 5px 10px;
+    border-radius: 7px;
+    border: none;
+    background: transparent;
+    border: 1px solid #693806;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+}
+.car_publication button:hover{
+    background-image: linear-gradient(to right, #241203 32%, #965412);
 }
 @keyframes auroraNaranja {
     0% {

@@ -27,5 +27,18 @@ export class Inventory implements OnInit{
       error:(e) => {console.log(e)}
     })
   }
+  descriptionPreview(text:string| undefined){
+    if(!text){
+      return ''
+    }
+    const words = text?.split(' ');
+    let i = 0
+    let description: string = '';
+    while(i < words?.length && i< 4){
+      description = description + words.at(i) + ' '
+      i++
+    }
+    return description.trim() + '...'
+  }
 
 }
