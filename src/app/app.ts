@@ -18,7 +18,7 @@ export class App implements AfterViewInit, OnDestroy{
   ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
       this.lenis = new Lenis({
-        duration: 1.3, 
+        duration: 1.2, 
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });

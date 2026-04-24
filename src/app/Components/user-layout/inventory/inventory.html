@@ -63,8 +63,14 @@
                     <div class="car_publication">
                         <img src="{{publication.auto.imagenesUrl}} " alt="Imagen del auto">
                         <div id="information">
+                            <div id="name_price">
                             <p>{{publication.auto.marca}}   {{publication.auto.modelo}} </p>
-                            <span>{{publication.auto.anio}} </span>
+                            <span>${{publication.auto.precio}} </span>
+                            </div>
+                            <div id="anio_description">
+                                <span>{{publication.auto.anio}} </span>
+                                <p>{{descriptionPreview(publication.descripcion)}} </p>
+                            </div>
                         </div>
                         <button>Ver auto</button>
                     </div>
