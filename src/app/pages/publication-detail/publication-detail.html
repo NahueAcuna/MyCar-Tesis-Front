@@ -1,31 +1,58 @@
-<h1>Detalle del auto</h1>
+<app-header></app-header>
+<div class="container">
+    @if(publicationSelected){
+        <div class="left">
+            <div class="image-wrapper" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
+                <img class="main-img" [src]="'http://localhost:8080' + selectedImage" [style.transform]="transformStyle" [style.transform-origin]="transformOrigin"/>
+            </div>
+            
+            <div class="thumbs">
+                @for(img of publicationSelected.auto.imagenesUrl; track img){
+                    <img [src]="'http://localhost:8080' + img" (click)="selectedImage = img" [class.active]="selectedImage === img"/>
+                }
+            </div>
 
-@if(publicationSelected){
-    <div class="publicationDetail">
-        <p>Descripcion: {{publicationSelected.descripcion}}</p>
-        <p>Estado: {{publicationSelected.estado}}</p>
-        <p>Tipo Publicacion: {{publicationSelected.tipoPublicacion}}</p>
-        <p>Nombre vendedor: {{publicationSelected.nombreVendedor}}</p>
-        <p>Celular vendedor: {{publicationSelected.vendedorTelefono}}</p>
-        <div class="carDetail">
-            <p>Marca: {{publicationSelected.auto.marca}}</p>
-            <p>Modelo: {{publicationSelected.auto.modelo}}</p>
-            <p>Precio: {{publicationSelected.auto.precio}}</p>
-            <p>Año: {{publicationSelected.auto.anio}}</p>
-            <p>Km: {{publicationSelected.auto.km}}</p>
-            <p>Color: {{publicationSelected.auto.color}}</p> 
-            <img 
-            [src]="'http://localhost:8080' + publicationSelected.auto.imagenesUrl[0]" 
-             width="300"
-            /> 
+            <div class="description">
+                <h2>Descripción</h2>
+                <p>{{publicationSelected.descripcion}}</p>
+            </div>
+
+            <div class="specs">
+                <h2>Especificaciones Técnicas</h2>
+
+                <div class="grid">
+                    <p><span>Motor</span>{{publicationSelected.auto.fichaTecnica.motor}}</p>
+                    <p><span>Combustible</span>{{publicationSelected.auto.fichaTecnica.combustible}}</p>
+                    <p><span>Caja</span>{{publicationSelected.auto.fichaTecnica.caja}}</p>
+                    <p><span>Puertas</span>{{publicationSelected.auto.fichaTecnica.puertas}}</p>
+                    <p><span>Potencia</span>{{publicationSelected.auto.fichaTecnica.potencia}}</p>
+                    <p><span>Año</span>{{publicationSelected.auto.anio}}</p>
+                    <p><span>Km</span>{{publicationSelected.auto.km}}</p>
+                    <p><span>Color</span>{{publicationSelected.auto.color}}</p>
+                </div>
+            </div>
         </div>
-        <div class="technicalSpecifications">
-            <h2>Ficha tecnica</h2>
-            <p>Motor: {{publicationSelected.auto.fichaTecnica.motor}}</p>
-            <p>Combustible: {{publicationSelected.auto.fichaTecnica.combustible}}</p>
-            <p>Caja: {{publicationSelected.auto.fichaTecnica.caja}}</p>
-            <p>Puertas: {{publicationSelected.auto.fichaTecnica.puertas}}</p>
-            <p>Potencia: {{publicationSelected.auto.fichaTecnica.potencia}}</p>
+
+        <div class="right">
+            <p class="status">{{publicationSelected.estado}}</p>
+
+            <h1>
+                {{publicationSelected.auto.marca}} 
+                {{publicationSelected.auto.modelo}}
+            </h1>
+
+            <h2 class="price">
+                $ {{publicationSelected.auto.precio}}
+            </h2>
+
+            <button class="btn primary">Reservar Vehículo</button>
+            <button class="btn whatsapp">Contactar</button>
+
+            <div class="seller">
+                <p><strong>Nombre vendedor:</strong> {{publicationSelected.nombreVendedor}}</p>
+                <p><strong>Telefono vendedor:</strong> {{publicationSelected.vendedorTelefono}}</p>
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
+<app-footer></app-footer>
