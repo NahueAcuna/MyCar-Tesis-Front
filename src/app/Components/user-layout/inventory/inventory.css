@@ -129,6 +129,65 @@ select:focus{
     background-clip: text;
     color: transparent;
 }
+#publications{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+/* //////// Boton de busqueda //////// */ 
+
+#search{
+    display: flex;
+    height: 45px;
+    border: 1px solid #774c10;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #070707 15%, #472504);
+    cursor: pointer;
+    box-shadow: -5px 4px 20px #472504;
+    color: wheat;
+    transition: 0.8s ease-in-out;
+    justify-content: flex-start;
+    align-items: center;
+    width: fit-content;
+}
+#search button{
+    width: 43px;
+    height: 43px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    cursor: pointer;
+    color: wheat;
+}
+#search input{
+    height: 30px;
+    width: 0;
+    opacity: 0;
+    border-radius: 5px;
+    border: none;
+    background: #000;
+    color: wheat;
+    transition: 0.8s ease-in-out;
+    border: 1px solid #472504;
+}
+#search input:focus{
+     border: 1px solid #472504;
+     box-shadow: 0 0 1px #5e3206;
+     outline: none; 
+}
+ #search .material-symbols-outlined{
+    font-size: 28px;
+}
+#search.open input{
+    width: 320px;
+    padding: 10px;
+    opacity: 1;
+}
+#search.open{
+    padding-right: 5px;
+    gap: 5px;
+}
+
 #cars{
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
@@ -147,7 +206,6 @@ select:focus{
     gap: 10px;
 }
 .car_publication:hover{
-    
     box-shadow: -4px 3px 20px #693806;
 }
 .car_publication img{

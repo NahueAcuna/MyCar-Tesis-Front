@@ -10,6 +10,8 @@ import { PublicationService } from '../../../services/publication-service';
 })
 export class Inventory implements OnInit{
 
+  isSearchShowed: Boolean = false;
+
   publications: PublicationResponse[] = [];
   constructor(private publicationService: PublicationService){
 
@@ -41,4 +43,7 @@ export class Inventory implements OnInit{
     return description.trim() + '...'
   }
 
+  switchSearchView(){
+    this.isSearchShowed = !this.isSearchShowed;
+  }
 }
