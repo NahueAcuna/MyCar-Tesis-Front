@@ -17,4 +17,7 @@ export class PublicationService {
   getPublications(){
     return this.http.get<PublicationResponse[]>(`${this.url}/tienda`);
   }
+  createPublication(formData: FormData) {
+    return this.http.post<PublicationResponse>(`${this.url}/crearPublicacion`, formData);
+  }
 }
