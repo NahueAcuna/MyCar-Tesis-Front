@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PublicationResponse } from '../../../models/PublicationResponse';
 import { PublicationService } from '../../../services/publication-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inventory',
@@ -13,7 +14,8 @@ export class Inventory implements OnInit{
   isSearchShowed: Boolean = false;
 
   publications: PublicationResponse[] = [];
-  constructor(private publicationService: PublicationService){
+
+  constructor(private publicationService: PublicationService, public router : Router){
 
   }
 
@@ -45,5 +47,9 @@ export class Inventory implements OnInit{
 
   switchSearchView(){
     this.isSearchShowed = !this.isSearchShowed;
+  }
+
+  carDetail(id: number){
+    this.router.navigate(['publicacion', id])
   }
 }
