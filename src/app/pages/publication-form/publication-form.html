@@ -1,64 +1,137 @@
-<div>
+<app-header></app-header>
+<div class="container">
+  <div class="progress-header">
+    <p class="step-counter">PASO {{ currentStep }} DE 4</p>
+    <h1>Publicar Vehículo</h1>
 
-  <div *ngIf="mostrarPagina1">
-    <h3>Basicos</h3>
-    <p>
-      <label>Marca:</label>
-      <input type="text">
-    </p>
-    <p>
-      <label>Modelo:</label>
-      <input type="text">
-    </p>
-    <button (click)="irAPagina2()">Continuar</button>
+    <div class="progress-bar">
+      <div class="step" [class.active]="currentStep >= 1">
+        <div class="circle">1</div>
+        <span class="label">Básicos</span>
+      </div>
+      <div class="line" [class.active]="currentStep >= 2"></div>
+      
+      <div class="step" [class.active]="currentStep >= 2">
+        <div class="circle">2</div>
+        <span class="label">Specs</span>
+      </div>
+      <div class="line" [class.active]="currentStep >= 3"></div>
+      
+      <div class="step" [class.active]="currentStep >= 3">
+        <div class="circle">3</div>
+        <span class="label">Fotos</span>
+      </div>
+      <div class="line" [class.active]="currentStep >= 4"></div>
+      
+      <div class="step" [class.active]="currentStep >= 4">
+        <div class="circle">4</div>
+        <span class="label">Revisión</span>
+      </div>
+    </div>
   </div>
 
-  <div *ngIf="mostrarPagina2">
-    <h3>Detalles Tecnicos</h3>
-    <p>
-      <label>Caballos de fuerza:</label>
-      <input type="number">
-    </p>
-    <p>
-      <label>Color:</label>
-      <input type="text">
-    </p>
-    <p>
-      <label>Puertas:</label>
-      <input type="number">
-    </p>
-    <p>
-      <label>Motor:</label>
-      <input type="text">
-    </p>
-    <p>
-      <label>Año:</label>
-      <input type="number">
-    </p>
-    <button (click)="irAPagina1()">Atras</button>
-    <button (click)="irAPagina3()">Continuar</button>
-  </div>
+  @if (mostrarPagina1) {
+    <div class="form-wrapper">
+      <h2>Paso 1: Básicos</h2>
+      <div class="form-content">
+        <div class="input-group">
+          <label>Marca</label>
+          <input type="text" placeholder="Ej: Toyota" [(ngModel)]="publicationData.marca" (keyup.enter)="irAPagina2()">
+        </div>
+        <div class="input-group">
+          <label>Modelo</label>
+          <input type="text" placeholder="Ej: Corolla" [(ngModel)]="publicationData.modelo" (keyup.enter)="irAPagina2()">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn secondary" (click)="cancelar()">Cancelar</button>
+        <button class="btn primary" (click)="irAPagina2()">Continuar</button>
+      </div>
+    </div>
+  }
 
-  <div *ngIf="mostrarPagina3">
-    <h3>Fotos y Precio</h3>
-    <p>
-      <label>Fotos / Videos:</label>
-      <input type="file" multiple>
-    </p>
-    <p>
-      <label>Precio sugerido:</label>
-      <input type="number">
-    </p>
-    <button (click)="irAPagina2()">Atras</button>
-    <button (click)="irAPagina4()">Continuar</button>
-  </div>
+  @if (mostrarPagina2) {
+    <div class="form-wrapper">
+      <h2>Paso 2: Detalles Técnicos</h2>
+      <div class="form-content grid">
+        <div class="input-group">
+          <label>Caballos de fuerza</label>
+          <input type="number" placeholder="Ej: 150" [(ngModel)]="publicationData.caballos" (keyup.enter)="irAPagina3()">
+        </div>
+        <div class="input-group">
+          <label>Color</label>
+          <input type="text" placeholder="Ej: Rojo" [(ngModel)]="publicationData.color" (keyup.enter)="irAPagina3()">
+        </div>
+        <div class="input-group">
+          <label>Puertas</label>
+          <input type="number" placeholder="Ej: 5" [(ngModel)]="publicationData.puertas" (keyup.enter)="irAPagina3()">
+        </div>
+        <div class="input-group">
+          <label>Motor</label>
+          <input type="text" placeholder="Ej: 2.0" [(ngModel)]="publicationData.motor" (keyup.enter)="irAPagina3()">
+        </div>
+        <div class="input-group">
+          <label>Año</label>
+          <input type="number" placeholder="Ej: 2021" [(ngModel)]="publicationData.anio" (keyup.enter)="irAPagina3()">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn secondary" (click)="irAPagina1()">Atrás</button>
+        <button class="btn primary" (click)="irAPagina3()">Continuar</button>
+      </div>
+    </div>
+  }
 
-  <div *ngIf="mostrarPagina4">
-    <h3>Revision</h3>
-    <p>
-      <button (click)="irAPagina3()">Modificar</button>
-      <button>Postear</button>
-    </p>
-  </div>
+  @if (mostrarPagina3) {
+    <div class="form-wrapper">
+      <h2>Paso 3: Fotos y Precio</h2>
+      <div class="form-content">
+        <div class="input-group">
+          <label>Fotos / Videos</label>
+          <input type="file" multiple class="file-input" (change)="onFileSelected($event)">
+        </div>
+        <div class="input-group">
+          <label>Precio sugerido</label>
+          <input type="number" placeholder="Ej: 25000" [(ngModel)]="publicationData.precio" (keyup.enter)="irAPagina4()">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn secondary" (click)="irAPagina2()">Atrás</button>
+        <button class="btn primary" (click)="irAPagina4()">Continuar</button>
+      </div>
+    </div>
+  }
 
+  @if (mostrarPagina4) {
+    <div class="form-wrapper" style="max-width: 800px;">
+      <h2>Paso 4: Revisión</h2>
+      <p class="review-text">Verifica cómo se verá tu vehículo en el catálogo:</p>
+      
+      <div class="preview-card">
+        <div class="preview-img-container">
+          <img [src]="publicationData.fotoUrl" alt="Vista Previa" class="preview-img">
+          <div class="preview-price">${{ publicationData.precio || '0' }}</div>
+        </div>
+        <div class="preview-info">
+          <h3>{{ publicationData.marca || 'Marca' }} {{ publicationData.modelo || 'Modelo' }}</h3>
+          <div class="preview-tags">
+            <span class="tag">{{ publicationData.anio || 'Año' }}</span>
+            <span class="tag">{{ publicationData.motor || 'Motor' }}</span>
+            <span class="tag">{{ publicationData.caballos ? publicationData.caballos + ' CV' : 'CV' }}</span>
+          </div>
+          <div class="preview-specs">
+            <p><strong>Color:</strong> {{ publicationData.color || '-' }}</p>
+            <p><strong>Puertas:</strong> {{ publicationData.puertas || '-' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn secondary" (click)="irAPagina3()">Modificar</button>
+        <button class="btn primary" (click)="publicarVehiculo()">Publicar Vehículo</button>
+        <button class="btn secondary outline" (click)="cancelar()">Cancelar</button>
+      </div>
+    </div>
+  }
 </div>
+<app-footer></app-footer>
