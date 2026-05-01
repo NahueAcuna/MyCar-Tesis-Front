@@ -5,18 +5,6 @@
     align-items: center;
     padding: 60px 20px;
     margin-top: 80px; /* espacio para header */
-    width: 100%;
-    min-height: 100vh;
-    background-color: #0a0a0a;
-
-    background-image: 
-        radial-gradient(circle at 20% 20%, rgba(197, 120, 57, 0.15) 0%, rgba(10, 10, 10, 0) 50%),
-        radial-gradient(circle at 80% 30%, rgba(168, 100, 32, 0.12) 0%, rgba(10, 10, 10, 0) 45%),
-        radial-gradient(circle at 50% 80%, rgba(133, 98, 47, 0.1) 0%, rgba(10, 10, 10, 0) 35%);
-    background-blend-mode: screen;
-    background-size: 200% 200%;
-    animation: auroraNaranja 12s ease infinite alternate;
-    color: aliceblue;
 }
 
 /* ================= PROGRESS BAR ================= */
@@ -235,19 +223,6 @@
     border-color: #ff8c00;
     color: orange;
     background: transparent;
-}
-
-/* ================= ANIMATIONS ================= */
-@keyframes auroraNaranja {
-    0% {
-        background-position: 0% 0%, 100% 0%, 0% 100%;
-    }
-    50% {
-        background-position: 100% 100%, 0% 100%, 100% 0%;
-    }
-    100% {
-        background-position: 50% 50%, 50% 50%, 50% 50%;
-    }
 }
 
 /* ================= MOBILE ================= */

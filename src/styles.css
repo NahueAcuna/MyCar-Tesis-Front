@@ -6,3 +6,28 @@
     font-family: "Noto Sans";
 }
 
+body{
+    margin: 0;
+    color: white;
+    background-color: #0a0a0a;
+
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(197, 120, 57, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 30%, rgba(168, 100, 32, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(133, 98, 47, 0.1) 0%, transparent 35%);
+
+    background-size: 200% 200%;
+    animation: auroraNaranja 12s ease infinite alternate;
+}
+
+@keyframes auroraNaranja {
+    0% {
+        background-position: 0% 0%, 100% 0%, 0% 100%;
+    }
+    50% {
+        background-position: 100% 100%, 0% 100%, 100% 0%;
+    }
+    100% {
+        background-position: 50% 50%, 50% 50%, 50% 50%;
+    }
+}

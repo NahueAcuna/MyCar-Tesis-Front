@@ -34,8 +34,6 @@
         </div>
 
         <div class="right">
-            <p class="status">{{publicationSelected.estado}}</p>
-
             <h1>
                 {{publicationSelected.auto.marca}} 
                 {{publicationSelected.auto.modelo}}
@@ -46,15 +44,14 @@
             </h2>
 
             <button class="btn primary">Reservar Vehículo</button>
-            <button class="btn whatsapp">Contactar</button>
+            <a class="btn whatsapp" href="https://wa.me/549223465798?text=Hola, me interesa el {{publicationSelected.auto.marca}} {{publicationSelected.auto.modelo}} del año {{publicationSelected.auto.anio}}" target="_blank"> Contactar</a>
 
             <div class="seller">
                 <p><strong>Nombre vendedor:</strong> {{publicationSelected.nombreVendedor}}</p>
-                <p><strong>Telefono vendedor:</strong> {{publicationSelected.vendedorTelefono}}</p>
             </div>
         </div>    
     }
 
-    <button (click)="goBack()">Volver</button>
+    <button class="back" (click)="goBack()"> ⬅ Volver</button>
 </div>
 <app-footer></app-footer>

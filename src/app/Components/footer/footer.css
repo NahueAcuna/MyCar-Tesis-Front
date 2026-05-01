@@ -1,0 +1,61 @@
+.footer{
+    margin-top: 60px;
+    padding: 40px 20px 20px;
+    background: linear-gradient(135deg, #070707 40%, #3b1f05);
+    border-top: 1px solid rgba(255,140,0,0.3);
+    color: #ccc;
+}
+
+/* Contenido principal */
+.footer-content{
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* Logo / descripción */
+.footer-left h2{
+    color: orange;
+    margin-bottom: 10px;
+}
+
+.footer-left p{
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Links */
+.footer-links,
+.footer-social{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-links a,
+.footer-social a{
+    text-decoration: none;
+    color: #aaa;
+    font-size: 14px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.footer-links a:hover,
+.footer-social a:hover{
+    color: orange;
+}
+
+/* Parte de abajo */
+.footer-bottom{
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+    font-size: 13px;
+    color: #777;
+}

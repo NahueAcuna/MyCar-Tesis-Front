@@ -8,5 +8,3 @@ export const routes: Routes = [
     { path: 'vender', component: PublicationForm },
     { path: 'publicacion/:id', component: PublicationDetail }
 ];
-{ path: 'registro', component: Register }
-];

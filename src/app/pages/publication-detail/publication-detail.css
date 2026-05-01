@@ -7,18 +7,6 @@
     margin-top: 80px; /* espacio para header */
     width: 100%;
     min-height: 100vh;
-    background-color: #0a0a0a;
-
-    background-image: 
-        radial-gradient(circle at 20% 20%, rgba(197, 120, 57, 0.15) 0%, rgba(10, 10, 10, 0) 50%),
-       
-        radial-gradient(circle at 80% 30%, rgba(168, 100, 32, 0.12) 0%, rgba(10, 10, 10, 0) 45%),
-   
-        radial-gradient(circle at 50% 80%, rgba(133, 98, 47, 0.1) 0%, rgba(10, 10, 10, 0) 35%);
-    background-blend-mode: screen;
-    background-size: 200% 200%;
-    animation: auroraNaranja 12s ease infinite alternate;
-    color: aliceblue;
 }
 
 /* ================= LEFT ================= */
@@ -115,11 +103,6 @@
     height: fit-content;
 }
 
-.status{
-    color: #ff8c00;
-    font-weight: bold;
-}
-
 .right h1{
     margin: 0;
 }
@@ -152,10 +135,30 @@
 .whatsapp{
     background: #25D366;
     color: white;
+    text-align: center;
+    text-decoration: none;
 }
 
 .whatsapp:hover{
     transform: scale(1.03);
+}
+
+.back{
+    margin-top: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    background: linear-gradient(135deg, #ff8c00, #ffb347);
+    color: black;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    width: fit-content; /* 👈 clave */
+}
+
+.back:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(255,140,0,0.4);
 }
 
 /* ================= SELLER ================= */
@@ -163,18 +166,6 @@
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #444;
-}
-
-@keyframes auroraNaranja {
-    0% {
-        background-position: 0% 0%, 100% 0%, 0% 100%;
-    }
-    50% {
-        background-position: 100% 100%, 0% 100%, 100% 0%;
-    }
-    100% {
-        background-position: 50% 50%, 50% 50%, 50% 50%;
-    }
 }
 
 /* ================= MOBILE ================= */
