@@ -17,7 +17,16 @@ export class PublicationService {
   getPublications(){
     return this.http.get<PublicationResponse[]>(`${this.url}/tienda`);
   }
-  createPublication(formData: FormData) {
+  createPublication(publicacion: import('../models/PublicationRequest').PublicationRequest, files: File[]) {
+    const formData = new FormData();
+    formData.append('publicacion', JSON.stringify(publicacion));
+    
+    if (files && files.length > 0) {
+      files.forEach((file) => {
+        formData.append('files', file);
+      });
+    }
+
     return this.http.post<PublicationResponse>(`${this.url}/crearPublicacion`, formData);
   }
 }

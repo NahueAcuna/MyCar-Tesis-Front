@@ -40,15 +40,19 @@ li::before{
     transform: translateY(25px);
     transition: 0.4s ease-in-out;
 }
-li:hover{
-color: #FF7F0E;
+li.active, li:hover{
+    color: #FF7F0E;
 }
-li:hover::before{
-   width: 100%;
+li.active::before, li:hover::before{
+    width: 100%;
 }
 #logo{
     font-size: 18px;
     font-weight: 750;
+    color: #777;
+    transition: 0.3s ease-in-out;
+}
+#logo.active, #logo:hover{
     background: linear-gradient(to right, #FF7F0E, #974e04);
     -webkit-background-clip: text;
     background-clip: text;
