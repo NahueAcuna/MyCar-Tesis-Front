@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PublicationService } from '../../services/publication-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { CommonModule } from '@angular/common';
@@ -19,7 +19,7 @@ export class PublicationDetail implements OnInit{
   transformStyle: string = 'scale(1)';
   transformOrigin: string = 'center';
 
-  constructor(public publicationService: PublicationService, private route: ActivatedRoute){}
+  constructor(public publicationService: PublicationService, private route: ActivatedRoute, public router: Router){}
 
   ngOnInit(): void {
     const idPublication = this.route.snapshot.params['id']
@@ -40,6 +40,10 @@ export class PublicationDetail implements OnInit{
   onMouseLeave(){
     this.transformStyle = 'scale(1)';
     this.transformOrigin = 'center';
+  }
+
+  goBack(){
+    this.router.navigate(['/']);  //despues tengo que acomadar esto para que vuelva a la pagina de publicaciones, no al home.
   }
 
   getPublicationById(id: string){
