@@ -29,6 +29,8 @@ export class PublicationForm {
     precio: null as number | null,
     descripcion: '',
     km: '',
+    combustible: '',
+    caja: '',
     fotoUrl: 'https://via.placeholder.com/300x200/1a1a1a/ff8c00?text=Vista+Previa',
     imagenes: [] as string[]
   };
@@ -66,7 +68,7 @@ export class PublicationForm {
   }
 
   publicarVehiculo() {
-    const publicacionRequestDTO = {
+    const publicacionRequestDTO: import('../../models/PublicationRequest').PublicationRequest = {
       descripcion: this.publicationData.descripcion || 'Sin descripción',
       auto: {
         marca: this.publicationData.marca,
@@ -77,22 +79,16 @@ export class PublicationForm {
         color: this.publicationData.color,
         fichaTecnica: {
           motor: this.publicationData.motor,
-          combustible: '',
-          caja: '',
-          puertas: this.publicationData.puertas || 4,
+          combustible: this.publicationData.combustible,
+          caja: this.publicationData.caja,
+          puertas: this.publicationData.puertas ? this.publicationData.puertas.toString() : '4',
           potencia: this.publicationData.caballos ? this.publicationData.caballos.toString() : ''
-        }
+        },
+        imagenesUrl: []
       }
     };
 
-    const formData = new FormData();
-    formData.append('publicacion', JSON.stringify(publicacionRequestDTO));
-    
-    this.selectedFiles.forEach((file) => {
-      formData.append('files', file);
-    });
-
-    this.publicationService.createPublication(formData).subscribe({
+    this.publicationService.createPublication(publicacionRequestDTO, this.selectedFiles).subscribe({
       next: () => {
         alert('Publicación creada con éxito!');
         this.router.navigate(['/']);

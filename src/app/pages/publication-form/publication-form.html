@@ -13,7 +13,7 @@
       
       <div class="step" [class.active]="currentStep >= 2">
         <div class="circle">2</div>
-        <span class="label">Specs</span>
+        <span class="label">Especificaciones</span>
       </div>
       <div class="line" [class.active]="currentStep >= 3"></div>
       
@@ -42,6 +42,10 @@
           <label>Modelo</label>
           <input type="text" placeholder="Ej: Corolla" [(ngModel)]="publicationData.modelo" (keyup.enter)="irAPagina2()">
         </div>
+        <div class="input-group" style="width: 100%;">
+          <label>Descripción</label>
+          <textarea placeholder="Describe el estado general del vehículo..." [(ngModel)]="publicationData.descripcion" rows="3" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #333; background: #111; color: white; resize: vertical;"></textarea>
+        </div>
       </div>
       <div class="form-actions">
         <button class="btn secondary" (click)="cancelar()">Cancelar</button>
@@ -54,6 +58,18 @@
     <div class="form-wrapper">
       <h2>Paso 2: Detalles Técnicos</h2>
       <div class="form-content grid">
+        <div class="input-group">
+          <label>Kilometraje</label>
+          <input type="text" placeholder="Ej: 50000" [(ngModel)]="publicationData.km" (keyup.enter)="irAPagina3()">
+        </div>
+        <div class="input-group">
+          <label>Combustible</label>
+          <input type="text" placeholder="Ej: Nafta" [(ngModel)]="publicationData.combustible" (keyup.enter)="irAPagina3()">
+        </div>
+        <div class="input-group">
+          <label>Transmisión / Caja</label>
+          <input type="text" placeholder="Ej: Automática" [(ngModel)]="publicationData.caja" (keyup.enter)="irAPagina3()">
+        </div>
         <div class="input-group">
           <label>Caballos de fuerza</label>
           <input type="number" placeholder="Ej: 150" [(ngModel)]="publicationData.caballos" (keyup.enter)="irAPagina3()">

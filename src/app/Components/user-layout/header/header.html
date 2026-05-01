@@ -1,10 +1,11 @@
 <header>
-<span id="logo">MyCar</span>
+    <span id="logo" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+        style="cursor: pointer;">MyCar</span>
     <nav>
         <ul>
-            <li>Nuestros Autos</li>
-            <li routerLink="/vender" style="cursor: pointer;">Vende tu Auto</li>
-            <li>MarketPlace</li>
+            <li routerLink="/nuestros-autos" routerLinkActive="active" style="cursor: pointer;">Nuestros Autos</li>
+            <li routerLink="/vender" routerLinkActive="active" style="cursor: pointer;">Vende tu Auto</li>
+            <li routerLink="/marketplace" routerLinkActive="active" style="cursor: pointer;">MarketPlace</li>
         </ul>
     </nav>
 
@@ -12,5 +13,5 @@
         <button>Log in</button>
         <button>Sign Up</button>
     </div>
-    
+
 </header>
