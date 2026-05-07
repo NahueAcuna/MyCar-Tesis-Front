@@ -1,0 +1,15 @@
+<div class="register-container">
+    <form class="register-card" (ngSubmit)="register()">
+        <h1>Crear Cuenta</h1>
+
+        <input type="text" placeholder="Nombre" [(ngModel)]="user.nombre" name="nombre" required>
+
+        <input type="email" placeholder="Email" [(ngModel)]="user.email" name="email" required>
+
+        <input type="text" placeholder="Teléfono" [(ngModel)]="user.telefono" name="telefono" required>
+
+        <input type="password" placeholder="Contraseña" [(ngModel)]="user.password" name="password" required>
+
+        <button type="submit">Registrarse</button>
+    </form>
+</div>
