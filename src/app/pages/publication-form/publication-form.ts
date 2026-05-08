@@ -37,7 +37,7 @@ export class PublicationForm {
 
   selectedFiles: File[] = [];
 
-  constructor(private router: Router, private publicationService: PublicationService) {}
+  constructor(private router: Router, private publicationService: PublicationService) { }
 
   get currentStep(): number {
     if (this.mostrarPagina1) return 1;
@@ -52,7 +52,7 @@ export class PublicationForm {
     if (files && files.length > 0) {
       this.publicationData.imagenes = [];
       this.selectedFiles = Array.from(files);
-      
+
       this.selectedFiles.forEach((file: File) => {
         const reader = new FileReader();
         reader.onload = (e: any) => {

@@ -1,23 +1,24 @@
 /* ================= LAYOUT ================= */
-.container{
+.container {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 30px;
     padding: 40px;
-    margin-top: 80px; /* espacio para header */
+    margin-top: 80px;
+    /* espacio para header */
     width: 100%;
     min-height: 100vh;
 }
 
 /* ================= LEFT ================= */
-.left{
+.left {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
 /* Imagen principal */
-.image-wrapper{
+.image-wrapper {
     width: 100%;
     max-width: 550px;
     height: 350px;
@@ -27,22 +28,22 @@
     cursor: zoom-in;
 }
 
-.main-img{
+.main-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(255,140,0,0.2);
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
     transition: transform 0.4s ease;
 }
 
 /* Miniaturas */
-.thumbs{
+.thumbs {
     display: flex;
     gap: 10px;
 }
 
-.thumbs img{
+.thumbs img {
     width: 110px;
     height: 70px;
     object-fit: cover;
@@ -52,19 +53,19 @@
     transition: 0.3s;
 }
 
-.thumbs img:hover{
+.thumbs img:hover {
     opacity: 1;
     transform: scale(1.05);
 }
 
-.thumbs img.active{
+.thumbs img.active {
     border: 2px solid orange;
     opacity: 1;
 }
 
 /* ================= DESCRIPTION ================= */
 .description,
-.specs{
+.specs {
     background: linear-gradient(135deg, #070707 40%, #3b1f05);
     padding: 20px;
     border-radius: 12px;
@@ -72,19 +73,19 @@
 }
 
 .description h2,
-.specs h2{
+.specs h2 {
     margin-bottom: 15px;
     color: orange;
 }
 
 /* ================= GRID ================= */
-.grid{
+.grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
 }
 
-.grid span{
+.grid span {
     display: block;
     font-size: 12px;
     color: #aaa;
@@ -92,7 +93,7 @@
 }
 
 /* ================= RIGHT PANEL ================= */
-.right{
+.right {
     background: linear-gradient(135deg, #070707 40%, #3b1f05);
     padding: 25px;
     border-radius: 12px;
@@ -103,18 +104,18 @@
     height: fit-content;
 }
 
-.right h1{
+.right h1 {
     margin: 0;
 }
 
-.price{
+.price {
     font-size: 30px;
     color: orange;
     margin: 0;
 }
 
 /* ================= BUTTONS ================= */
-.btn{
+.btn {
     padding: 12px;
     border: none;
     border-radius: 8px;
@@ -123,27 +124,27 @@
     transition: 0.3s;
 }
 
-.primary{
+.primary {
     background: linear-gradient(135deg, #ff8c00, #ffb347);
     color: black;
 }
 
-.primary:hover{
+.primary:hover {
     transform: scale(1.03);
 }
 
-.whatsapp{
+.whatsapp {
     background: #25D366;
     color: white;
     text-align: center;
     text-decoration: none;
 }
 
-.whatsapp:hover{
+.whatsapp:hover {
     transform: scale(1.03);
 }
 
-.back{
+.back {
     margin-top: 20px;
     padding: 6px 14px;
     font-size: 13px;
@@ -153,58 +154,59 @@
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-    width: fit-content; /* 👈 clave */
+    width: fit-content;
+    /* 👈 clave */
 }
 
-.back:hover{
+.back:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(255,140,0,0.4);
+    box-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
 }
 
 /* ================= SELLER ================= */
-.seller{
+.seller {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #444;
 }
 
 /* ================= MOBILE ================= */
-@media (max-width: 768px){
+@media (max-width: 768px) {
 
-    .container{
+    .container {
         grid-template-columns: 1fr;
         padding: 15px;
         gap: 20px;
     }
 
-    .image-wrapper{
+    .image-wrapper {
         height: 250px;
     }
 
-    .thumbs{
+    .thumbs {
         overflow-x: auto;
     }
 
-    .thumbs img{
+    .thumbs img {
         width: 90px;
         height: 60px;
         flex-shrink: 0;
     }
 
-    .right h1{
+    .right h1 {
         font-size: 20px;
     }
 
-    .price{
+    .price {
         font-size: 24px;
     }
 
-    .btn{
+    .btn {
         width: 100%;
         padding: 14px;
     }
 
-    .grid{
+    .grid {
         grid-template-columns: 1fr;
     }
 }

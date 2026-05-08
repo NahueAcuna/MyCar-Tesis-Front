@@ -1,0 +1,81 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Panel de <span class="highlight">Gestión</span></h1>
+    <p class="subtitle">Administrá publicaciones y reservas de la plataforma</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn" [class.active]="tabActivo === 'publicaciones'" (click)="cambiarTab('publicaciones')">
+      Publicaciones
+      @if (publicacionesPendientes.length > 0) {
+        <span class="badge">{{ publicacionesPendientes.length }}</span>
+      }
+    </button>
+    <button class="tab-btn" [class.active]="tabActivo === 'reservas'" (click)="cambiarTab('reservas')">
+      Reservas
+    </button>
+  </div>
+
+  <!-- Tab: Publicaciones -->
+  @if (tabActivo === 'publicaciones') {
+    <div class="tab-content">
+      <h2>Publicaciones Pendientes</h2>
+
+      @if (cargando) {
+        <div class="estado-msg">Cargando publicaciones...</div>
+      }
+
+      @if (error) {
+        <div class="estado-msg error">{{ error }}</div>
+      }
+
+      @if (!cargando && publicacionesPendientes.length === 0 && !error) {
+        <div class="estado-msg">✅ No hay publicaciones pendientes de aprobación.</div>
+      }
+
+      <div class="publicaciones-lista">
+        @for (pub of publicacionesPendientes; track pub.id) {
+          <div class="publicacion-card">
+            <div class="card-img">
+              @if (pub.auto.imagenesUrl && pub.auto.imagenesUrl.length > 0) {
+                <img [src]="'http://localhost:8080' + pub.auto.imagenesUrl[0]" alt="foto auto">
+              } @else {
+                <div class="no-img">Sin imagen</div>
+              }
+            </div>
+            <div class="card-info">
+              <h3>{{ pub.auto.marca }} {{ pub.auto.modelo }} <span class="anio">{{ pub.auto.anio }}</span></h3>
+              <p class="vendedor">👤 {{ pub.nombreVendedor }}</p>
+              <p class="descripcion">{{ pub.descripcion }}</p>
+              <div class="specs">
+                <span> ${{ pub.auto.precio }}</span>
+                <span>{{ pub.auto.km }} km</span>
+                <span>{{ pub.auto.color }}</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn ver" (click)="verDetalle(pub.id)">Ver detalle</button>
+              <button class="btn aprobar" (click)="aprobar(pub.id)">✔ Aprobar</button>
+              <button class="btn rechazar" (click)="rechazar(pub.id)">✘ Rechazar</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Tab: Reservas (proximamente) -->
+  @if (tabActivo === 'reservas') {
+    <div class="tab-content">
+      <h2>Gestión de Reservas</h2>
+      <div class="proximamente">
+        <p>Esta sección estará disponible próximamente.</p>
+      </div>
+    </div>
+  }
+</div>
+
+<app-footer></app-footer>
