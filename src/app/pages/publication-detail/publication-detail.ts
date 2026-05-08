@@ -12,21 +12,21 @@ import { Footer } from '../../Components/footer/footer';
   templateUrl: './publication-detail.html',
   styleUrl: './publication-detail.css',
 })
-export class PublicationDetail implements OnInit{
-  
+export class PublicationDetail implements OnInit {
+
   publicationSelected!: PublicationResponse;
   selectedImage: string = '';
   transformStyle: string = 'scale(1)';
   transformOrigin: string = 'center';
 
-  constructor(public publicationService: PublicationService, private route: ActivatedRoute, public router: Router){}
+  constructor(public publicationService: PublicationService, private route: ActivatedRoute, public router: Router) { }
 
   ngOnInit(): void {
     const idPublication = this.route.snapshot.params['id']
     this.getPublicationById(idPublication);
   }
 
-  onMouseMove(event: MouseEvent){
+  onMouseMove(event: MouseEvent) {
     const element = event.currentTarget as HTMLElement;
     const rect = element.getBoundingClientRect();
 
@@ -37,18 +37,18 @@ export class PublicationDetail implements OnInit{
     this.transformStyle = 'scale(1.8)';
   }
 
-  onMouseLeave(){
+  onMouseLeave() {
     this.transformStyle = 'scale(1)';
     this.transformOrigin = 'center';
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/']);  //despues tengo que acomadar esto para que vuelva a la pagina de publicaciones, no al home.
   }
 
-  getPublicationById(id: string){
+  getPublicationById(id: string) {
     this.publicationService.getPublicationById(id).subscribe({
-      next: (data) => {this.publicationSelected = data; this.selectedImage = data.auto.imagenesUrl[0];},
+      next: (data) => { this.publicationSelected = data; this.selectedImage = data.auto.imagenesUrl[0]; },
       error: () => alert('Se produjo un error al mostrar la lista de publicaciones.')
     })
   }
