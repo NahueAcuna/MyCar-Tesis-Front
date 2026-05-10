@@ -132,10 +132,10 @@
           <button (click)="switchSearchView()">
             <span class="material-symbols-outlined"> search </span>
           </button>
-          <input type="text" name="" id="">
+          <input type="text" (input)="onSearch($event)" name="" id="">
         </div>
         <div id="cars">
-          @for (publication of publications; track publication.id) {
+          @for (publication of filteredPublications; track publication.id) {
           <div class="car_publication">
             <img src="{{ publication.auto.imagenesUrl }} " alt="Imagen del auto" />
             <div id="information">
