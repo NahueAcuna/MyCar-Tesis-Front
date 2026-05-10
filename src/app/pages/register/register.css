@@ -1,104 +1,307 @@
-.register-container{
+/* ================= PAGE ================= */
+
+.register-page{
+    position: relative;
+    overflow: hidden;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 140px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-image: url('/SignUp.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.register-card{
-    width: 400px;
-    padding: 40px;
-    border-radius: 20px;
+/* ================= OVERLAY ================= */
 
-    background: linear-gradient(135deg, #070707 40%, #3b1f05);
-
-    border: 1px solid #ff8c00;
-
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.overlay{
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.28),
+            rgba(0,0,0,0.45)
+        );
+    z-index: 1;
 }
 
-.register-card h1{
-    color: orange;
-    text-align: center;
-}
+/* ================= LEFT SIDE ================= */
 
-.register-card input{
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #444;
-    background: #111;
+.left-content{
+    position: relative;
+    z-index: 2;
+    width: 300px;
     color: white;
 }
 
-.register-card input:focus{
+.left-content h2{
+    font-size: 50px;
+    line-height: 1.15;
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.left-content h2 span{
+    color: orange;
+}
+
+.line{
+    width: 140px;
+    height: 3px;
+    background: linear-gradient(to right, orange, rgba(255,140,0,0.0));
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.lineSgin{
+    width: 120px;
+    height: 3px;
+    background: orange;
+    border-radius: 20px;
+    margin: 14px auto 34px auto;
+}
+
+.left-content p{
+    color: #d0d0d0;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 50px;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.feature{
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.icon{
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: rgba(255,140,0,0.12);
+    border: 1px solid rgba(255,140,0,0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+.feature h3{
+    margin: 0;
+    font-size: 22px;
+    color: white;
+}
+
+.feature span{
+    color: #bcbcbc;
+    line-height: 1.6;
+}
+
+/* ================= CARD ================= */
+
+.register-box{
+    position: relative;
+    z-index: 2;
+    width: 460px;
+    padding: 50px;
+    border-radius: 26px;
+    background: rgba(0,0,0,0.58);
+    border: 1px solid rgba(255,140,0,0.35);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px);
+    box-shadow:
+        0 0 40px rgba(255,140,0,0.12),
+        0 0 120px rgba(0,0,0,0.8);
+    animation: fadeUp 0.7s ease;
+}
+
+/* ================= LOGO ================= */
+
+.logo{
+    text-align: center;
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.logo span{
+    color: orange;
+}
+
+/* ================= TITLES ================= */
+
+.register-box h1{
+    text-align: center;
+    color: orange;
+    margin-bottom: 12px;
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.subtitle{
+    text-align: center;
+    color: #c7c7c7;
+    margin-bottom: 34px;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* ================= FORM ================= */
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================= INPUTS ================= */
+
+.input-group input{
+    padding: 17px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: white;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.input-group input::placeholder{
+    color: #8f8f8f;
+}
+
+.input-group input:focus{
     outline: none;
     border-color: orange;
+    background: rgba(255,255,255,0.06);
+    box-shadow:
+        0 0 18px rgba(255,140,0,0.22);
 }
 
-.register-card button{
-    padding: 14px;
+/* ================= ERROR ================= */
+
+.msjError{
+    color: #ff5f5f;
+    font-size: 12px;
+    margin-top: 7px;
+    padding-left: 4px;
+}
+
+/* ================= REGISTER BUTTON ================= */
+
+.register-btn{
+    margin-top: 12px;
+    padding: 16px;
     border: none;
-    border-radius: 10px;
-
-    background: linear-gradient(135deg, #ff8c00, #ffb347);
-
+    border-radius: 15px;
+    background:
+        linear-gradient(
+            135deg,
+            #ff8c00,
+            #ffb347
+        );
     color: black;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
-
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
-.register-card button:hover{
-    transform: scale(1.03);
+.register-btn:hover{
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 25px rgba(255,140,0,0.4);
 }
 
-.register-card button[disabled]{
+.register-btn:disabled{
+    background: #555;
     cursor: not-allowed;
-    background: gray;
-    opacity: 0.7;
-    transform: none;
-}
-
-.register-card button[disabled]:hover{
+    opacity: 0.6;
     transform: none;
     box-shadow: none;
 }
 
-.btn {
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
+/* ================= BACK BUTTON ================= */
+
+.back-btn{
+    margin-top: 24px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,140,0,0.4);
+    background: transparent;
+    color: orange;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
-.back {
-    margin-top: 20px;
-    padding: 6px 14px;
-    font-size: 13px;
-    background: linear-gradient(135deg, #ff8c00, #ffb347);
-    color: black;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    width: fit-content;
+.back-btn:hover{
+    background: rgba(255,140,0,0.08);
+    box-shadow:
+        0 0 16px rgba(255,140,0,0.18);
 }
 
-.back:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.msjError {
-    color: red;
-    font-size: 12px;
-    margin-top: -10px;
-    margin-bottom: 10px;
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1200px){
+
+    .left-content{
+        display: none;
+    }
+
+    .register-page{
+        gap: 0;
+    }
+}
+
+@media(max-width: 600px){
+
+    .register-box{
+        width: 92%;
+        padding: 34px;
+    }
+
+    .register-box h1{
+        font-size: 34px;
+    }
+
+    .logo{
+        font-size: 32px;
+    }
 }

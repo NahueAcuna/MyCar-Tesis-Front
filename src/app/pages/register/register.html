@@ -1,41 +1,98 @@
-<div class="register-container">
-    <form class="register-card" [formGroup]="registerForm" (ngSubmit)="register()">
-        <h1>Crear Cuenta</h1>
+<app-header></app-header>
+<div class="register-page">
 
-        <input type="text" placeholder="Nombre" formControlName="nombre" required>
-        @if(nombre?.hasError("required") && nombre?.touched){
-            <p class="msjError">El nombre es obligatorio.</p>
-        }@else if(nombre?.hasError("minlength") && nombre?.touched){
-            <p class="msjError">El nombre debe tener al menos 3 caracteres.</p>
-        }@else if(nombre?.hasError("maxlength") && nombre?.touched){
-            <p class="msjError">El nombre no debe exceder los 30 caracteres.</p>
-        }@else if(nombre?.hasError("pattern") && nombre?.touched){
-            <p class="msjError">El nombre solo puede contener letras y espacios.</p>
-        }
+    <div class="overlay"></div>
 
-        <input type="email" placeholder="Email" formControlName="email" required>
-        @if(email?.hasError("required") && email?.touched){
-            <p class="msjError">El email es obligatorio.</p>
-        }@else if(email?.hasError("email") && email?.touched){
-            <p class="msjError">El email no es válido.</p>
-        }
+    <div class="left-content">
+        <h2>Crea tu cuenta <br> y comienza tu camino <br> con <span>MyCar</span></h2>
 
-        <input type="text" placeholder="Teléfono" formControlName="telefono" required>
-        @if(telefono?.hasError("required") && telefono?.touched){
-            <p class="msjError">El teléfono es obligatorio.</p>
-        }@else if(telefono?.hasError("pattern") && telefono?.touched){
-            <p class="msjError">El teléfono debe tener 10 dígitos numéricos.</p>
-        }
+        <div class="line"></div>
 
-        <input type="password" placeholder="Contraseña" formControlName="password" required>
-        @if(password?.hasError("required") && password?.touched){
-            <p class="msjError">La contraseña es obligatoria.</p>
-        }@else if(password?.hasError("minlength") && password?.touched){
-            <p class="msjError">La contraseña debe tener al menos 6 caracteres.</p>
-        }
+        <p>Únete a nuestra comunidad y accedé a las mejores oportunidades para comprar, vender y más.</p>
 
-        <button type="submit" [disabled]="registerForm.invalid">Registrarse</button>
-    </form>
+        <div class="features">
+            <div class="feature">
+                <div class="icon"><span class="material-symbols-outlined">shield</span></div>
+            
+                <div>
+                    <h3>Seguridad</h3>
+                    <span>Protegemos tus datos y transacciones.</span>
+                </div>
+            </div>
 
-    <button class="back" (click)="goBack()"> ⬅ Volver</button>
+            <div class="feature">
+                <div class="icon"><span class="material-symbols-outlined">directions_car</span></div>
+            
+                <div>
+                    <h3>Confianza</h3>
+                    <span>Más de 3500 autos vendidos con éxito.</span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon"><span class="material-symbols-outlined">sell</span></div>
+            
+                <div>
+                    <h3>Oportunidades</h3>
+                    <span>Encontrá el auto ideal para vos.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="register-box">
+        <div class="logo">Sign <span>Up</span></div>
+
+        <div class="lineSgin"></div>
+
+        <p class="subtitle">Creá tu cuenta para continuar</p>
+
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+            <div class="input-group">
+                <input type="text" placeholder="Nombre" formControlName="nombre" required>
+                @if(nombre?.hasError("required") && nombre?.touched){
+                    <p class="msjError">El nombre es obligatorio.</p>
+                }@else if(nombre?.hasError("minlength") && nombre?.touched){
+                    <p class="msjError">El nombre debe tener al menos 3 caracteres.</p>
+                }@else if(nombre?.hasError("maxlength") && nombre?.touched){
+                    <p class="msjError">El nombre no debe exceder los 30 caracteres.</p>
+                }@else if(nombre?.hasError("pattern") && nombre?.touched){
+                    <p class="msjError">El nombre solo puede contener letras y espacios.</p>
+                }
+            </div>
+
+            <div class="input-group">
+                <input type="email" placeholder="Email" formControlName="email" required>
+                @if(email?.hasError("required") && email?.touched){
+                    <p class="msjError">El email es obligatorio.</p>
+                }@else if(email?.hasError("email") && email?.touched){
+                    <p class="msjError">El email no es válido.</p>
+                }
+            </div>
+
+            <div class="input-group">
+                <input type="text" placeholder="Teléfono" formControlName="telefono" required>
+                @if(telefono?.hasError("required") && telefono?.touched){
+                    <p class="msjError">El teléfono es obligatorio.</p>
+                }@else if(telefono?.hasError("pattern") && telefono?.touched){
+                    <p class="msjError">El teléfono debe tener 10 dígitos numéricos.</p>
+                }
+            </div>
+            
+            <div class="input-group">
+                <input type="password" placeholder="Contraseña" formControlName="password" required>
+                @if(password?.hasError("required") && password?.touched){
+                    <p class="msjError">La contraseña es obligatoria.</p>
+                }@else if(password?.hasError("minlength") && password?.touched){
+                    <p class="msjError">La contraseña debe tener al menos 6 caracteres.</p>
+                }
+            </div>
+
+            <button type="submit" class="register-btn" [disabled]="registerForm.invalid">Crear Cuenta</button>
+        </form>
+
+        <button class="back-btn" (click)="goBack()"> Volver al inicio</button>
+    </div>
 </div>
+<app-footer></app-footer>

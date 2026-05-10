@@ -67,10 +67,16 @@ button{
     cursor: pointer;
     transition: 0.3s ease-in-out;
 }
-button:hover{
+.signup-btn:hover{
     background-image: linear-gradient(to right, #ff9131, #aa5c0d);
 }
 #buttons{
     display: flex;
     gap: 20px;
+}
+
+.login-btn{
+    background: transparent;
+    border: 1px solid orange;
+    color: orange;
 }
