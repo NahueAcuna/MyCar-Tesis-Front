@@ -177,7 +177,7 @@ select:focus{
 
 #cars{
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 340px); 
     gap: 60px;
 }
 .car_publication{

@@ -14,6 +14,7 @@ export class Inventory implements OnInit{
   isSearchShowed: Boolean = false;
 
   publications: PublicationResponse[] = [];
+  filteredPublications: PublicationResponse[] = []
 
   constructor(private publicationService: PublicationService, public router : Router){
 
@@ -24,13 +25,13 @@ export class Inventory implements OnInit{
   }
 
   getPublications(){
-    this.publicationService.getPublications().subscribe({
-      next:(data) =>{this.publications = data
-        console.log(data)
-      },
-      error:(e) => {console.log(e)}
-    })
-  }
+  this.publicationService.getPublications().subscribe({
+    next: (data) => {
+      this.publications = data;
+      this.filteredPublications = data; 
+    }
+  })
+}
   descriptionPreview(text:string| undefined){
     if(!text){
       return ''
@@ -52,4 +53,19 @@ export class Inventory implements OnInit{
   carDetail(id: number){
     this.router.navigate(['publicacion', id])
   }
+
+  onSearch(event: any) {
+  const query = event.target.value.toLowerCase().trim();
+
+  if (!query) {
+    this.filteredPublications = [...this.publications];
+    return;
+  }
+
+  this.filteredPublications = this.publications.filter(pub => {
+    const fullAutoName = `${pub.auto.marca} ${pub.auto.modelo}`.toLowerCase(); 
+    return fullAutoName.includes(query);
+  });
+}
+
 }
