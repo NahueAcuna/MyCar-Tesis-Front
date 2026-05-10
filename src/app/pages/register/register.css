@@ -1,8 +1,10 @@
 .register-container{
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 
 .register-card{
@@ -53,4 +55,50 @@
 
 .register-card button:hover{
     transform: scale(1.03);
+}
+
+.register-card button[disabled]{
+    cursor: not-allowed;
+    background: gray;
+    opacity: 0.7;
+    transform: none;
+}
+
+.register-card button[disabled]:hover{
+    transform: none;
+    box-shadow: none;
+}
+
+.btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.back {
+    margin-top: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    background: linear-gradient(135deg, #ff8c00, #ffb347);
+    color: black;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.back:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+}
+
+.msjError {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
