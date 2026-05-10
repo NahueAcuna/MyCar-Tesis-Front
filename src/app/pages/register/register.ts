@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
+import { Header } from '../../Components/user-layout/header/header';
+import { Footer } from '../../Components/footer/footer';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule],
+  imports: [Header, Footer, ReactiveFormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
