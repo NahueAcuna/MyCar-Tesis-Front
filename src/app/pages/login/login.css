@@ -1,0 +1,354 @@
+/* ================= PAGE ================= */
+
+.login-page{
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    background-image: url('/SignUpMejor.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* ================= OVERLAY ================= */
+
+.overlay{
+    position: absolute;
+    inset: 0;
+    background:linear-gradient(rgba(0,0,0,0.28),rgba(0,0,0,0.45));
+    z-index: 1;
+}
+
+/* ================= LEFT SIDE ================= */
+
+.left-content{
+    position: relative;
+    z-index: 2;
+    width: 300px;
+    color: white;
+    font-size: 10px;
+    margin-top: 70px;
+    margin-right: 100px;
+}
+
+.left-content h2{
+    font-size: 30px;
+    line-height: 1.15;
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.left-content h2 span{
+    color: orange;
+}
+
+.line{
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(to right, orange, rgba(255,140,0,0.0));
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.lineLogin{
+    width: 50px;
+    height: 3px;
+    background: orange;
+    border-radius: 10px;
+    margin: 10px auto 15px auto;
+}
+
+.left-content p{
+    color: #d0d0d0;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 50px;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.feature{
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.icon{
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,140,0,0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+.icon .material-symbols-outlined{
+    color: orange;
+}
+
+.feature h3{
+    margin: 0;
+    font-size: 22px;
+    color: white;
+}
+
+.feature span{
+    color: #bcbcbc;
+    line-height: 1.6;
+}
+
+/* ================= CARD ================= */
+
+.login-box{
+    position: relative;
+    z-index: 2;
+    width: 420px;
+    padding: 45px 35px;
+    border-radius: 26px;
+    background:rgba(0,0,0,0.58);
+    border: 1px solid rgba(255,140,0,0.35);
+    backdrop-filter: blur(16px);
+    box-shadow:0 0 40px rgba(255,140,0,0.12), 0 0 120px rgba(0,0,0,0.8);
+    animation: fadeUp 0.7s ease;
+    margin-top: 100px; 
+    margin-bottom: 0;
+    margin-right: 400px;
+}
+
+/* ================= LOGO ================= */
+
+.logo{
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.logo span{
+    color: orange;
+}
+
+/* ================= TITLES ================= */
+
+.login-box h1{
+    text-align: center;
+    color: orange;
+    margin-bottom: 12px;
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.subtitle{
+    text-align: center;
+    color: #c7c7c7;
+    margin-bottom: 15px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ================= FORM ================= */
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.form-final {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.separator {
+    position: relative;
+    margin: 25px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.separator span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: black;  
+    padding: 0 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.form-final p {
+    color: #bbb;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.form-final a {
+    color: orange;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-final a:hover {
+    text-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
+}
+
+/* ================= INPUTS ================= */
+
+.input-group input{
+    padding: 16px 40px 16px 42px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: white;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.input-group input::placeholder{
+    color: #8f8f8f;
+}
+
+.input-group input:focus{
+    outline: none;
+    border-color: orange;
+    background: rgba(255,255,255,0.06);
+    box-shadow:0 0 18px rgba(255,140,0,0.22);
+}
+
+.input-group > .material-symbols-outlined:first-child {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: orange;
+    font-size: 20px;
+    z-index: 2;
+    pointer-events: none; 
+}
+
+.eye-icon {
+    position: absolute;
+    right: 12px; 
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8f8f8f;
+    cursor: pointer;
+    z-index: 3; 
+    font-size: 20px;
+    transition: color 0.3s;
+    pointer-events: auto !important; 
+}
+
+.eye-icon:hover {
+    color: orange;
+}
+
+/* ================= ERROR ================= */
+
+.msjError{
+    color: #ff5f5f;
+    font-size: 10px; 
+    position: absolute;
+    bottom: -15px; 
+    left: 4px;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap; 
+}
+
+/* ================= REGISTER BUTTON ================= */
+
+.login-btn{
+    margin-top: 5px;
+    padding: 12px;
+    border: none;
+    border-radius: 15px;
+    background:linear-gradient(135deg,#ff8c00, #ffb347);
+    color: black;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(255,140,0,0.4);
+}
+
+.login-btn:disabled{
+    background: #555;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1200px){
+
+    .left-content{
+        display: none;
+    }
+
+    .login-page{
+        gap: 0;
+    }
+}
+
+@media(max-width: 600px){
+
+    .login-box{
+        width: 92%;
+        padding: 34px;
+    }
+
+    .login-box h1{
+        font-size: 34px;
+    }
+
+    .logo{
+        font-size: 32px;
+    }
+}
