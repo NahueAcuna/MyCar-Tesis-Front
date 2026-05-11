@@ -80,3 +80,8 @@ button{
     border: 1px solid orange;
     color: orange;
 }
+
+.login-btn:hover{
+    background-image: linear-gradient(to right, #FF7F0E, #864708);
+    color: white;
+}

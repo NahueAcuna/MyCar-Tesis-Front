@@ -3,17 +3,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
 import { Header } from '../../Components/user-layout/header/header';
-import { Footer } from '../../Components/footer/footer';
 
 @Component({
   selector: 'app-register',
-  imports: [Header, Footer, ReactiveFormsModule],
+  imports: [Header, ReactiveFormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
 export class Register {
 
   registerForm : FormGroup;
+  hidePassword: boolean = true;
 
   constructor(private authService: AuthService, private fb : FormBuilder, private router: Router) {
     this.registerForm = this.fb.group({
@@ -51,11 +51,9 @@ export class Register {
         }
       }
     });
-
-    this.registerForm.reset();
   }
 
-  goBack() {
-    this.router.navigate(['/']);
+  togglePassword() {
+    this.hidePassword = !this.hidePassword;
   }
 }
