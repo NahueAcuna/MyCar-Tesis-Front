@@ -25,7 +25,7 @@
             
                 <div>
                     <h3>Confianza</h3>
-                    <span>Más de 3500 autos vendidos con éxito.</span>
+                    <span>Más de 430 autos vendidos con éxito.</span>
                 </div>
             </div>
 
@@ -43,13 +43,14 @@
     <div class="register-box">
         <div class="logo">Sign <span>Up</span></div>
 
-        <div class="lineSgin"></div>
+        <div class="lineSign"></div>
 
         <p class="subtitle">Creá tu cuenta para continuar</p>
 
         <form [formGroup]="registerForm" (ngSubmit)="register()">
 
             <div class="input-group">
+                <span class="material-symbols-outlined">person</span>
                 <input type="text" placeholder="Nombre" formControlName="nombre" required>
                 @if(nombre?.hasError("required") && nombre?.touched){
                     <p class="msjError">El nombre es obligatorio.</p>
@@ -63,6 +64,7 @@
             </div>
 
             <div class="input-group">
+                <span class="material-symbols-outlined">mail</span>
                 <input type="email" placeholder="Email" formControlName="email" required>
                 @if(email?.hasError("required") && email?.touched){
                     <p class="msjError">El email es obligatorio.</p>
@@ -72,6 +74,7 @@
             </div>
 
             <div class="input-group">
+                <span class="material-symbols-outlined">call</span>
                 <input type="text" placeholder="Teléfono" formControlName="telefono" required>
                 @if(telefono?.hasError("required") && telefono?.touched){
                     <p class="msjError">El teléfono es obligatorio.</p>
@@ -81,18 +84,24 @@
             </div>
             
             <div class="input-group">
-                <input type="password" placeholder="Contraseña" formControlName="password" required>
+                <span class="material-symbols-outlined">lock</span>
+                <input [type]="hidePassword ? 'password' : 'text'" placeholder="Contraseña" formControlName="password" required>
                 @if(password?.hasError("required") && password?.touched){
                     <p class="msjError">La contraseña es obligatoria.</p>
                 }@else if(password?.hasError("minlength") && password?.touched){
                     <p class="msjError">La contraseña debe tener al menos 6 caracteres.</p>
                 }
+                <span class="material-symbols-outlined eye-icon" (click)="togglePassword()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</span>
             </div>
 
             <button type="submit" class="register-btn" [disabled]="registerForm.invalid">Crear Cuenta</button>
-        </form>
 
-        <button class="back-btn" (click)="goBack()"> Volver al inicio</button>
+            <div class="form-final">
+                <div class="separator">
+                    <span>o</span>
+                </div>
+                    <p>¿Ya tenés una cuenta? <a href="/login">Log in</a></p>
+            </div>
+        </form>
     </div>
 </div>
-<app-footer></app-footer>

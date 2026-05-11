@@ -3,14 +3,12 @@
 .register-page{
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 140px;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    background-image: url('/SignUp.png');
+    gap: 80px;
+    background-image: url('/SignUpMejor.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -21,11 +19,7 @@
 .overlay{
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(
-            rgba(0,0,0,0.28),
-            rgba(0,0,0,0.45)
-        );
+    background:linear-gradient(rgba(0,0,0,0.28),rgba(0,0,0,0.45));
     z-index: 1;
 }
 
@@ -36,10 +30,13 @@
     z-index: 2;
     width: 300px;
     color: white;
+    font-size: 10px;
+    margin-top: 70px;
+    margin-right: 100px;
 }
 
 .left-content h2{
-    font-size: 50px;
+    font-size: 30px;
     line-height: 1.15;
     margin-bottom: 25px;
     font-weight: 800;
@@ -50,19 +47,19 @@
 }
 
 .line{
-    width: 140px;
-    height: 3px;
+    width: 100px;
+    height: 2px;
     background: linear-gradient(to right, orange, rgba(255,140,0,0.0));
-    border-radius: 20px;
+    border-radius: 5px;
     margin-bottom: 30px;
 }
 
-.lineSgin{
-    width: 120px;
+.lineSign{
+    width: 50px;
     height: 3px;
     background: orange;
-    border-radius: 20px;
-    margin: 14px auto 34px auto;
+    border-radius: 10px;
+    margin: 10px auto 15px auto;
 }
 
 .left-content p{
@@ -90,12 +87,15 @@
     width: 54px;
     height: 54px;
     border-radius: 14px;
-    background: rgba(255,140,0,0.12);
     border: 1px solid rgba(255,140,0,0.35);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
+}
+
+.icon .material-symbols-outlined{
+    color: orange;
 }
 
 .feature h3{
@@ -114,26 +114,26 @@
 .register-box{
     position: relative;
     z-index: 2;
-    width: 460px;
-    padding: 50px;
+    width: 400px;
+    padding: 20px 30px;
     border-radius: 26px;
-    background: rgba(0,0,0,0.58);
+    background:rgba(0,0,0,0.58);
     border: 1px solid rgba(255,140,0,0.35);
-    border-top: 1px solid rgba(255,255,255,0.08);
     backdrop-filter: blur(16px);
-    box-shadow:
-        0 0 40px rgba(255,140,0,0.12),
-        0 0 120px rgba(0,0,0,0.8);
+    box-shadow:0 0 40px rgba(255,140,0,0.12), 0 0 120px rgba(0,0,0,0.8);
     animation: fadeUp 0.7s ease;
+    margin-top: 80px; 
+    margin-bottom: 0;
+    margin-right: 400px;
 }
 
 /* ================= LOGO ================= */
 
 .logo{
     text-align: center;
-    font-size: 38px;
+    font-size: 28px;
     font-weight: 800;
-    margin-bottom: 14px;
+    margin-bottom: 5px;
     color: white;
     letter-spacing: 1px;
 }
@@ -155,8 +155,8 @@
 .subtitle{
     text-align: center;
     color: #c7c7c7;
-    margin-bottom: 34px;
-    font-size: 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
     line-height: 1.7;
 }
 
@@ -165,24 +165,68 @@
 form{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 8px;
 }
 
 .input-group{
     display: flex;
     flex-direction: column;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-final {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.separator {
+    position: relative;
+    margin: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.separator span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: black;  /* Color de fondo para que tape la línea */
+    padding: 0 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.form-final p {
+    color: #bbb;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.form-final a {
+    color: orange;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-final a:hover {
+    text-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
 }
 
 /* ================= INPUTS ================= */
 
 .input-group input{
-    padding: 17px;
-    border-radius: 15px;
+    padding: 12px 40px 12px 42px;
+    width: 100%;
+    border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.08);
     background: rgba(255,255,255,0.04);
     color: white;
-    font-size: 15px;
+    font-size: 14px;
     transition: all 0.3s ease;
+    margin-bottom: 0;
 }
 
 .input-group input::placeholder{
@@ -193,34 +237,62 @@ form{
     outline: none;
     border-color: orange;
     background: rgba(255,255,255,0.06);
-    box-shadow:
-        0 0 18px rgba(255,140,0,0.22);
+    box-shadow:0 0 18px rgba(255,140,0,0.22);
+}
+
+/* Este es el icono de la IZQUIERDA (Candado, Persona, etc.) */
+.input-group > .material-symbols-outlined:first-child {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: orange;
+    font-size: 20px;
+    z-index: 2;
+    pointer-events: none; /* Importante para que no moleste al clickear el input */
+}
+
+/* Este es el icono de la DERECHA (El Ojo) */
+.eye-icon {
+    position: absolute;
+    right: 12px; /* IMPORTANTE: este va a la derecha */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8f8f8f;
+    cursor: pointer;
+    z-index: 3; /* Un nivel más arriba para asegurar el click */
+    font-size: 20px;
+    transition: color 0.3s;
+    pointer-events: auto !important; /* Para que el click funcione sí o sí */
+}
+
+.eye-icon:hover {
+    color: orange;
 }
 
 /* ================= ERROR ================= */
 
 .msjError{
     color: #ff5f5f;
-    font-size: 12px;
-    margin-top: 7px;
-    padding-left: 4px;
+    font-size: 10px; 
+    position: absolute;
+    bottom: -15px; 
+    left: 4px;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap; 
 }
 
 /* ================= REGISTER BUTTON ================= */
 
 .register-btn{
-    margin-top: 12px;
-    padding: 16px;
+    margin-top: 5px;
+    padding: 12px;
     border: none;
     border-radius: 15px;
-    background:
-        linear-gradient(
-            135deg,
-            #ff8c00,
-            #ffb347
-        );
+    background:linear-gradient(135deg,#ff8c00, #ffb347);
     color: black;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -228,8 +300,7 @@ form{
 
 .register-btn:hover{
     transform: translateY(-2px);
-    box-shadow:
-        0 0 25px rgba(255,140,0,0.4);
+    box-shadow: 0 0 25px rgba(255,140,0,0.4);
 }
 
 .register-btn:disabled{
@@ -238,28 +309,6 @@ form{
     opacity: 0.6;
     transform: none;
     box-shadow: none;
-}
-
-/* ================= BACK BUTTON ================= */
-
-.back-btn{
-    margin-top: 24px;
-    width: 100%;
-    padding: 14px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,140,0,0.4);
-    background: transparent;
-    color: orange;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.back-btn:hover{
-    background: rgba(255,140,0,0.08);
-    box-shadow:
-        0 0 16px rgba(255,140,0,0.18);
 }
 
 /* ================= ANIMATION ================= */
