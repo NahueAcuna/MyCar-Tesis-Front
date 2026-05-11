@@ -42,7 +42,7 @@ export class Register {
 
   register(){
     this.authService.register(this.registerForm.value).subscribe({
-      next: (response) => {console.log('Registro exitoso', response); alert('Registro exitoso');},
+      next: (response) => {console.log('Registro exitoso', response); alert('Registro exitoso'); this.router.navigate(['/perfil']);},
       error: (error) => {console.error(error);
         if(error.status === 409){
           alert('El email ya está registrado');

@@ -1,0 +1,83 @@
+<app-header></app-header>
+<div class="login-page">
+
+    <div class="overlay"></div>
+
+    <div class="left-content">
+        <h2>Bienvenido <br> a tu próxima <br> <span>oportunidad</span></h2>
+
+        <div class="line"></div>
+
+        <p>Iniciá sesión y accedé a miles de opciones para comprar o vender el auto ideal para vos.</p>
+
+        <div class="features">
+            <div class="feature">
+                <div class="icon"><span class="material-symbols-outlined">shield</span></div>
+            
+                <div>
+                    <h3>Seguridad</h3>
+                    <span>Protegemos tus datos y transacciones.</span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon"><span class="material-symbols-outlined">directions_car</span></div>
+            
+                <div>
+                    <h3>Confianza</h3>
+                    <span>Más de 430 autos vendidos con éxito.</span>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="icon"><span class="material-symbols-outlined">sell</span></div>
+            
+                <div>
+                    <h3>Oportunidades</h3>
+                    <span>Encontrá el auto ideal para vos.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-box">
+        <div class="logo">Log <span>In</span></div>
+
+        <div class="lineLogin"></div>
+
+        <p class="subtitle">Ingresá a tu cuenta para continuar</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+            <div class="input-group">
+                <span class="material-symbols-outlined">mail</span>
+                <input type="email" placeholder="Email" formControlName="email" required>
+                @if(email?.hasError("required") && email?.touched){
+                    <p class="msjError">El email es obligatorio.</p>
+                }@else if(email?.hasError("email") && email?.touched){
+                    <p class="msjError">El email no es válido.</p>
+                }
+            </div>
+
+            <div class="input-group">
+                <span class="material-symbols-outlined">lock</span>
+                <input [type]="hidePassword ? 'password' : 'text'" placeholder="Contraseña" formControlName="password" required>
+                @if(password?.hasError("required") && password?.touched){
+                    <p class="msjError">La contraseña es obligatoria.</p>
+                }@else if(password?.hasError("minlength") && password?.touched){
+                    <p class="msjError">La contraseña debe tener al menos 6 caracteres.</p>
+                }
+                <span class="material-symbols-outlined eye-icon" (click)="togglePassword()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</span>
+            </div>
+
+            <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Iniciar Sesión</button>
+
+            <div class="form-final">
+                <div class="separator">
+                    <span>o</span>
+                </div>
+                    <p>¿No tenés cuenta? <a href="/registro">Sign up</a></p>
+            </div>
+        </form>
+    </div>
+</div>
