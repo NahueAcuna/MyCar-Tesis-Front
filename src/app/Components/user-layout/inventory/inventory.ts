@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PublicationResponse } from '../../../models/PublicationResponse';
 import { PublicationService } from '../../../services/publication-service';
 import { Router } from '@angular/router';
@@ -15,6 +15,8 @@ export class Inventory implements OnInit{
 
   publications: PublicationResponse[] = [];
   filteredPublications: PublicationResponse[] = []
+
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
   constructor(private publicationService: PublicationService, public router : Router){
 
@@ -48,6 +50,13 @@ export class Inventory implements OnInit{
 
   switchSearchView(){
     this.isSearchShowed = !this.isSearchShowed;
+
+    if (this.isSearchShowed) {
+      // Usamos un setTimeout para darle tiempo a que termine la animacion 
+      setTimeout(() => {
+        this.searchInput.nativeElement.focus();
+      }, 100); 
+    }
   }
 
   carDetail(id: number){

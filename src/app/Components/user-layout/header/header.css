@@ -18,7 +18,13 @@ header{
 header:hover{
     box-shadow: 0 0 8px #502802;
 }
-
+a{
+    text-decoration: none;
+    color: #777;
+}
+.active {
+    color: #ff8c00 !important;
+}
 ul{
     display: flex;
     gap: 40px;
@@ -40,12 +46,13 @@ li::before{
     transform: translateY(25px);
     transition: 0.4s ease-in-out;
 }
-li.active, li:hover{
+li.active, li:hover a:hover{
     color: #FF7F0E;
 }
 li.active::before, li:hover::before{
     width: 100%;
 }
+
 #logo{
     font-size: 18px;
     font-weight: 750;

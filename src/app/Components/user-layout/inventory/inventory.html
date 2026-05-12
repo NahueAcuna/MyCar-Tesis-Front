@@ -132,7 +132,7 @@
           <button (click)="switchSearchView()">
             <span class="material-symbols-outlined"> search </span>
           </button>
-          <input type="text" (input)="onSearch($event)" name="" id="">
+          <input #searchInput type="text" (input)="onSearch($event)" name="" id="">
         </div>
         <div id="cars">
           @for (publication of filteredPublications; track publication.id) {
