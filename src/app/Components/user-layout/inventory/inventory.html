@@ -108,21 +108,59 @@
 
         <div class="input_filter">
           <span>Marca</span>
-          <select name="" id=""></select>
+          <select name="" id="">
+          
+          @for(made of mades; track $index){
+            <option [value]="made">{{made}}</option>
+          }
+          </select>
         </div>
         <div class="input_filter">
           <span>Modelo</span>
-          <select name="" id=""></select>
+          <select name="" id="">
+            @for(model of models; track $index){
+            <option [value]="model">{{model}}</option>
+          }
+          </select>
         </div>
         <div class="input_filter">
-          <span>Precio</span>
-          <input type="number" />
-        </div>
+  <span>Precio</span>
+  
+  <!-- Mínimo -->
+  <label for="min_price">Precio mínimo: ${{ precioMinimo }}</label>
+  <input 
+    type="range" 
+    id="min_price" 
+    min="0" 
+    max="50000" 
+    step="500" 
+    [value]="precioMinimo"
+    (input)="actualizarMinimo($event)"
+  />
+
+  <!-- Máximo -->
+  <label for="max_price">Precio máximo: ${{ precioMaximo }}</label>
+  <input 
+    type="range" 
+    id="max_price" 
+    min="0" 
+    max="50000" 
+    step="500" 
+    [value]="precioMaximo"
+    (input)="actualizarMaximo($event)"
+  />
+</div>
         <div class="input_filter">
           <span>Kilometraje</span>
           <div id="kilometraje">
-            <input type="text" />
-            <input type="text" />
+            <div>
+              <label for="min">Minimo</label>
+              <input type="text" id ="min"/>
+            </div>
+            <div>
+              <label for="max">Máximo</label>
+              <input type="text" id="max"/>
+            </div>
           </div>
         </div>
         <button>Aplicar filtros</button>

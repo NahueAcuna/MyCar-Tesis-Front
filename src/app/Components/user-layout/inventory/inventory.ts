@@ -2,10 +2,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PublicationResponse } from '../../../models/PublicationResponse';
 import { PublicationService } from '../../../services/publication-service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-inventory',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './inventory.html',
   styleUrl: './inventory.css',
 })
@@ -14,7 +15,13 @@ export class Inventory implements OnInit{
   isSearchShowed: Boolean = false;
 
   publications: PublicationResponse[] = [];
-  filteredPublications: PublicationResponse[] = []
+  filteredPublications: PublicationResponse[] = [];
+
+  mades: string[] = [];
+  models: string[] = [];
+
+  precioMinimo: number = 0;
+  precioMaximo: number = 50000;
 
   @ViewChild('searchInput') searchInput!: ElementRef;
 
@@ -31,6 +38,10 @@ export class Inventory implements OnInit{
     next: (data) => {
       this.publications = data;
       this.filteredPublications = data; 
+      data.forEach(p =>{
+       this.mades.push(p.auto.marca);
+       this.models.push(p.auto.modelo);
+      })
     }
   })
 }
@@ -75,6 +86,14 @@ export class Inventory implements OnInit{
     const fullAutoName = `${pub.auto.marca} ${pub.auto.modelo}`.toLowerCase(); 
     return fullAutoName.includes(query);
   });
+}
+actualizarMinimo(event: any) {
+  this.precioMinimo = Number(event.target.value);
+
+}
+
+actualizarMaximo(event: any) {
+  this.precioMaximo = Number(event.target.value);
 }
 
 }
