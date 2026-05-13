@@ -1,6 +1,6 @@
 /* ================= PAGE ================= */
 
-.register-page{
+.login-page{
     position: relative;
     overflow: hidden;
     height: 100vh;
@@ -54,7 +54,7 @@
     margin-bottom: 30px;
 }
 
-.lineSign{
+.lineLogin{
     width: 50px;
     height: 3px;
     background: orange;
@@ -111,18 +111,18 @@
 
 /* ================= CARD ================= */
 
-.register-box{
+.login-box{
     position: relative;
     z-index: 2;
-    width: 400px;
-    padding: 20px 30px;
+    width: 420px;
+    padding: 45px 35px;
     border-radius: 26px;
     background:rgba(0,0,0,0.58);
     border: 1px solid rgba(255,140,0,0.35);
     backdrop-filter: blur(16px);
     box-shadow:0 0 40px rgba(255,140,0,0.12), 0 0 120px rgba(0,0,0,0.8);
     animation: fadeUp 0.7s ease;
-    margin-top: 80px; 
+    margin-top: 100px; 
     margin-bottom: 0;
     margin-right: 400px;
 }
@@ -144,7 +144,7 @@
 
 /* ================= TITLES ================= */
 
-.register-box h1{
+.login-box h1{
     text-align: center;
     color: orange;
     margin-bottom: 12px;
@@ -165,24 +165,24 @@
 form{
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 25px;
 }
 
 .input-group{
     display: flex;
     flex-direction: column;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .form-final {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .separator {
     position: relative;
-    margin: 15px 0;
+    margin: 25px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -191,7 +191,7 @@ form{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: black;  /* Color de fondo para que tape la línea */
+    background: black;  
     padding: 0 10px;
     color: #888;
     font-size: 14px;
@@ -218,13 +218,13 @@ form{
 /* ================= INPUTS ================= */
 
 .input-group input{
-    padding: 12px 40px 12px 42px;
+    padding: 16px 40px 16px 42px;
     width: 100%;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.08);
     background: rgba(255,255,255,0.04);
     color: white;
-    font-size: 14px;
+    font-size: 15px;
     transition: all 0.3s ease;
     margin-bottom: 0;
 }
@@ -240,7 +240,6 @@ form{
     box-shadow:0 0 18px rgba(255,140,0,0.22);
 }
 
-/* Este es el icono de la IZQUIERDA (Candado, Persona, etc.) */
 .input-group > .material-symbols-outlined:first-child {
     position: absolute;
     left: 12px;
@@ -249,21 +248,20 @@ form{
     color: orange;
     font-size: 20px;
     z-index: 2;
-    pointer-events: none; /* Importante para que no moleste al clickear el input */
+    pointer-events: none; 
 }
 
-/* Este es el icono de la DERECHA (El Ojo) */
 .eye-icon {
     position: absolute;
-    right: 12px; /* IMPORTANTE: este va a la derecha */
+    right: 12px; 
     top: 50%;
     transform: translateY(-50%);
     color: #8f8f8f;
     cursor: pointer;
-    z-index: 3; /* Un nivel más arriba para asegurar el click */
+    z-index: 3; 
     font-size: 20px;
     transition: color 0.3s;
-    pointer-events: auto !important; /* Para que el click funcione sí o sí */
+    pointer-events: auto !important; 
 }
 
 .eye-icon:hover {
@@ -285,7 +283,7 @@ form{
 
 /* ================= REGISTER BUTTON ================= */
 
-.register-btn{
+.login-btn{
     margin-top: 5px;
     padding: 12px;
     border: none;
@@ -298,12 +296,12 @@ form{
     transition: all 0.3s ease;
 }
 
-.register-btn:hover{
+.login-btn:hover{
     transform: translateY(-2px);
     box-shadow: 0 0 25px rgba(255,140,0,0.4);
 }
 
-.register-btn:disabled{
+.login-btn:disabled{
     background: #555;
     cursor: not-allowed;
     opacity: 0.6;
@@ -334,19 +332,19 @@ form{
         display: none;
     }
 
-    .register-page{
+    .login-page{
         gap: 0;
     }
 }
 
 @media(max-width: 600px){
 
-    .register-box{
+    .login-box{
         width: 92%;
         padding: 34px;
     }
 
-    .register-box h1{
+    .login-box h1{
         font-size: 34px;
     }
 

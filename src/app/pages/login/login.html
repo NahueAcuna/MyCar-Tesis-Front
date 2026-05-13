@@ -1,14 +1,14 @@
 <app-header></app-header>
-<div class="register-page">
+<div class="login-page">
 
     <div class="overlay"></div>
 
     <div class="left-content">
-        <h2>Crea tu cuenta <br> y comienza tu camino <br> con <span>MyCar</span></h2>
+        <h2>Bienvenido <br> a tu próxima <br> <span>oportunidad</span></h2>
 
         <div class="line"></div>
 
-        <p>Únete a nuestra comunidad y accedé a las mejores oportunidades para comprar, vender y más.</p>
+        <p>Iniciá sesión y accedé a miles de opciones para comprar o vender el auto ideal para vos.</p>
 
         <div class="features">
             <div class="feature">
@@ -40,28 +40,14 @@
         </div>
     </div>
 
-    <div class="register-box">
-        <div class="logo">Sign <span>Up</span></div>
+    <div class="login-box">
+        <div class="logo">Log <span>In</span></div>
 
-        <div class="lineSign"></div>
+        <div class="lineLogin"></div>
 
-        <p class="subtitle">Creá tu cuenta para continuar</p>
+        <p class="subtitle">Ingresá a tu cuenta para continuar</p>
 
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
-
-            <div class="input-group">
-                <span class="material-symbols-outlined">person</span>
-                <input type="text" placeholder="Nombre" formControlName="nombre" required>
-                @if(nombre?.hasError("required") && nombre?.touched){
-                    <p class="msjError">El nombre es obligatorio.</p>
-                }@else if(nombre?.hasError("minlength") && nombre?.touched){
-                    <p class="msjError">El nombre debe tener al menos 3 caracteres.</p>
-                }@else if(nombre?.hasError("maxlength") && nombre?.touched){
-                    <p class="msjError">El nombre no debe exceder los 30 caracteres.</p>
-                }@else if(nombre?.hasError("pattern") && nombre?.touched){
-                    <p class="msjError">El nombre solo puede contener letras y espacios.</p>
-                }
-            </div>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
 
             <div class="input-group">
                 <span class="material-symbols-outlined">mail</span>
@@ -74,16 +60,6 @@
             </div>
 
             <div class="input-group">
-                <span class="material-symbols-outlined">call</span>
-                <input type="text" placeholder="Teléfono" formControlName="telefono" required>
-                @if(telefono?.hasError("required") && telefono?.touched){
-                    <p class="msjError">El teléfono es obligatorio.</p>
-                }@else if(telefono?.hasError("pattern") && telefono?.touched){
-                    <p class="msjError">El teléfono debe tener 10 dígitos numéricos.</p>
-                }
-            </div>
-            
-            <div class="input-group">
                 <span class="material-symbols-outlined">lock</span>
                 <input [type]="hidePassword ? 'password' : 'text'" placeholder="Contraseña" formControlName="password" required>
                 @if(password?.hasError("required") && password?.touched){
@@ -94,13 +70,13 @@
                 <span class="material-symbols-outlined eye-icon" (click)="togglePassword()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</span>
             </div>
 
-            <button type="submit" class="register-btn" [disabled]="registerForm.invalid">Crear Cuenta</button>
+            <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Iniciar Sesión</button>
 
             <div class="form-final">
                 <div class="separator">
                     <span>o</span>
                 </div>
-                    <p>¿Ya tenés una cuenta? <a href="/login">Log in</a></p>
+                    <p>¿No tenés cuenta? <a href="/registro">Sign up</a></p>
             </div>
         </form>
     </div>

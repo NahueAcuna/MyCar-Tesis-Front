@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterRequest } from '../models/RegisterRequest';
 import { Observable } from 'rxjs';
+import { LoginRequest } from '../models/LoginRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,23 @@ export class AuthService {
     return this.http.post(`${this.url}/registro`, user);
   }
 
+  login(user: LoginRequest): Observable<any> {
+    return this.http.post(`${this.url}/login`, user);
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  saveUser(user: any): void {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getUser(): any {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+  
   // Decodifica el payload del JWT guardado en localStorage
   private getPayload(): any {
     const token = localStorage.getItem('token');

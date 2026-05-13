@@ -3,14 +3,9 @@
         style="cursor: pointer;">MyCar</span>
     <nav>
         <ul>
-            <li>
-                <a routerLink="/" fragment="inventory">Nuestros Autos</a>
-                
-            </li>
-            
+            <li routerLink="/" routerLinkActive="active" style="cursor: pointer;">Nuestros Autos</li>
             <li routerLink="/vender" routerLinkActive="active" style="cursor: pointer;">Vende tu Auto</li>
             <li routerLink="/marketplace" routerLinkActive="active" style="cursor: pointer;">MarketPlace</li>
-            
             @if (authService.isAdmin()) {
                 <li routerLink="/gestionar" routerLinkActive="active" style="cursor: pointer;">Gestionar</li>
             }
@@ -18,7 +13,8 @@
     </nav>
 
     <div id="buttons">
-        <button>Log in</button>
-        <button routerLink="/registro">Sign Up</button>
+        <button class="login-btn" routerLink="/login">Log in</button>
+        <button class="signup-btn" routerLink="/registro">Sign Up</button>
     </div>
+
 </header>
