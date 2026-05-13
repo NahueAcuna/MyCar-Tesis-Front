@@ -7,6 +7,7 @@ import { GestionAdmin } from './pages/gestion-admin/gestion-admin';
 import { Login } from './pages/login/login';
 import { authGuard } from './guards/auth-guard';
 import { adminGuard } from './guards/admin-guard';
+import { Profile } from './pages/profile/profile';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -14,5 +15,6 @@ export const routes: Routes = [
     { path: 'publicacion/:id', component: PublicationDetail, canActivate: [authGuard] },
     { path: 'registro', component: Register },
     { path: 'login', component: Login },
+    { path: 'perfil', component: Profile, canActivate: [authGuard] },
     { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] }
 ];
