@@ -18,6 +18,8 @@ export class PublicationForm {
   mostrarPagina3 = false;
   mostrarPagina4 = false;
 
+  errorMessage = '';
+
   publicationData = {
     marca: '',
     modelo: '',
@@ -108,6 +110,11 @@ export class PublicationForm {
   }
 
   irAPagina2() {
+    if (!this.publicationData.marca.trim() || !this.publicationData.modelo.trim() || !this.publicationData.descripcion.trim()) {
+      this.errorMessage = 'Completá todos los campos antes de continuar.';
+      return;
+    }
+    this.errorMessage = '';
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = true;
     this.mostrarPagina3 = false;
@@ -115,6 +122,13 @@ export class PublicationForm {
   }
 
   irAPagina3() {
+    if (!this.publicationData.km.trim() || !this.publicationData.combustible.trim() || !this.publicationData.caja.trim() ||
+        !this.publicationData.caballos || !this.publicationData.color.trim() || !this.publicationData.puertas ||
+        !this.publicationData.motor.trim() || !this.publicationData.anio) {
+      this.errorMessage = 'Completá todos los campos antes de continuar.';
+      return;
+    }
+    this.errorMessage = '';
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = false;
     this.mostrarPagina3 = true;
@@ -122,6 +136,11 @@ export class PublicationForm {
   }
 
   irAPagina4() {
+    if (this.selectedFiles.length === 0 || !this.publicationData.precio) {
+      this.errorMessage = 'Subí al menos una foto y completá el precio.';
+      return;
+    }
+    this.errorMessage = '';
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = false;
     this.mostrarPagina3 = false;

@@ -49,6 +49,7 @@
           style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #333; background: #111; color: white; resize: vertical;"></textarea>
       </div>
     </div>
+    <p class="error-msg" *ngIf="errorMessage && mostrarPagina1">{{ errorMessage }}</p>
     <div class="form-actions">
       <button class="btn secondary" (click)="cancelar()">Cancelar</button>
       <button class="btn primary" (click)="irAPagina2()">Continuar</button>
@@ -94,6 +95,7 @@
         <input type="number" placeholder="Ej: 2021" [(ngModel)]="publicationData.anio" (keyup.enter)="irAPagina3()">
       </div>
     </div>
+    <p class="error-msg" *ngIf="errorMessage && mostrarPagina2">{{ errorMessage }}</p>
     <div class="form-actions">
       <button class="btn secondary" (click)="irAPagina1()">Atrás</button>
       <button class="btn primary" (click)="irAPagina3()">Continuar</button>
@@ -114,6 +116,7 @@
         <input type="number" placeholder="Ej: 25000" [(ngModel)]="publicationData.precio" (keyup.enter)="irAPagina4()">
       </div>
     </div>
+    <p class="error-msg" *ngIf="errorMessage && mostrarPagina3">{{ errorMessage }}</p>
     <div class="form-actions">
       <button class="btn secondary" (click)="irAPagina2()">Atrás</button>
       <button class="btn primary" (click)="irAPagina4()">Continuar</button>
