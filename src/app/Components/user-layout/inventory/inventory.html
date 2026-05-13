@@ -5,7 +5,7 @@
   <div id="content">
     <h1><span>Autos</span> de la Agencia</h1>
     <div id="inventory">
-      <form id="filters">
+      <form id="filters" [formGroup]="filtersForm" (submit)="applyFilters()">
         <p id="title">Filtrar por</p>
 
         <div id="categories_section">
@@ -108,7 +108,7 @@
 
         <div class="input_filter">
           <span>Marca</span>
-          <select name="" id="">
+          <select name="" id="" formControlName = "made">
           
           @for(made of mades; track $index){
             <option [value]="made">{{made}}</option>
@@ -117,7 +117,7 @@
         </div>
         <div class="input_filter">
           <span>Modelo</span>
-          <select name="" id="">
+          <select name="" id="" formControlName = "model">
             @for(model of models; track $index){
             <option [value]="model">{{model}}</option>
           }
@@ -136,6 +136,7 @@
     step="500" 
     [value]="precioMinimo"
     (input)="actualizarMinimo($event)"
+    formControlName = "minPrice"
   />
 
   <!-- Máximo -->
@@ -148,6 +149,7 @@
     step="500" 
     [value]="precioMaximo"
     (input)="actualizarMaximo($event)"
+    formControlName = "maxPrice"
   />
 </div>
         <div class="input_filter">
@@ -155,15 +157,15 @@
           <div id="kilometraje">
             <div>
               <label for="min">Minimo</label>
-              <input type="text" id ="min"/>
+              <input type="number" id ="min" formControlName = "minKm"/>
             </div>
             <div>
               <label for="max">Máximo</label>
-              <input type="text" id="max"/>
+              <input type="number" id="max" formControlName = "maxKm"/>
             </div>
           </div>
         </div>
-        <button>Aplicar filtros</button>
+        <button type="submit">Aplicar filtros</button>
       </form>
       <div id="publications">
         <div id="search" [class.open]="isSearchShowed">
@@ -179,7 +181,7 @@
             <div id="information">
               <div id="name_price">
                 <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>
-                <span>${{ publication.auto.precio }} </span>
+                <span>${{ publication.auto.precio | number:'1.0-0' }} </span>
               </div>
               <div id="anio_description">
                 <span>{{ publication.auto.anio }} </span>

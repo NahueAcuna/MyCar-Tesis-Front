@@ -53,6 +53,9 @@ h1 span{
     display: flex;
     justify-content: space-between;
 }
+#kilometraje input{
+    color: wheat;
+}
 svg{
     width: 48px;
     fill: #c2865e;
@@ -165,10 +168,7 @@ select:focus{
  #search .material-symbols-outlined{
     font-size: 28px;
 }
-#inventory {
-    /* Frena la bajada 80 píxeles antes de tocar el elemento */
-    scroll-padding-top: 830px; 
-}
+
 #search.open input{
     width: 320px;
     padding: 10px;
@@ -228,5 +228,8 @@ select:focus{
 }
 .car_publication button:hover{
     background-image: linear-gradient(to right, #241203 32%, #965412);
+}
+input[type="range"] {
+  accent-color: #ff8c00; 
 }
 
