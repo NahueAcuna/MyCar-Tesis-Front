@@ -165,6 +165,10 @@ select:focus{
  #search .material-symbols-outlined{
     font-size: 28px;
 }
+#inventory {
+    /* Frena la bajada 80 píxeles antes de tocar el elemento */
+    scroll-padding-top: 830px; 
+}
 #search.open input{
     width: 320px;
     padding: 10px;
