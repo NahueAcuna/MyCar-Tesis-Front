@@ -29,6 +29,56 @@ h1 span{
     color: aliceblue;
     gap: 20px;
 }
+#header-filter {
+    display: flex;
+  
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px;
+    flex-wrap: wrap; 
+    gap: 15px; 
+}
+
+#title {
+    font-size: 28px;
+    font-weight: 750;
+    margin: 0;
+    background: linear-gradient(to right, #FF7F0E, #72461a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+#header-filter button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px; 
+    
+    background-color: transparent; 
+    color: #c57839; 
+    border: 1px solid #c57839; 
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease; 
+}
+
+
+#header-filter button:hover {
+    background-color: rgba(197, 120, 57, 0.15); 
+    color: #FF7F0E; 
+    border-color: #FF7F0E;
+}
+
+
+#header-filter button .material-symbols-outlined {
+    font-size: 20px;
+}
 #filters input{
     background: #000;
     padding: 6px;
@@ -111,14 +161,7 @@ select:focus{
      box-shadow: 0 0 15px #5e3206;
      outline: none;
 }
-#title{
-    font-size: 28px;
-    font-weight: 750;
-    background: linear-gradient(to right, #FF7F0E, #050301);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
+
 #publications{
     display: flex;
     flex-direction: column;

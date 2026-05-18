@@ -161,4 +161,17 @@ applyFilters() {
   console.log(this.filteredPublications)
 }
 
+filterCleaner(){
+
+  this.filtersForm.reset({
+    made: '',
+    model: '',
+    minPrice: 0,
+    maxPrice: 50000,
+    minKm: '',
+    maxKm: ''
+  });
+  this.filteredPublications = [...this.publications];
+}
+
 }
