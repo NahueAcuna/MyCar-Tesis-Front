@@ -2,7 +2,7 @@ header{
     position: fixed;
     z-index: 9999;
     right: 50%;
-    top: 4%;
+    top: 1%;
     transform: translateX(50%);
     display: flex;
     justify-content: space-between;

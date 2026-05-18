@@ -5,9 +5,14 @@
   <div id="content">
     <h1><span>Autos</span> de la Agencia</h1>
     <div id="inventory">
-      <form id="filters">
-        <p id="title">Filtrar por</p>
-
+      <form id="filters" [formGroup]="filtersForm" (submit)="applyFilters()">
+        <div id="header-filter">
+          <p id="title">Filtrar por</p>
+          <button type="button" id="cleaner-button" (click)="filterCleaner()">
+            <span class="material-symbols-outlined">reset_shutter_speed</span>
+            Limpiar filtros
+          </button>
+        </div>
         <div id="categories_section">
           <span>Categoría</span>
           <div id="categories">
@@ -108,63 +113,47 @@
 
         <div class="input_filter">
           <span>Marca</span>
-          <select name="" id="">
-          
-          @for(made of mades; track $index){
+          <select name="" id="" formControlName="made">
+            @for(made of mades; track $index){
             <option [value]="made">{{made}}</option>
-          }
+            }
           </select>
         </div>
         <div class="input_filter">
           <span>Modelo</span>
-          <select name="" id="">
+          <select name="" id="" formControlName="model">
             @for(model of models; track $index){
             <option [value]="model">{{model}}</option>
-          }
+            }
           </select>
         </div>
         <div class="input_filter">
-  <span>Precio</span>
-  
-  <!-- Mínimo -->
-  <label for="min_price">Precio mínimo: ${{ precioMinimo }}</label>
-  <input 
-    type="range" 
-    id="min_price" 
-    min="0" 
-    max="50000" 
-    step="500" 
-    [value]="precioMinimo"
-    (input)="actualizarMinimo($event)"
-  />
+          <span>Precio</span>
 
-  <!-- Máximo -->
-  <label for="max_price">Precio máximo: ${{ precioMaximo }}</label>
-  <input 
-    type="range" 
-    id="max_price" 
-    min="0" 
-    max="50000" 
-    step="500" 
-    [value]="precioMaximo"
-    (input)="actualizarMaximo($event)"
-  />
-</div>
+          <label for="min_price">Precio mínimo: ${{ precioMinimo }}</label>
+          <input type="range" id="min_price" min="0" max="50000" step="500" [value]="precioMinimo"
+            (input)="actualizarMinimo($event)" formControlName="minPrice" />
+
+          <label for="max_price">Precio máximo: ${{ precioMaximo }}</label>
+          <input type="range" id="max_price" min="0" max="50000" step="500" [value]="precioMaximo"
+            (input)="actualizarMaximo($event)" formControlName="maxPrice" />
+        </div>
         <div class="input_filter">
           <span>Kilometraje</span>
           <div id="kilometraje">
             <div>
               <label for="min">Minimo</label>
-              <input type="text" id ="min"/>
+              <input type="number" id="min" min="0" formControlName="minKm" />
             </div>
             <div>
               <label for="max">Máximo</label>
-              <input type="text" id="max"/>
+              <input type="number" id="max" min="0" formControlName="maxKm" />
             </div>
           </div>
         </div>
-        <button>Aplicar filtros</button>
+        <button type="submit">Aplicar filtros</button>
       </form>
+
       <div id="publications">
         <div id="search" [class.open]="isSearchShowed">
           <button (click)="switchSearchView()">
@@ -172,14 +161,15 @@
           </button>
           <input #searchInput type="text" (input)="onSearch($event)" name="" id="">
         </div>
+        
         <div id="cars">
-          @for (publication of filteredPublications; track publication.id) {
+          @for (publication of filteredPublications | slice:startIndex:endIndex; track publication.id) {
           <div class="car_publication">
             <img src="{{ publication.auto.imagenesUrl }} " alt="Imagen del auto" />
             <div id="information">
               <div id="name_price">
                 <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>
-                <span>${{ publication.auto.precio }} </span>
+                <span>${{ publication.auto.precio | number:'1.0-0' }} </span>
               </div>
               <div id="anio_description">
                 <span>{{ publication.auto.anio }} </span>
@@ -190,6 +180,19 @@
           </div>
           }
         </div>
+
+        <div id="pagination">
+          <button (click)="prevPage()" [disabled]="currentPage === 1">
+            <span class="material-symbols-outlined">chevron_left</span> Anterior
+          </button>
+          
+          <span>Página {{ currentPage }} de {{ totalPages === 0 ? 1 : totalPages }}</span>
+          
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages || totalPages === 0">
+            Siguiente <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+
       </div>
     </div>
   </div>
