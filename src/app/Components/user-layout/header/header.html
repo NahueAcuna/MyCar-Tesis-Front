@@ -1,11 +1,18 @@
 <header>
     <span id="logo" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
         style="cursor: pointer;">MyCar</span>
+        
     <nav>
         <ul>
-            <li routerLink="/" routerLinkActive="active" style="cursor: pointer;">Nuestros Autos</li>
+            <a href="#inventory">
+                <li [class.active]="seccionActiva === 'inventory'" style="cursor: pointer;">
+                    Nuestros Autos
+                </li>
+            </a>
+            
             <li routerLink="/vender" routerLinkActive="active" style="cursor: pointer;">Vende tu Auto</li>
             <li routerLink="/marketplace" routerLinkActive="active" style="cursor: pointer;">MarketPlace</li>
+            
             @if (authService.isAdmin()) {
                 <li routerLink="/gestionar" routerLinkActive="active" style="cursor: pointer;">Gestionar</li>
             }
@@ -16,5 +23,4 @@
         <button class="login-btn" routerLink="/login">Log in</button>
         <button class="signup-btn" routerLink="/registro">Sign Up</button>
     </div>
-
 </header>
