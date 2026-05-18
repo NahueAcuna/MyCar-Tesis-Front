@@ -1,4 +1,165 @@
+<app-header></app-header>
 
-<h1>Perfil</h1>
-<p>Bienvenido, {{ user?.nombre}}!</p>
-<p>Email: {{ user?.email }}</p>
+<div class="profile-page">
+
+    <div class="overlay"></div>
+
+    <div class="left-content">
+        @if(user){
+            <p>{{ user.nombre }}</p>
+
+            <div class="line"></div>
+
+            <div class="email-box">
+                <span class="material-symbols-outlined">mail</span>
+                <p>{{ user.email }}</p>
+            </div>
+        }
+ 
+        <div class="pr-box">
+            <div class="number-post">
+                <span>{{ myPosts.length }}</span>
+                <p>Publicaciones</p>
+            </div>
+            <div class="line"></div>
+            <div class="number-reservation">
+                <span>{{ myReservations.length }}</span>
+                <p>Reservas</p>
+            </div>
+        </div>
+
+        <div class="action-btn">
+            <span class="material-symbols-outlined">edit</span>
+            <button>Editar Perfil</button>
+        </div>
+ 
+        <div class="action-btn logout">
+            <span class="material-symbols-outlined">logout</span>
+            <button (click)="authService.logout()">Cerrar sesión</button>
+        </div>
+    </div>
+
+    <div class="right-content">
+        <div class="welcome">
+            <span>Bienvenido de vuelta</span>
+            <p>Hola, <span class="color">{{ user?.nombre }}</span></p>
+            <p>Gestiona tus publicaciones, reservas y favoritos <br> desde tu perfil.</p>
+        </div>
+
+        <div class="my-post">
+            <div class="section-header">
+            
+                <div class="title-box">
+                    <span class="material-symbols-outlined">directions_car</span>
+                    <h2>Mis Publicaciones</h2>
+                </div>
+
+                <button class="view-all" routerLink="/mis-publicaciones">
+                    Ver todas
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </div>
+
+            <div class="post-container">
+                @for(post of myPosts.slice(0,2); track post.id){
+                    <div class="post-card">
+                        <img src="{{ post.auto.imagenesUrl }}" alt="Imagen del auto">
+                        
+                        <div class="post-info">
+                            <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
+                            
+                            <p class="year-km">
+                                {{ post.auto.anio }} - {{ post.auto.km }} km
+                            </p>
+
+                            <p class="price">
+                                ${{ post.auto.precio  }}
+                            </p>
+ 
+                            <div class="status">
+                                {{ post.estado }}
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="my-reservations">
+            <div class="section-header">
+                
+                <div class="title-box">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <h2>Mis Reservas</h2>
+                </div>
+
+                <p class="view-all">
+                    Ver todas
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </p>
+            </div>
+
+            <div class="reservation-container">
+                @for(reservation of myReservations.slice(0,2); track reservation.id){
+                    <div class="reservation-card">
+                        <img src="{{ reservation.auto.imagenesUrl }}" alt="Imagen del auto">
+
+                        <div class="reservation-info"> 
+                            <h3> {{ reservation.auto.marca }} - {{ reservation.auto.modelo }}</h3>
+
+                            <p class="year-km">
+                                {{ reservation.auto.anio }} - {{ reservation.auto.km }} km
+                            </p>
+
+                            <p class="date">
+                                {{ reservation.auto.date }}
+                            </p>
+
+                            <div class="status">
+                                {{ reservation.estado }}
+                            </div>
+                        </div> 
+                    </div> 
+                }
+            </div>
+        </div> 
+
+<!--        
+        <div class="my-favorite">
+            <div class="section-header">
+            
+                <div class="title-box">
+                    <span class="material-symbols-outlined">favorite</span>
+                    <h2>Mis Favoritos</h2>
+                </div>
+
+                <p class="view-all">
+                    Ver todos
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </p>
+            </div>
+
+            <div class="favorite-container">
+                @for(favorite of myFavorites.slice(0,2); track favorite.id){
+                    <div class="favorite-card">
+                        <img src="{{ favorite.auto.imagenesUrl }}" alt="Imagen del auto">
+                        
+                        <div class="favorite-info">
+                            <h3>{{ favorite.auto.marca }} {{ favorite.auto.modelo }}</h3>
+                            
+                            <p class="year-km">
+                                {{ favorite.auto.anio }} - {{ favorite.auto.km }} km
+                            </p>
+
+                            <p class="price">
+                                ${{ favorite.auto.precio  }}
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+-->
+</div>

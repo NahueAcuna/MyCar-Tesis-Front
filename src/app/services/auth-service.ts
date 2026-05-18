@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { RegisterRequest } from '../models/RegisterRequest';
 import { Observable } from 'rxjs';
 import { LoginRequest } from '../models/LoginRequest';
+import { Router } from '@angular/router';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,7 @@ import { LoginRequest } from '../models/LoginRequest';
 export class AuthService {
   private url = 'http://localhost:8080/usuario';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public router : Router) {}
 
   register(user: RegisterRequest): Observable<any> {
     return this.http.post(`${this.url}/registro`, user);
@@ -24,11 +26,11 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-  saveUser(user: any): void {
+  saveUser(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUser(): any {
+  getUser(): User | null {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
@@ -61,5 +63,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 }

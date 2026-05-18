@@ -1,0 +1,31 @@
+<app-header></app-header>
+<div class="post-page">
+
+    <div class="overlay"></div>
+
+    <div class="post-container">
+        @for(post of myPosts; track post.id){
+            <div class="post-card" [routerLink]="['/publicacion', post.id]">
+                <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto">
+                            
+                <div class="post-info">
+                    <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
+                                
+                    <p class="year-km">
+                        {{ post.auto.anio }} - {{ post.auto.km }} km
+                    </p>
+
+                    <p class="price">
+                        ${{ post.auto.precio  }}
+                    </p>
+    
+                    <div class="status">
+                        {{ post.estado }}
+                    </div>
+                </div>
+            </div>
+                    }
+    </div>
+
+    <button class="btnBack" (click)="goBack()">Volver</button>
+</div>

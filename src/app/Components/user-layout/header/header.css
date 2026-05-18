@@ -92,3 +92,23 @@ button{
     background-image: linear-gradient(to right, #FF7F0E, #864708);
     color: white;
 }
+
+.profile-btn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-btn:hover{
+    transform: scale(1.08);
+}
+
+.profile-btn .material-symbols-outlined{
+    color: orange;
+    font-size: 30px;
+}
+

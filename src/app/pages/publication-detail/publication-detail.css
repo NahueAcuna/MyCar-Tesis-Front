@@ -58,21 +58,19 @@
 }
 
 .thumbs img.active {
-    border: 2px solid orange;
+    border: 2px solid rgba(255,140,0,0.35);
     opacity: 1;
 }
 
 /* ================= DESCRIPTION ================= */
-.description,
-.specs {
+.description, .specs {
     background: linear-gradient(135deg, #070707 40%, #3b1f05);
     padding: 20px;
     border-radius: 12px;
-    border: 1px solid #ff8c00;
+    border: 1px solid rgba(255,140,0,0.35);
 }
 
-.description h2,
-.specs h2 {
+.description h2, .specs h2 {
     margin-bottom: 15px;
     color: orange;
 }
@@ -96,7 +94,7 @@
     background: linear-gradient(135deg, #070707 40%, #3b1f05);
     padding: 25px;
     border-radius: 12px;
-    border: 1px solid #ff8c00;
+    border: 1px solid rgba(255,140,0,0.35);
     display: flex;
     flex-direction: column;
     gap: 15px;

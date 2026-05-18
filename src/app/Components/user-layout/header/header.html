@@ -12,9 +12,15 @@
         </ul>
     </nav>
 
-    <div id="buttons">
-        <button class="login-btn" routerLink="/login">Log in</button>
-        <button class="signup-btn" routerLink="/registro">Sign Up</button>
-    </div>
+    @if(!authService.isLoggedIn()){
+        <div id="buttons">
+            <button class="login-btn" routerLink="/login">Log in</button>
+            <button class="signup-btn" routerLink="/registro">Sign Up</button>
+        </div>
+    }@else{
+        <div class="profile-btn" routerLink="/perfil">
+            <span class="material-symbols-outlined">account_circle</span>
+        </div>
+    }
 
 </header>
