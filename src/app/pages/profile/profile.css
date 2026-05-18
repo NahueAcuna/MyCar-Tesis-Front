@@ -1,10 +1,380 @@
-h1{
-    font-size: 2em;
-    text-align: center;
-    margin-bottom: 20px;
+/* ================= PAGE ================= */
+
+.profile-page{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    gap: 40px;
+    padding: 110px 60px 40px;
+    background-image: url('/profile.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
 }
 
-p{
-    font-size: 1.2em;
+/* ================= OVERLAY ================= */
+
+.overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.72);
+    z-index: 1;
+}
+
+/* ================= CONTENT ================= */
+
+.left-content, .right-content{
+    position: relative;
+    z-index: 2;
+}
+
+/* ================= LEFT PANEL ================= */
+
+.left-content{
+    width: 320px;
+    height: fit-content;
+    background: rgba(0,0,0,0.72);
+    border: 1px solid rgba(255,140,0,0.35);
+    border-radius: 28px;
+    padding: 35px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 0 30px rgba(255,140,0,0.08);
+    
+}
+
+/* ================= USER NAME ================= */
+
+.left-content p{
+    font-size: 34px;
+    font-weight: 800;
     margin-bottom: 10px;
+    color: white;
+    text-align: center;
+}
+
+/* ================= LINE ================= */
+
+.line{
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+    margin: 25px 0;
+}
+
+/* ================= EMAIL ================= */
+
+.email-box{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.email-box p{
+    margin: 0;
+    color: white;
+    font-size: 15px;
+}
+
+.email-box .material-symbols-outlined{
+    color: orange;
+    font-size: 22px;
+}
+
+/* ================= POSTS / RESERVATIONS ================= */
+
+.pr-box{
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,140,0,0.35);
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.number-post, .number-reservation{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.number-post span, .number-reservation span{
+    font-size: 22px;
+    font-weight: 500;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.number-post p, .number-reservation p{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+/* ================= ACTION BUTTONS ================= */
+
+.action-btn{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,140,0,0.35);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.action-btn:hover{
+    transform: translateX(5px);
+    border-color: rgba(255,140,0,0.4);
+    background: rgba(255,140,0,0.08);
+}
+
+.action-btn .material-symbols-outlined{
+    color: orange;
+    font-size: 22px;
+}
+
+.action-btn button{
+    background: none;
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.logout:hover{
+    border-color: rgba(255,80,80,0.4);
+    background: rgba(255,80,80,0.08);
+}
+
+/* ================= RIGHT CONTENT ================= */
+
+.right-content{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome{
+    background: rgba(0,0,0,0.60);
+    border: 1px solid rgba(255,140,0,0.35);
+    border-radius: 28px;
+    padding: 28px;
+    backdrop-filter: blur(12px);
+}
+
+.welcome span{
+    color: orange;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.welcome p:first-of-type{
+    font-size: 38px;
+    font-weight: 800;
+    margin: 10px 0;
+}
+
+.welcome p:last-of-type{
+    color: #bdbdbd;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.welcome .color{
+    font-size: 38px;
+    font-weight: 800;
+    color: orange;
+}
+
+/* ================= SECTIONS ================= */
+
+.my-post, .my-reservations, .my-favorite{
+    background: rgba(0,0,0,0.60);
+    border: 1px solid rgba(255,140,0,0.35);
+    border-radius: 28px;
+    padding: 22px;
+    backdrop-filter: blur(10px);
+}
+
+.my-post .material-symbols-outlined, .my-reservations .material-symbols-outlined, .my-favorite .material-symbols-outlined{
+    font-size: 25px;
+    color: orange;
+}
+
+/* ================= TITLES ================= */
+
+.my-post h2, .my-reservations h2, .my-favorite h2{
+    margin: 0;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.material-symbols-outlined{
+    color: orange;
+    vertical-align: middle;
+}
+
+/* ================= POSTS ================= */
+
+.my-post{
+    background: rgba(0,0,0,0.60);
+    border: 1px solid rgba(255,140,0,0.35);
+    border-radius: 28px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+}
+
+/* ================= HEADER ================= */
+
+.section-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.title-box{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.title-box .material-symbols-outlined{
+    font-size: 32px;
+    color: orange;
+}
+
+.title-box h2{
+    margin: 0;
+    font-size: 30px;
+    color: white;
+}
+
+/* ================= VIEW ALL ================= */
+
+.view-all{
+    color: #bdbdbd;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.view-all:hover{
+    transform: translateX(4px);
+}
+
+/* ================= POST CONTAINER ================= */
+
+.post-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+/* ================= POST CARD ================= */
+
+.post-card{
+    display: flex;
+    gap: 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 22px;
+    padding: 14px;
+    align-items: center;
+    transition: 0.3s ease;
+    width: 100%;
+    overflow: hidden;
+}
+
+.post-card:hover{
+    transform: translateY(-4px);
+    border-color: rgba(255,140,0,0.25);
+    box-shadow: 0 0 20px rgba(255,140,0,0.10);
+}
+
+/* ================= IMAGE ================= */
+
+.post-card img{
+    width: 170px;
+    min-width: 170px;
+    height: 115px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+/* ================= INFO ================= */
+
+.post-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.post-info h3{
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: white;
+}
+
+.year-km{
+    color: #a5a5a5;
+    margin-bottom: 16px;
+}
+
+.price{
+    color: orange;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.status{
+    width: fit-content;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1200px){
+
+    .profile-page{
+        flex-direction: column;
+    }
+
+    .left-content{
+        width: 100%;
+    }
+}
+
+@media(max-width: 700px){
+
+    .profile-page{
+        padding: 120px 20px 60px;
+    }
+
+    .welcome p:first-of-type{
+        font-size: 38px;
+    }
+
+    .image img{
+        width: 100%;
+        height: auto;
+    }
 }

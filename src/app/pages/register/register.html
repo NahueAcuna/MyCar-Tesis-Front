@@ -51,7 +51,7 @@
 
             <div class="input-group">
                 <span class="material-symbols-outlined">person</span>
-                <input type="text" placeholder="Nombre" formControlName="nombre" required>
+                <input type="text" placeholder="Nombre y apellido" formControlName="nombre" required>
                 @if(nombre?.hasError("required") && nombre?.touched){
                     <p class="msjError">El nombre es obligatorio.</p>
                 }@else if(nombre?.hasError("minlength") && nombre?.touched){

@@ -3,13 +3,13 @@
     @if(publicationSelected){
     <div class="left">
         <div class="image-wrapper" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
-            <img class="main-img" [src]="'http://localhost:8080' + selectedImage" [style.transform]="transformStyle"
+            <img class="main-img" [src]="getImageUrl(selectedImage)" [style.transform]="transformStyle"
                 [style.transform-origin]="transformOrigin" />
         </div>
 
         <div class="thumbs">
             @for(img of publicationSelected.auto.imagenesUrl; track img){
-            <img [src]="'http://localhost:8080' + img" (click)="selectedImage = img"
+            <img [src]="getImageUrl(img)" (click)="selectedImage = img"
                 [class.active]="selectedImage === img" />
             }
         </div>
@@ -56,6 +56,6 @@
     </div>
     }
 
-    <button class="back" (click)="goBack()"> ⬅ Volver</button>
+    <button class="back" (click)="goBack()"> Volver</button>
 </div>
 <app-footer></app-footer>

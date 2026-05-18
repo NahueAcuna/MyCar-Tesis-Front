@@ -7,6 +7,7 @@ import { GestionAdmin } from './pages/gestion-admin/gestion-admin';
 import { Login } from './pages/login/login';
 import { authGuard } from './guards/auth-guard';
 import { adminGuard } from './guards/admin-guard';
+import { MyPosts } from './pages/my-posts/my-posts';
 import { Profile } from './pages/profile/profile';
 
 export const routes: Routes = [
@@ -16,5 +17,6 @@ export const routes: Routes = [
     { path: 'registro', component: Register },
     { path: 'login', component: Login },
     { path: 'perfil', component: Profile, canActivate: [authGuard] },
+    { path: 'mis-publicaciones', component: MyPosts, canActivate: [authGuard] },
     { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] }
 ];
