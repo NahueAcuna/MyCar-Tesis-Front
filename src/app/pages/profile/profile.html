@@ -41,9 +41,18 @@
 
     <div class="right-content">
         <div class="welcome">
-            <span>Bienvenido de vuelta</span>
-            <p>Hola, <span class="color">{{ user?.nombre }}</span></p>
-            <p>Gestiona tus publicaciones, reservas y favoritos <br> desde tu perfil.</p>
+            <div class="welcome-text">
+                <span>Bienvenido de vuelta</span>
+
+                <p>Hola, <span class="color">{{ user?.nombre }}</span></p>
+
+                <p>Gestiona tus publicaciones, reservas y favoritos <br> desde tu perfil.</p>
+
+            </div>
+
+            <div class="welcome-image">
+                <img src="/profileWelcome.png" alt="Imagen de bienvenida">
+            </div>
         </div>
 
         <div class="my-post">
@@ -63,7 +72,7 @@
             <div class="post-container">
                 @for(post of myPosts.slice(0,2); track post.id){
                     <div class="post-card">
-                        <img src="{{ post.auto.imagenesUrl }}" alt="Imagen del auto">
+                        <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto">
                         
                         <div class="post-info">
                             <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
@@ -94,10 +103,10 @@
                     <h2>Mis Reservas</h2>
                 </div>
 
-                <p class="view-all">
+                <button class="view-all" routerLink="">
                     Ver todas
                     <span class="material-symbols-outlined">arrow_forward</span>
-                </p>
+                </button>
             </div>
 
             <div class="reservation-container">
@@ -124,8 +133,7 @@
                 }
             </div>
         </div> 
-
-<!--        
+<!--
         <div class="my-favorite">
             <div class="section-header">
             
@@ -139,7 +147,7 @@
                     <span class="material-symbols-outlined">arrow_forward</span>
                 </p>
             </div>
-
+    
             <div class="favorite-container">
                 @for(favorite of myFavorites.slice(0,2); track favorite.id){
                     <div class="favorite-card">
@@ -160,6 +168,7 @@
                 }
             </div>
         </div>
+  -->      
     </div>
--->
+
 </div>

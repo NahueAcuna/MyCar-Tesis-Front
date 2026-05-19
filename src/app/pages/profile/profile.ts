@@ -40,4 +40,19 @@ export class Profile implements OnInit{
       error: (error) => {console.error('Error al obtener mis reservas:', error); alert('Error al obtener mis reservas');}
     });
   }
+
+  getImageUrl(url: string): string {
+
+  if (!url) {
+    return 'assets/no-image.png';
+  }
+
+  // si es una imagen externa
+  if (url.startsWith('http')) {
+    return url;
+  }
+
+  // si es una imagen local del backend
+  return 'http://localhost:8080' + url;
+}
 }
