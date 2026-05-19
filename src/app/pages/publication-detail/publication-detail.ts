@@ -47,23 +47,11 @@ export class PublicationDetail implements OnInit {
   }
 
   getPublicationById(id: string) {
-  this.publicationService.getPublicationById(id).subscribe({
-    next: (data) => {
-
-      console.log("PUBLICACION:");
-      console.log(data);
-
-      console.log("IMAGENES:");
-      console.log(data.auto.imagenesUrl);
-
-      this.publicationSelected = data;
-
-      this.selectedImage = data.auto.imagenesUrl[0];
-    },
-
-    error: () => alert('Se produjo un error')
-  })
-}
+    this.publicationService.getPublicationById(id).subscribe({
+      next: (data) => { this.publicationSelected = data; this.selectedImage = data.auto.imagenesUrl[0]; },
+      error: () => alert('Se produjo un error al mostrar la lista de publicaciones.')
+    })
+  }
 
   getImageUrl(url: string): string {
 
