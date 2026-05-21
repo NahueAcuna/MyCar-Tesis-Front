@@ -49,12 +49,12 @@ export class AuthService {
 
   getRol(): string {
     const payload = this.getPayload();
-    return payload?.rol || payload?.role || payload?.authorities || '';
+    return payload?.rol || payload?.role || payload?.authorities || payload?.authority || '';
   }
 
   isAdmin(): boolean {
     const rol = this.getRol();
-    return rol === 'ADMIN' || (Array.isArray(rol) && rol.includes('ADMIN'));
+    return rol === 'ADMIN' || rol === 'ROLE_ADMIN' || (Array.isArray(rol) && (rol.includes('ADMIN') || rol.includes('ROLE_ADMIN')));
   }
 
   isLoggedIn(): boolean {

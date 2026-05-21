@@ -108,11 +108,29 @@
     <h2>Paso 3: Fotos y Precio</h2>
     <div class="form-content">
       <div class="input-group">
-        <label>Fotos / Videos</label>
-        <input type="file" multiple class="file-input" (change)="onFileSelected($event)">
+        <label>Fotos del vehículo</label>
+        <input type="file" multiple accept="image/*" class="file-input" (change)="onFileSelected($event)">
       </div>
+      @if (publicationData.imagenes.length > 0) {
+        <div class="media-preview">
+          @for (img of publicationData.imagenes; track img) {
+            <img [src]="img" class="media-thumb" alt="preview">
+          }
+        </div>
+      }
       <div class="input-group">
-        <label>Precio sugerido</label>
+        <label>Videos del vehículo (opcional)</label>
+        <input type="file" multiple accept="video/*" class="file-input" (change)="onVideoSelected($event)">
+      </div>
+      @if (publicationData.videos.length > 0) {
+        <div class="media-preview">
+          @for (vid of publicationData.videos; track vid) {
+            <video [src]="vid" class="media-thumb" controls muted></video>
+          }
+        </div>
+      }
+      <div class="input-group">
+        <label>Precio</label>
         <input type="number" placeholder="Ej: 25000" [(ngModel)]="publicationData.precio" (keyup.enter)="irAPagina4()">
       </div>
     </div>
@@ -145,6 +163,9 @@
           <p><strong>Color:</strong> {{ publicationData.color || '-' }}</p>
           <p><strong>Puertas:</strong> {{ publicationData.puertas || '-' }}</p>
         </div>
+        @if (publicationData.videos.length > 0) {
+          <div class="preview-videos-label">🎥 {{ publicationData.videos.length }} video(s) adjunto(s)</div>
+        }
       </div>
     </div>
 

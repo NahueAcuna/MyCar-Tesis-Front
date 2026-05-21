@@ -2,15 +2,21 @@
 <div class="container">
     @if(publicationSelected){
     <div class="left">
-        <div class="image-wrapper" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
-            <img class="main-img" [src]="getImageUrl(selectedImage)" [style.transform]="transformStyle"
-                [style.transform-origin]="transformOrigin" />
+        <div class="image-wrapper" (mousemove)="!selectedIsVideo && onMouseMove($event)" (mouseleave)="!selectedIsVideo && onMouseLeave()">
+            @if (selectedIsVideo) {
+                <video class="main-img" [src]="'http://localhost:8080' + selectedImage" controls autoplay muted loop></video>
+            } @else {
+                <img class="main-img" [src]="'http://localhost:8080' + selectedImage" [style.transform]="transformStyle" [style.transform-origin]="transformOrigin"/>
+            }
         </div>
-
+    
         <div class="thumbs">
-            @for(img of publicationSelected.auto.imagenesUrl; track img){
-            <img [src]="getImageUrl(img)" (click)="selectedImage = img"
-                [class.active]="selectedImage === img" />
+            @for(media of todasLasMedia; track media){
+                @if (isVideo(media)) {
+                    <video [src]="'http://localhost:8080' + media" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media" muted></video>
+                } @else {
+                    <img [src]="'http://localhost:8080' + media" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media"/>
+                }
             }
         </div>
 

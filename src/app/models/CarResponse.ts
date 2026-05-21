@@ -10,4 +10,5 @@ export interface CarResponse {
   color: string;
   fichaTecnica: TechnicalSpecificationsResponse;
   imagenesUrl: string[];
+  videosUrl: string[];
 }
