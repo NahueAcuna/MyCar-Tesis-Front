@@ -67,4 +67,16 @@ export class GestionAdmin implements OnInit {
   verDetalle(id: number) {
     this.router.navigate(['/publicacion', id]);
   }
+
+  getImageUrl(url: string): string {
+    if (!url) {
+      return 'assets/no-image.png';
+    }
+
+    if (url.startsWith('http')) {
+      return url;
+    }
+
+    return 'http://localhost:8080' + url;
+  }
 }

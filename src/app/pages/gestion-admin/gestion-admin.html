@@ -41,7 +41,7 @@
           <div class="publicacion-card">
             <div class="card-img">
               @if (pub.auto.imagenesUrl && pub.auto.imagenesUrl.length > 0) {
-                <img [src]="'http://localhost:8080' + pub.auto.imagenesUrl[0]" alt="foto auto">
+                <img class="main-img" [src]="getImageUrl(pub.auto.imagenesUrl[0])" alt="foto auto">
               } @else {
                 <div class="no-img">Sin imagen</div>
               }
