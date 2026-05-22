@@ -16,6 +16,7 @@ export class PublicationDetail implements OnInit {
 
   publicationSelected!: PublicationResponse;
   selectedImage: string = '';
+  selectedIsVideo: boolean = false;
   transformStyle: string = 'scale(1)';
   transformOrigin: string = 'center';
 
@@ -46,11 +47,35 @@ export class PublicationDetail implements OnInit {
     this.location.back();
   }
 
-  getPublicationById(id: string) {
+  getPublicationById(id: string){
     this.publicationService.getPublicationById(id).subscribe({
-      next: (data) => { this.publicationSelected = data; this.selectedImage = data.auto.imagenesUrl[0]; },
+      next: (data) => {
+        this.publicationSelected = data;
+        const imagenes = data.auto.imagenesUrl || [];
+        const videos = data.auto.videosUrl || [];
+        const primero = imagenes[0] || videos[0] || '';
+        this.selectedImage = primero;
+        this.selectedIsVideo = this.isVideo(primero);
+      },
       error: () => alert('Se produjo un error al mostrar la lista de publicaciones.')
     })
+  }
+
+  isVideo(url: string): boolean {
+    const ext = url.split('.').pop()?.toLowerCase() || '';
+    return ['mp4', 'webm', 'ogg', 'mov'].includes(ext);
+  }
+
+  get todasLasMedia(): string[] {
+    if (!this.publicationSelected) return [];
+    const imagenes = this.publicationSelected.auto.imagenesUrl || [];
+    const videos = this.publicationSelected.auto.videosUrl || [];
+    return [...imagenes, ...videos];
+  }
+
+  seleccionarMedia(url: string) {
+    this.selectedImage = url;
+    this.selectedIsVideo = this.isVideo(url);
   }
 
   getImageUrl(url: string): string {

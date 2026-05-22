@@ -34,10 +34,12 @@ export class PublicationForm {
     combustible: '',
     caja: '',
     fotoUrl: 'https://via.placeholder.com/300x200/1a1a1a/ff8c00?text=Vista+Previa',
-    imagenes: [] as string[]
+    imagenes: [] as string[],
+    videos: [] as string[]
   };
 
   selectedFiles: File[] = [];
+  selectedVideoFiles: File[] = [];
 
   constructor(private router: Router, private publicationService: PublicationService) { }
 
@@ -69,6 +71,21 @@ export class PublicationForm {
     }
   }
 
+  onVideoSelected(event: any) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      this.publicationData.videos = [];
+      this.selectedVideoFiles = Array.from(files);
+      this.selectedVideoFiles.forEach((file: File) => {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.publicationData.videos.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  }
+
   publicarVehiculo() {
     const publicacionRequestDTO: import('../../models/PublicationRequest').PublicationRequest = {
       descripcion: this.publicationData.descripcion || 'Sin descripción',
@@ -90,7 +107,8 @@ export class PublicationForm {
       }
     };
 
-    this.publicationService.createPublication(publicacionRequestDTO, this.selectedFiles).subscribe({
+    const todosLosArchivos = [...this.selectedFiles, ...this.selectedVideoFiles];
+    this.publicationService.createPublication(publicacionRequestDTO, todosLosArchivos).subscribe({
       next: () => {
         alert('Publicación creada con éxito!');
         this.router.navigate(['/']);
@@ -114,6 +132,18 @@ export class PublicationForm {
       this.errorMessage = 'Completá todos los campos antes de continuar.';
       return;
     }
+    if (this.publicationData.marca.trim().length < 2) {
+      this.errorMessage = 'La marca debe tener al menos 2 caracteres.';
+      return;
+    }
+    if (this.publicationData.modelo.trim().length < 2) {
+      this.errorMessage = 'El modelo debe tener al menos 2 caracteres.';
+      return;
+    }
+    if (this.publicationData.descripcion.trim().length < 10) {
+      this.errorMessage = 'La descripción debe tener al menos 10 caracteres.';
+      return;
+    }
     this.errorMessage = '';
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = true;
@@ -128,6 +158,28 @@ export class PublicationForm {
       this.errorMessage = 'Completá todos los campos antes de continuar.';
       return;
     }
+    
+    if (!/^\d+$/.test(this.publicationData.km.trim())) {
+      this.errorMessage = 'Los kilómetros deben contener únicamente números.';
+      return;
+    }
+
+    const currentYear = new Date().getFullYear();
+    if (this.publicationData.anio < 1900 || this.publicationData.anio > currentYear + 1) {
+      this.errorMessage = `El año debe estar entre 1900 y ${currentYear + 1}.`;
+      return;
+    }
+
+    if (this.publicationData.caballos <= 0) {
+      this.errorMessage = 'Los caballos de fuerza deben ser mayores a 0.';
+      return;
+    }
+
+    if (this.publicationData.puertas < 2 || this.publicationData.puertas > 6) {
+      this.errorMessage = 'La cantidad de puertas debe estar entre 2 y 6.';
+      return;
+    }
+
     this.errorMessage = '';
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = false;
@@ -138,6 +190,10 @@ export class PublicationForm {
   irAPagina4() {
     if (this.selectedFiles.length === 0 || !this.publicationData.precio) {
       this.errorMessage = 'Subí al menos una foto y completá el precio.';
+      return;
+    }
+    if (this.publicationData.precio <= 0) {
+      this.errorMessage = 'El precio debe ser mayor a 0.';
       return;
     }
     this.errorMessage = '';

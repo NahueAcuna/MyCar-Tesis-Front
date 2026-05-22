@@ -564,3 +564,25 @@
 .preview-specs strong {
     color: #ffb347;
 }
+
+/* ================= MEDIA PREVIEW (STEP 3) ================= */
+.media-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+.media-thumb {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #000;
+}
+.preview-videos-label {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #ff8c00;
+    font-weight: bold;
+}
