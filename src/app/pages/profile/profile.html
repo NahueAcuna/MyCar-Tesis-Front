@@ -72,8 +72,11 @@
             <div class="post-container">
                 @for(post of myPosts.slice(0,2); track post.id){
                     <div class="post-card">
-                        <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto">
-                        
+
+                        <div class="post-img-container" [routerLink]="['/publicacion', post.id]">
+                            <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto">
+                        </div>
+
                         <div class="post-info">
                             <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
                             

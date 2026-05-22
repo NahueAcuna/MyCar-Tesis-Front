@@ -6,8 +6,11 @@
     <div class="post-container">
         @for(post of myPosts; track post.id){
             <div class="post-card" [routerLink]="['/publicacion', post.id]">
-                <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto">
-                            
+                
+                <div class="post-img-container">
+                    <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto">
+                </div>
+
                 <div class="post-info">
                     <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
                                 
