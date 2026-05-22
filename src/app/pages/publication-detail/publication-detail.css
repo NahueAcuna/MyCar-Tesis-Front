@@ -1,212 +1,422 @@
-/* ================= LAYOUT ================= */
-.container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 30px;
-    padding: 40px;
-    margin-top: 80px;
-    width: 100%;
+/* ================= PAGE ================= */
+
+.detail-page{
+    position: relative;
     min-height: 100vh;
+    padding: 120px 50px 60px;
+    background:linear-gradient(rgba(0,0,0,.84), rgba(0,0,0,.88)), url('/profile.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+/* ================= OVERLAY ================= */
+
+.overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.30);
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) 420px;
+    gap: 40px;
+    align-items: start;
 }
 
 /* ================= LEFT ================= */
-.left {
+
+.left{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
-/* Imagen principal */
-.image-wrapper {
+/* ================= IMAGE ================= */
+
+.image-wrapper{
     width: 100%;
-    max-width: 550px;
-    height: 350px;
+    height: 560px;
+    border-radius: 30px;
     overflow: hidden;
-    border-radius: 12px;
-    background: #000;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,140,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 0 1px rgba(255,140,0,.05), 0 0 30px rgba(255,140,0,.08);
+}
+
+.main-img{
+    width: 96%;
+    height: 96%;
+    object-fit: contain;
+    border-radius: 22px;
+    transition: transform .35s ease;
     cursor: zoom-in;
 }
 
-.main-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
-    transition: transform 0.4s ease;
+/* ================= THUMBS ================= */
+
+.thumbs{
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 18px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
 }
 
-/* Miniaturas */
-.thumbs {
-    display: flex;
-    gap: 10px;
-}
-
-.thumbs img,
-.thumbs video{
-    width: 110px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
+.thumbs img{
+    width: 120px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 14px;
+    padding: 4px;
+    opacity: .65;
+    transition: .3s ease;
+    border: 2px solid transparent;
     cursor: pointer;
-    opacity: 0.7;
-    transition: 0.3s;
+    flex-shrink: 0;
 }
 
-.thumbs img:hover,
-.thumbs video:hover{
+.thumbs img:hover{
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
-.thumbs img.active,
-.thumbs video.active{
-    border: 2px solid orange;
+.thumbs img.active{
+    border-color: orange;
     opacity: 1;
+}
+
+/* ================= CARDS ================= */
+
+.description, .specs, .right{
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,140,0,0.18);
+    border-radius: 28px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 0 1px rgba(255,140,0,.04), 0 0 25px rgba(255,140,0,.06);
 }
 
 /* ================= DESCRIPTION ================= */
-.description, .specs {
-    background: linear-gradient(135deg, #070707 40%, #3b1f05);
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,140,0,0.35);
+
+.description{
+    padding: 30px;
 }
 
-.description h2, .specs h2 {
-    margin-bottom: 15px;
+.description p{
+    color: #d1d1d1;
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+/* ================= SECTION TITLE ================= */
+
+.section-title{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.section-title span{
     color: orange;
+    font-size: 30px;
+}
+
+.section-title h2{
+    margin: 0;
+    font-size: 30px;
+}
+
+/* ================= SPECS ================= */
+
+.specs{
+    padding: 30px;
 }
 
 /* ================= GRID ================= */
-.grid {
+
+.grid{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(2,1fr);
+    gap: 18px;
 }
 
-.grid span {
+/* ================= SPEC CARD ================= */
+
+.spec-card{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,140,0,0.08);
+    transition: 0.3s ease;
+}
+
+.spec-card:hover{
+    transform: translateY(-2px);
+    border-color: rgba(255,140,0,0.22);
+    background: rgba(255,140,0,0.04);
+}
+
+.spec-card span{
+    font-size: 28px;
+    color: orange;
+}
+
+.spec-card small{
+    color: #888;
     display: block;
-    font-size: 12px;
-    color: #aaa;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 
-/* ================= RIGHT PANEL ================= */
-.right {
-    background: linear-gradient(135deg, #070707 40%, #3b1f05);
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,140,0,0.35);
+.spec-card p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* ================= RIGHT ================= */
+
+.right{
+    width: 100%;
+    min-width: 420px;
+    padding: 34px;
+    position: sticky;
+    top: 120px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    height: fit-content;
+    gap: 28px;
 }
 
-.right h1 {
-    margin: 0;
+/* ================= TITLE ================= */
+
+.right h1{
+    margin: 18px 0 10px;
+    font-size: 52px;
+    line-height: 1.05;
+    word-break: break-word;
 }
 
-.price {
-    font-size: 30px;
+.subtitle{
+    color: #9e9e9e;
+    font-size: 16px;
+}
+
+/* ================= PRICE ================= */
+
+.price{
+    font-size: clamp(42px, 4vw, 64px);
+    font-weight: 900;
     color: orange;
+    margin-top: 12px;
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+/* ================= MINI SPECS ================= */
+
+.mini-specs{
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 14px;
+}
+
+.mini-card{
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    overflow: hidden;
+    transition: 0.3s ease;
+}
+
+.mini-card:hover{
+    transform: translateY(-2px);
+    border-color: rgba(255,140,0,0.22);
+    background: rgba(255,140,0,0.04);
+}
+
+.mini-card small{
+    display: block;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.mini-card p{
     margin: 0;
+    overflow-wrap: break-word;
+    font-weight: 700;
+}
+
+/* ================= ACTIONS ================= */
+
+.actions{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 /* ================= BUTTONS ================= */
-.btn {
-    padding: 12px;
+
+.btn{
+    width: 100%;
+    padding: 16px;
     border: none;
-    border-radius: 8px;
+    border-radius: 18px;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+    transition: .3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.primary {
-    background: linear-gradient(135deg, #ff8c00, #ffb347);
+/* ================= RESERVE ================= */
+
+.reserve{
+    background: linear-gradient(135deg,#ff8c00,#ffb347);
     color: black;
 }
 
-.primary:hover {
-    transform: scale(1.03);
+.reserve:hover{
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 0 20px rgba(255,140,0,.25);
 }
 
-.whatsapp {
+/* ================= WHATSAPP ================= */
+
+.whatsapp{
     background: #25D366;
     color: white;
-    text-align: center;
-    text-decoration: none;
 }
 
-.whatsapp:hover {
-    transform: scale(1.03);
-}
-
-.back {
-    margin-top: 20px;
-    padding: 6px 14px;
-    font-size: 13px;
-    background: linear-gradient(135deg, #ff8c00, #ffb347);
-    color: black;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    width: fit-content;
-}
-
-.back:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+.whatsapp:hover{
+    transform: translateY(-2px) scale(1.01);
 }
 
 /* ================= SELLER ================= */
-.seller {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #444;
+
+.seller{
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.seller-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.seller-header span{
+    color: orange;
+}
+
+.seller-header h3{
+    margin: 0;
+}
+
+.seller p{
+    color: #d2d2d2;
+    font-size: 16px;
+}
+
+/* ================= BACK ================= */
+
+.back{
+    position: fixed;
+    top: 1%;
+    height: 65px;
+    box-sizing: border-box;
+    left: 60px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0px 22px;
+    border-radius: 50px;
+    border: none;
+    background: rgba(0, 0, 0, 0.86);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.back:hover{
+   transform: scale(1.03);
+   box-shadow: 0 0 8px #502802;
 }
 
 /* ================= MOBILE ================= */
-@media (max-width: 768px) {
 
-    .container {
+@media(max-width: 1200px){
+
+    .container{
         grid-template-columns: 1fr;
-        padding: 15px;
-        gap: 20px;
     }
 
-    .image-wrapper {
-        height: 250px;
+    .right{
+        position: relative;
+        top: 0;
+    }
+}
+
+@media(max-width: 768px){
+
+    .detail-page{
+        padding: 110px 16px 50px;
     }
 
-    .thumbs {
-        overflow-x: auto;
+    .image-wrapper{
+        height: 320px;
     }
 
-    .thumbs img,
-    .thumbs video{
-        width: 90px;
-        height: 60px;
-        flex-shrink: 0;
-    }
-
-    .right h1 {
-        font-size: 20px;
-    }
-
-    .price {
-        font-size: 24px;
-    }
-
-    .btn {
-        width: 100%;
-        padding: 14px;
-    }
-
-    .grid {
+    .grid{
         grid-template-columns: 1fr;
+    }
+
+    .mini-specs{
+        grid-template-columns: 1fr;
+    }
+
+    .right h1{
+        font-size: 34px;
+    }
+
+    .price{
+        font-size: 42px;
+    }
+
+    .thumbs img{
+        width: 95px;
+        height: 65px;
+    }
+
+    .back{
+        left: 16px;
     }
 }

@@ -28,7 +28,7 @@ export class PublicationDetail implements OnInit {
   }
 
   onMouseMove(event: MouseEvent) {
-    const element = event.currentTarget as HTMLElement;
+    const element = event.target as HTMLElement;
     const rect = element.getBoundingClientRect();
 
     const x = ((event.clientX - rect.left) / rect.width) * 100;
@@ -79,17 +79,14 @@ export class PublicationDetail implements OnInit {
   }
 
   getImageUrl(url: string): string {
+    if (!url) {
+      return 'assets/no-image.png';
+    }
 
-  if (!url) {
-    return 'assets/no-image.png';
+    if (url.startsWith('http')) {
+      return url;
+    }
+
+    return 'http://localhost:8080' + url;
   }
-
-  // si es una imagen externa
-  if (url.startsWith('http')) {
-    return url;
-  }
-
-  // si es una imagen local del backend
-  return 'http://localhost:8080' + url;
-}
 }

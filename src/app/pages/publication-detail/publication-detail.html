@@ -1,67 +1,191 @@
 <app-header></app-header>
-<div class="container">
-    @if(publicationSelected){
-    <div class="left">
-        <div class="image-wrapper" (mousemove)="!selectedIsVideo && onMouseMove($event)" (mouseleave)="!selectedIsVideo && onMouseLeave()">
-            @if (selectedIsVideo) {
-                <video class="main-img" [src]="'http://localhost:8080' + selectedImage" controls autoplay muted loop></video>
-            } @else {
-                <img class="main-img" [src]="'http://localhost:8080' + selectedImage" [style.transform]="transformStyle" [style.transform-origin]="transformOrigin"/>
-            }
-        </div>
-    
-        <div class="thumbs">
-            @for(media of todasLasMedia; track media){
-                @if (isVideo(media)) {
-                    <video [src]="'http://localhost:8080' + media" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media" muted></video>
-                } @else {
-                    <img [src]="'http://localhost:8080' + media" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media"/>
-                }
-            }
-        </div>
 
-        <div class="description">
-            <h2>Descripción</h2>
-            <p>{{publicationSelected.descripcion}}</p>
-        </div>
+<div class="detail-page">
 
-        <div class="specs">
-            <h2>Especificaciones Técnicas</h2>
+    <div class="overlay"></div>
 
-            <div class="grid">
-                <p><span>Motor</span>{{publicationSelected.auto.fichaTecnica.motor}}</p>
-                <p><span>Combustible</span>{{publicationSelected.auto.fichaTecnica.combustible}}</p>
-                <p><span>Caja</span>{{publicationSelected.auto.fichaTecnica.caja}}</p>
-                <p><span>Puertas</span>{{publicationSelected.auto.fichaTecnica.puertas}}</p>
-                <p><span>Potencia</span>{{publicationSelected.auto.fichaTecnica.potencia}}</p>
-                <p><span>Año</span>{{publicationSelected.auto.anio}}</p>
-                <p><span>Km</span>{{publicationSelected.auto.km}}</p>
-                <p><span>Color</span>{{publicationSelected.auto.color}}</p>
+    @if(publicationSelected){        
+        <div class="container">
+            <div class="left">
+                <div class="image-wrapper">
+                    <img class="main-img" 
+                        [src]="getImageUrl(selectedImage)" 
+                        [style.transform]="transformStyle"
+                        [style.transform-origin]="transformOrigin" 
+                        (mousemove)="onMouseMove($event)" 
+                        (mouseleave)="onMouseLeave()"
+                    />
+                </div>
+
+                <div class="thumbs">
+                    @for(img of publicationSelected.auto.imagenesUrl; track img){
+                        <img 
+                            [src]="getImageUrl(img)"
+                            (click)="selectedImage = img"
+                            [class.active]="selectedImage === img"
+                        />
+                    }
+                </div>
+
+                <div class="description">
+                    <div class="section-title">
+                        <span class="material-symbols-outlined">description</span>
+                        <h2>Descripción</h2>
+                    </div>
+
+                    <p>
+                        {{publicationSelected.descripcion}}
+                    </p>
+                </div>
+
+                <div class="specs">
+                    <div class="section-title">
+                        <span class="material-symbols-outlined">settings</span>
+                        <h2>Especificaciones Técnicas</h2>
+                    </div>
+
+                    <div class="grid">
+                        <div class="spec-card">
+                            <span class="material-symbols-outlined">speed</span>
+                            <div>
+                                <small>Motor</small>
+                                <p>{{publicationSelected.auto.fichaTecnica.motor}}</p>
+                            </div>
+                        </div>
+
+                        <div class="spec-card">
+                            <span class="material-symbols-outlined">local_gas_station</span>
+                            <div>
+                                <small>Combustible</small>
+                                <p>{{publicationSelected.auto.fichaTecnica.combustible}}</p>
+                            </div>
+                        </div>
+
+                        <div class="spec-card">
+                            <span class="material-symbols-outlined">settings</span>
+                            <div>
+                                <small>Caja</small>
+                                <p>{{publicationSelected.auto.fichaTecnica.caja}}</p>
+                            </div>
+                        </div>
+
+                        <div class="spec-card">
+                            <span class="material-symbols-outlined">door_front</span>
+                            <div>
+                                <small>Puertas</small>
+                                <p>{{publicationSelected.auto.fichaTecnica.puertas}}</p>
+                            </div>
+                        </div>
+
+                        <div class="spec-card">
+                            <span class="material-symbols-outlined">bolt</span>
+                            <div>
+                                <small>Potencia</small>
+                                <p>{{publicationSelected.auto.fichaTecnica.potencia}}</p>
+                            </div>
+                        </div>
+
+                        <div class="spec-card">
+                            <span class="material-symbols-outlined">calendar_today</span>
+                            <div>
+                                <small>Año</small>
+                                <p>{{publicationSelected.auto.anio}}</p>
+                            </div>
+                        </div>
+
+                        <div class="spec-card">
+                            <span class="material-symbols-outlined">route</span>
+                            <div>
+                                <small>Kilómetros</small>
+                                <p>{{publicationSelected.auto.km}} km</p>
+                            </div>
+                        </div>
+
+                        <div class="spec-card">
+                            <span class="material-symbols-outlined">palette</span>
+                            <div>
+                                <small>Color</small>
+                                <p>{{publicationSelected.auto.color}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
+
+            <div class="right">
+                <div class="top-info">
+
+                    <h1>
+                        {{publicationSelected.auto.marca}}
+                        {{publicationSelected.auto.modelo}}
+                    </h1>
+
+                    <p class="subtitle">
+                        {{publicationSelected.auto.anio}} ·
+                        {{publicationSelected.auto.km}} km ·
+                        {{publicationSelected.auto.fichaTecnica.combustible}}
+                    </p>
+
+                    <h2 class="price">
+                        $ {{publicationSelected.auto.precio}}
+                    </h2>
+                </div>
+
+                <div class="mini-specs">
+                    <div class="mini-card">
+                        <small>Año</small>
+                        <p>{{publicationSelected.auto.anio}}</p>
+                    </div>
+
+                    <div class="mini-card">
+                        <small>Kilómetros</small>
+                        <p>{{publicationSelected.auto.km}}</p>
+                    </div>
+
+                    <div class="mini-card">
+                        <small>Combustible</small>
+                        <p>{{publicationSelected.auto.fichaTecnica.combustible}}</p>
+                    </div>
+
+                    <div class="mini-card">
+                        <small>Caja</small>
+                        <p>{{publicationSelected.auto.fichaTecnica.caja}}</p>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn reserve">
+                        Reservar Vehículo
+                    </button>
+
+                    <a class="btn whatsapp"
+                        href="https://wa.me/549223465798?text=Hola, me interesa el {{publicationSelected.auto.marca}} {{publicationSelected.auto.modelo}} del año {{publicationSelected.auto.anio}}"
+                        target="_blank">
+                        Contactar por WhatsApp
+                    </a>
+
+                </div>
+
+                <div class="seller">
+                    <div class="seller-header">
+                        <span class="material-symbols-outlined">person</span>
+                        <h3>Vendedor</h3>
+                    </div>
+                    <p>{{publicationSelected.nombreVendedor}}</p>
+                </div>
+
+            </div>
+
         </div>
-    </div>
+        }
+        
+    <button class="back" (click)="goBack()">
+        Volver
+    </button>
 
-    <div class="right">
-        <h1>
-            {{publicationSelected.auto.marca}}
-            {{publicationSelected.auto.modelo}}
-        </h1>
-
-        <h2 class="price">
-            $ {{publicationSelected.auto.precio}}
-        </h2>
-
-        <button class="btn primary">Reservar Vehículo</button>
-        <a class="btn whatsapp"
-            href="https://wa.me/549223465798?text=Hola, me interesa el {{publicationSelected.auto.marca}} {{publicationSelected.auto.modelo}} del año {{publicationSelected.auto.anio}}"
-            target="_blank"> Contactar</a>
-
-        <div class="seller">
-            <p><strong>Nombre vendedor:</strong> {{publicationSelected.nombreVendedor}}</p>
-        </div>
-    </div>
-    }
-
-    <button class="back" (click)="goBack()"> Volver</button>
 </div>
+
 <app-footer></app-footer>
