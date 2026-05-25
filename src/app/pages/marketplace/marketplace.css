@@ -1,11 +1,18 @@
 h1{
-    text-align: center;
+    text-align: start;
     padding-top: 15vh;
+    margin-left:7vw ;
     font-size: 58px;
     font-weight: 800;
 }
+h2{
+    text-align: start;
+    margin-left:7vw ;
+    font-size: 16px;
+    color: #8f8b8b;
+}
 h1 span{
-    background: linear-gradient(to bottom, #ffb347 0%, #ffe5b4 20%, #ff8c00 50%, #1a1a1a 80%, #000000 100%);
+    background: linear-gradient(to bottom, #ffb347 0%, #ffe5b4 20%, #ff8c00 50%, #1a1a1a 90%, #000000 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent; 
