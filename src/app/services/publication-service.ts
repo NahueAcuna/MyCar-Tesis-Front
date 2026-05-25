@@ -17,6 +17,9 @@ export class PublicationService {
   getPublications(){
     return this.http.get<PublicationResponse[]>(`${this.url}/tienda`);
   }
+  getUserPublications(){
+    return this.http.get<PublicationResponse[]>(`${this.url}/usados`)
+  }
   createPublication(publicacion: import('../models/PublicationRequest').PublicationRequest, files: File[]) {
     const formData = new FormData();
     formData.append('publicacion', JSON.stringify(publicacion));
