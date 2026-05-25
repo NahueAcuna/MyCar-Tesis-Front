@@ -41,7 +41,7 @@ span {
     display: flex;
     gap: 30px;
 }
-#boxes div{
+#boxes .box{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,6 +55,112 @@ span {
     text-align: center;
     padding: 15px 15px 0 15px;
     transition: 0.4s ease-in-out;
+}
+#call_btn{
+    display: flex;
+    flex-direction: column;
+    width: 95px;
+    height: 89px;
+    margin-left: 440px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 24px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,140,0,0.95),
+        rgba(255,102,0,0.95)
+    );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    text-decoration: none;
+
+    box-shadow:
+    0 10px 25px rgba(255,140,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+
+    position: relative;
+    overflow: hidden;
+
+    transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+/* brillo premium */
+#call_btn::before{
+    content: '';
+
+    position: absolute;
+    top: -40%;
+    left: -120%;
+
+    width: 80%;
+    height: 180%;
+
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+    );
+
+    transform: rotate(25deg);
+
+    animation: shineLoop 4s ease-in-out infinite;
+}
+#call_btn p{
+    color: rgba(82, 35, 4, 0.75);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#call_btn:hover::before{
+    animation: shineHover 0.8s ease;
+}
+
+#call_btn:hover{
+    transform: translateY(-4px);
+
+    box-shadow:
+    0 16px 35px rgba(255,140,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.25);
+
+    filter: brightness(1.05);
+}
+
+#call_btn:active{
+    transform: scale(0.96);
+}
+
+#call_icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#call_icon span{
+    font-size: 38px !important;
+
+    color: white !important;
+
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+
+    transition:
+    transform 0.25s ease;
+}
+
+#call_btn:hover #call_icon span{
+    transform: scale(1.08) rotate(-8deg);
 }
 #boxes div:hover{
     transform: translateY(-2px);
@@ -79,7 +185,7 @@ top: -15%;
 .plus{
     font-size: 25px !important;
 }
-.material-symbols-outlined{
+#arrow{
     position: absolute;
     bottom:1%;
     left: 50%;
@@ -88,6 +194,21 @@ top: -15%;
     animation: flecha 0.8s infinite ease-in-out alternate;
     color: #4b4b4b;
 }
+#location_icon{
+    display: flex;
+    position: absolute;
+    right: 82%;
+    top: 92%;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: #888686;
+}
+#location_icon span{
+font-size: 44px;
+    color: orange;
+}
+
 @keyframes flecha {
     0%{
         transform: translateY(0);
@@ -97,5 +218,31 @@ top: -15%;
         opacity: 0.5;
     }
 }
+@keyframes shineLoop{
+
+    0%{
+        left: -140%;
+    }
+
+    20%{
+        left: 140%;
+    }
+
+    100%{
+        left: 140%;
+    }
+}
+
+@keyframes shineHover{
+
+    0%{
+        left: -140%;
+    }
+
+    100%{
+        left: 140%;
+    }
+}
+
 
 
