@@ -61,21 +61,16 @@ span {
     flex-direction: column;
     width: 95px;
     height: 89px;
-    margin-left: 440px;
-    margin-top: 20px;
+    margin-left: 340px;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
 
     border-radius: 24px;
 
-    background:
-    linear-gradient(
-        145deg,
-        rgba(255,140,0,0.95),
-        rgba(255,102,0,0.95)
-    );
-
+    border: 1px solid #a16817;
+    background: linear-gradient(135deg, #180b02 5%, #683a0c);
     border: 1px solid rgba(255,255,255,0.08);
 
     text-decoration: none;
@@ -93,7 +88,7 @@ span {
     filter 0.25s ease;
 }
 
-/* brillo premium */
+
 #call_btn::before{
     content: '';
 
@@ -117,7 +112,7 @@ span {
     animation: shineLoop 4s ease-in-out infinite;
 }
 #call_btn p{
-    color: rgba(82, 35, 4, 0.75);
+    color:white;
     font-size: 14px;
     font-weight: 700;
 }
@@ -148,8 +143,7 @@ span {
 
 #call_icon span{
     font-size: 38px !important;
-
-    color: white !important;
+    color: orange !important;
 
     background: none !important;
     -webkit-background-clip: unset !important;
@@ -164,7 +158,6 @@ span {
 }
 #boxes div:hover{
     transform: translateY(-2px);
-    box-shadow: -7px 10px 30px rgba(230, 126, 34, 0.2);
 }
 #boxes div span{
     font-size: 45px;
