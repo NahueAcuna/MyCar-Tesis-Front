@@ -76,7 +76,7 @@ export class Marketplace {
   }
 
   getPublications() {
-    this.publicationService.getPublications().subscribe({
+    this.publicationService.getUserPublications().subscribe({
       next: (data) => {
         this.publications = data;
         this.filteredPublications = data;
@@ -200,5 +200,17 @@ export class Marketplace {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+
+  getImageUrl(url: string): string {
+    if (!url){
+      return 'assets/no-image.png';
+    }
+
+    if (url.startsWith('http')) {
+      return url;
+    }
+
+    return 'http://localhost:8080' + url;
   }
 }

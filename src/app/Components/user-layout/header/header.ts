@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { CommonModule } from '@angular/common';
@@ -10,8 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.css',
 })
 export class Header implements AfterViewInit{
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
   seccionActiva: string = ''; 
+  menuOpen = false;
 
   ngAfterViewInit() {
     const observador = new IntersectionObserver((entradas) => {
@@ -32,4 +34,5 @@ export class Header implements AfterViewInit{
     
     if (seccionAutos) observador.observe(seccionAutos);
   }
+
 }

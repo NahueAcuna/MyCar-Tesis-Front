@@ -196,6 +196,11 @@ top: -15%;
     align-items: center;
     gap: 5px;
     color: #888686;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+#location_icon:hover{
+    color: orange;
 }
 #location_icon span{
 font-size: 44px;
@@ -237,5 +242,55 @@ font-size: 44px;
     }
 }
 
+/* ================= RESPONSIVE ================= */
 
-
+@media(max-width: 768px){
+    #title{
+        font-size: 36px;
+    }
+    #hero{
+        font-size: 14px;
+    }
+    #content{
+        gap: 30px;
+        padding: 0 20px;
+        align-items: center;
+        text-align: center;
+    }
+    #boxes{
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    #boxes .box{
+        width: 140px;
+        height: 120px;
+        padding: 12px;
+    }
+    #boxes div span{
+        font-size: 32px;
+        margin-bottom: 6px;
+    }
+    #call_btn{
+        margin-left: 0;
+        margin-top: 10px;
+        width: 80px;
+        height: 75px;
+    }
+    #location_icon{
+        position: relative;
+        right: auto;
+        top: auto;
+        margin-top: 10px;
+        justify-content: center;
+    }
+    #location_icon span{
+        font-size: 28px;
+    }
+    #location_icon p{
+        font-size: 12px;
+    }
+    #arrow{
+        font-size: 40px;
+    }
+}

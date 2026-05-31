@@ -1,20 +1,22 @@
 <header>
     <span id="logo" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
         style="cursor: pointer;">MyCar</span>
+
+    <button class="menu-toggle" (click)="menuOpen = !menuOpen">
+        <span class="material-symbols-outlined">{{ menuOpen ? 'close' : 'menu' }}</span>
+    </button>
         
-    <nav>
+    <nav [class.open]="menuOpen">
         <ul>
-            <a href="#inventory">
-                <li [class.active]="seccionActiva === 'inventory'" style="cursor: pointer;">
-                    Nuestros Autos
-                </li>
-            </a>
+            <li [class.active]="seccionActiva === 'inventory'" style="cursor: pointer;" routerLink="/" fragment="inventory" (click)="menuOpen = false">
+                Nuestros Autos
+            </li>
             
-            <li routerLink="/vender" routerLinkActive="active" style="cursor: pointer;">Vende tu Auto</li>
-            <li routerLink="/marketplace" routerLinkActive="active" style="cursor: pointer;">MarketPlace</li>
+            <li routerLink="/vender" routerLinkActive="active" style="cursor: pointer;" (click)="menuOpen = false">Vende tu Auto</li>
+            <li routerLink="/marketplace" routerLinkActive="active" style="cursor: pointer;" (click)="menuOpen = false">MarketPlace</li>
             
             @if (authService.isAdmin()) {
-                <li routerLink="/gestionar" routerLinkActive="active" style="cursor: pointer;">Gestionar</li>
+                <li routerLink="/gestionar" routerLinkActive="active" style="cursor: pointer;" (click)="menuOpen = false">Gestionar</li>
             }
         </ul>
     </nav>
