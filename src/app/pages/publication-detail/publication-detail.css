@@ -196,7 +196,7 @@
 
 .right{
     width: 100%;
-    min-width: 420px;
+    min-width: 0;
     padding: 34px;
     position: sticky;
     top: 120px;
@@ -388,37 +388,86 @@
 @media(max-width: 768px){
 
     .detail-page{
-        padding: 110px 16px 50px;
+        padding: 90px 12px 40px;
     }
 
     .image-wrapper{
-        height: 320px;
+        height: 240px;
+        border-radius: 16px;
     }
 
-    .grid{
-        grid-template-columns: 1fr;
+    .main-img{
+        border-radius: 12px;
     }
 
-    .mini-specs{
-        grid-template-columns: 1fr;
-    }
-
-    .right h1{
-        font-size: 34px;
-    }
-
-    .price{
-        font-size: 42px;
+    .thumbs{
+        padding: 10px;
+        gap: 8px;
+        border-radius: 14px;
     }
 
     .thumbs img,
     .thumbs video{
-        width: 90px;
-        height: 60px;
+        width: 70px;
+        height: 48px;
         flex-shrink: 0;
     }
 
+    .description, .specs{
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .section-title span,
+    .section-title h2{
+        font-size: 20px;
+    }
+
+    .grid{
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .spec-card{
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .right{
+        padding: 20px;
+        border-radius: 18px;
+        gap: 20px;
+    }
+
+    .right h1{
+        font-size: 28px;
+        margin: 10px 0 6px;
+    }
+
+    .price{
+        font-size: 34px;
+    }
+
+    .mini-specs{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .mini-card{
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .btn{
+        padding: 14px;
+        border-radius: 14px;
+        font-size: 15px;
+    }
+
     .back{
-        left: 16px;
+        left: 12px;
+        height: 48px;
+        padding: 0 16px;
+        font-size: 13px;
     }
 }

@@ -15,6 +15,14 @@ header{
     height: 65px;
     transition: 0.4s ease-in-out;
 }
+#logo{
+    font-size: 18px;
+    font-weight: 750;
+    color: #777;
+    transition: 0.3s ease-in-out;
+    flex: 1;
+    text-align: left;
+}
 header:hover{
     box-shadow: 0 0 8px #502802;
 }
@@ -53,12 +61,6 @@ li.active::before, li:hover::before{
     width: 100%;
 }
 
-#logo{
-    font-size: 18px;
-    font-weight: 750;
-    color: #777;
-    transition: 0.3s ease-in-out;
-}
 #logo.active, #logo:hover{
     background: linear-gradient(to right, #FF7F0E, #974e04);
     -webkit-background-clip: text;
@@ -80,6 +82,8 @@ button{
 #buttons{
     display: flex;
     gap: 20px;
+    flex: 1;
+    justify-content: flex-end;
 }
 
 .login-btn{
@@ -101,6 +105,8 @@ button{
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
+    flex: 1;
+    justify-content: flex-end;
 }
 
 .profile-btn:hover{
@@ -112,3 +118,100 @@ button{
     font-size: 30px;
 }
 
+/* ================= HAMBURGER (hidden on desktop) ================= */
+
+.menu-toggle{
+    display: none;
+    background: transparent;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.menu-toggle .material-symbols-outlined{
+    color: orange;
+    font-size: 28px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1200px){
+    header{
+        width: 85%;
+    }
+    ul{
+        gap: 20px;
+    }
+    li{
+        font-size: 15px;
+    }
+}
+
+@media(max-width: 768px){
+    header{
+        width: calc(100% - 24px);
+        padding: 10px 16px;
+        height: 50px;
+        border-radius: 16px;
+        top: 6px;
+        flex-wrap: wrap;
+    }
+
+    .menu-toggle{
+        display: flex;
+        align-items: center;
+        order: 2;
+    }
+
+    #buttons{
+        gap: 10px;
+        order: 3;
+    }
+
+    #buttons button{
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .profile-btn{
+        order: 3;
+        padding: 6px 10px;
+    }
+
+    #logo{
+        font-size: 16px;
+        order: 1;
+    }
+
+    nav{
+        display: none;
+        order: 4;
+        width: 100%;
+        padding: 16px 0 8px;
+    }
+
+    nav.open{
+        display: block;
+    }
+
+    ul{
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+
+    li{
+        font-size: 16px;
+    }
+
+    li::before{
+        display: none;
+    }
+
+    /* Expand header when menu is open */
+    header:has(nav.open){
+        height: auto;
+        border-radius: 16px;
+        padding-bottom: 12px;
+    }
+}

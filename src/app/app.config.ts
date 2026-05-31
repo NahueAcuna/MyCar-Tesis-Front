@@ -13,7 +13,6 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
         scrollPositionRestoration: 'enabled'
       })),
-    provideRouter(routes),
     provideHttpClient(withInterceptors([jwtInterceptor]))
   ]
 };

@@ -20,7 +20,7 @@ h1 span{
 #total_container {
     
 }
-#inventory{
+#marketplace-content{
     display: flex;
     gap: 20px;
     padding: 100px;
@@ -248,7 +248,6 @@ select:focus{
 .car_publication{
     display: flex;
     flex-direction: column;
-    height: 340px;
     border: 1px solid #663f18;
     border-radius: 15px;
     padding: 12px;
@@ -260,11 +259,20 @@ select:focus{
 .car_publication:hover{
     box-shadow: -4px 3px 32px #693806;
 }
+.car-img-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #121212;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .car_publication img{
     width: 100%;
-    height: 190px;
-    border-radius: 10px;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
 }
 #information{
     display: flex;

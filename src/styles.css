@@ -23,6 +23,7 @@ html {
     scroll-behavior: smooth;
     scrollbar-color: #c57839 #0a0a0a; 
     scrollbar-width: thin; 
+    overflow-x: hidden;
 }
 
 

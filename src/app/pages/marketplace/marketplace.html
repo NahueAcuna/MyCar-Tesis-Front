@@ -6,7 +6,7 @@
   <div id="content">
     <h1>Market<span>place</span></h1>
     <h2>Explora los autos publicados por nuestra comunidad</h2>
-    <div id="inventory">
+    <div id="marketplace-content">
       <form id="filters" [formGroup]="filtersForm" (submit)="applyFilters()">
         <div id="header-filter">
           <p id="title">Filtrar por</p>
@@ -167,7 +167,9 @@
         <div id="cars">
           @for (publication of filteredPublications | slice:startIndex:endIndex; track publication.id) {
           <div class="car_publication">
-            <img src="{{ publication.auto.imagenesUrl }} " alt="Imagen del auto" />
+            <div class="car-img-container">
+              <img [src]="getImageUrl(publication.auto.imagenesUrl[0])" alt="Imagen del auto" />
+            </div>
             <div id="information">
               <div id="name_price">
                 <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>

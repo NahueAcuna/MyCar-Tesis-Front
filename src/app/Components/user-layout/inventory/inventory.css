@@ -177,6 +177,8 @@ select:focus{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex: 1;
+    min-width: 0;
 }
 /* //////// Boton de busqueda //////// */ 
 
@@ -235,7 +237,7 @@ select:focus{
 
 #cars{
     display: grid;
-    grid-template-columns: repeat(3, 340px); 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 40px;
 }
 .car_publication{
@@ -333,3 +335,50 @@ input[type="range"] {
     font-size: 18px; 
 }
 
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1200px){
+    #inventory{
+        padding: 40px;
+    }
+    #cars{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 768px){
+    h1{
+        font-size: 32px;
+        padding-top: 10vh;
+    }
+    #inventory{
+        flex-direction: column;
+        padding: 20px 12px;
+    }
+    #filters{
+        max-height: none;
+        padding: 20px;
+        gap: 14px;
+    }
+    #categories{
+        flex-wrap: wrap;
+    }
+    .category{
+        width: 70px;
+        padding: 10px;
+    }
+    #cars{
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .car_publication{
+        height: auto;
+    }
+    #search.open input{
+        width: 100%;
+    }
+    #pagination{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
