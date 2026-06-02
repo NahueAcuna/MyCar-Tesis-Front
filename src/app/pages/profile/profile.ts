@@ -5,10 +5,11 @@ import { User } from '../../models/User';
 import { ProfileService } from '../../services/profile-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
-  imports: [Header, RouterLink],
+  imports: [Header, RouterLink, FormsModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
@@ -18,6 +19,7 @@ export class Profile implements OnInit{
   myPosts: PublicationResponse[] = [];
   myReservations: any[] = [];
   showAllPosts: boolean = false;
+  isEditModalOpen: boolean = false;
 
   constructor(public authService : AuthService, public profileService: ProfileService) {}
 
@@ -51,5 +53,34 @@ export class Profile implements OnInit{
     }
 
     return 'http://localhost:8080' + url;
+  }
+
+  openEditModal() {
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
+  }
+
+  editProfile(nuevoEmail: string) {
+    if(this.user && this.user.id){
+      if(nuevoEmail && nuevoEmail.trim() !== '' && nuevoEmail !== this.user.email){
+        this.profileService.updateEmail(this.user.id, nuevoEmail).subscribe({
+          next: (response) => {
+            this.closeEditModal();
+            this.user!.email = response.email;
+            localStorage.setItem('user', JSON.stringify(response));
+            localStorage.setItem('token', response.token);
+          },
+          error: (error) => {
+            console.error('Error al actualizar el perfil:', error);
+            alert('Error al actualizar: ' + (error.error || 'Ocurrió un problema inesperado.'));
+          }
+        });
+      }else{
+        this.closeEditModal();
+      }
+    }
   }
 }
