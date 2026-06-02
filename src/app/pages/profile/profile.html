@@ -30,7 +30,7 @@
 
         <div class="action-btn">
             <span class="material-symbols-outlined">edit</span>
-            <button>Editar Perfil</button>
+            <button (click)="openEditModal()">Editar Perfil</button>
         </div>
  
         <div class="action-btn logout">
@@ -173,5 +173,29 @@
         </div>
   -->      
     </div>
+
+    @if(isEditModalOpen) {
+        <div class="custom-modal-overlay" (click)="closeEditModal()">
+            <div class="custom-modal" (click)="$event.stopPropagation()">
+                <h2>Editar Perfil</h2>
+                <p>Actualizá tu información personal.</p>
+
+                <div class="form-group">
+                    <label for="emailInput">Correo Electrónico</label>
+                    <input type="email" id="emailInput" name="email" [ngModel]="user?.email" #email="ngModel" required email>
+                    @if(email?.hasError("required") && email?.touched){
+                        <p class="msjError">El email es obligatorio.</p>
+                    }@else if(email?.hasError("email") && email?.touched){
+                        <p class="msjError">El email no es válido.</p>
+                    }
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-cancel" (click)="closeEditModal()">Cancelar</button>
+                    <button class="btn-save" [disabled]="email.invalid" (click)="editProfile(email.value)">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    }
 
 </div>
