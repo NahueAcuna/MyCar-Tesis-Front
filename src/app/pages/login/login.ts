@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Header } from '../../Components/user-layout/header/header';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
+declare const google: any;
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit{
   loginForm : FormGroup;
   hidePassword: boolean = true;
 
@@ -19,6 +20,16 @@ export class Login {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+  }
+
+  ngOnInit(): void {
+    google.accounts.id.initialize({
+      client_id: '835687169998-4ocdeolb8vrd12a3tq5j9cvn4cdg0h61.apps.googleusercontent.com',
+      callback: (response: any) => {
+        this.loginGoogle(response.credential);
+      }
+    });
+
   }
 
   get email(){
@@ -56,4 +67,42 @@ export class Login {
   togglePassword() {
     this.hidePassword = !this.hidePassword;
   }
+
+  loginConGoogle() {
+    google.accounts.id.prompt();
+  }
+
+  loginGoogle(idToken: string) {
+    this.authService.loginGoogle(idToken)
+      .subscribe({
+
+        next: (response) => {
+
+          this.authService.saveToken(response.token);
+
+          this.authService.saveUser({
+            id: response.id,
+            nombre: response.nombre,
+            email: response.email,
+            rol: response.rol
+          });
+
+          alert('Login con Google exitoso');
+
+          this.router.navigate(['/']);
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          if(error.status === 404){
+            alert('No existe una cuenta registrada con Google');
+          }else{
+            alert('Error al iniciar sesión con Google');
+          }
+        }
+      });
+  }
+
 }

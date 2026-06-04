@@ -281,7 +281,7 @@ form{
     white-space: nowrap; 
 }
 
-/* ================= REGISTER BUTTON ================= */
+/* ================= LOGIN BUTTON ================= */
 
 .login-btn{
     margin-top: 5px;
@@ -307,6 +307,24 @@ form{
     opacity: 0.6;
     transform: none;
     box-shadow: none;
+}
+
+.google-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    background: white;
+    color: #444;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.google-btn:hover {
+    background: #f5f5f5;
 }
 
 /* ================= ANIMATION ================= */
