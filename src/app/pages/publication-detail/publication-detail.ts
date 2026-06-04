@@ -5,6 +5,8 @@ import { PublicationResponse } from '../../models/PublicationResponse';
 import { CommonModule, Location } from '@angular/common';
 import { Header } from '../../Components/user-layout/header/header';
 import { Footer } from '../../Components/footer/footer';
+import { ReservaService } from '../../services/reserva-service';
+import { ReservaRequest } from '../../models/reserva-request';
 
 @Component({
   selector: 'app-publication-detail',
@@ -19,8 +21,17 @@ export class PublicationDetail implements OnInit {
   selectedIsVideo: boolean = false;
   transformStyle: string = 'scale(1)';
   transformOrigin: string = 'center';
+  
+  // Variable para controlar el estado del botón de pago
+  cargandoPago: boolean = false;
 
-  constructor(public publicationService: PublicationService, private route: ActivatedRoute, public router: Router, private location: Location) { }
+  constructor(
+    public publicationService: PublicationService,
+    private reservaService: ReservaService, 
+    private route: ActivatedRoute, 
+    public router: Router, 
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
     const idPublication = this.route.snapshot.params['id']
@@ -88,5 +99,44 @@ export class PublicationDetail implements OnInit {
     }
 
     return 'http://localhost:8080' + url;
+  }
+
+  pagarReserva() {
+    const emailUsuarioLogueado = localStorage.getItem('usuario_email');
+
+    if (!emailUsuarioLogueado) {
+      console.log('Usuario no registrado. Abriendo flujo de invitado...');
+      alert('Por favor, iniciá sesión o completá tus datos para poder reservar este auto.');
+      return; 
+    }
+
+    this.cargandoPago = true;
+    const idActual = Number(this.route.snapshot.params['id']);
+
+    // 1. Generamos la fecha actual en el formato exacto que pide Java
+    const fechaParaJava = new Date().toISOString().substring(0, 19);
+
+    // 2. Armamos el paquete sumando la fecha
+    const reservaRequest: ReservaRequest = {
+      idPublicacion: idActual,
+      fecha: fechaParaJava,         // <-- ¡ESTA LÍNEA ES LA CLAVE QUE FALTABA!
+      usuarioReservaDTO: {
+        nombre: 'Sin nombre',       // Texto por defecto para evitar nulos
+        email: emailUsuarioLogueado, 
+        telefono: '0000'            // Texto por defecto para evitar nulos
+      }
+    };
+
+    // 3. Disparamos la petición
+    this.reservaService.iniciarReserva(reservaRequest).subscribe({
+      next: (urlMercadoPago: string) => {
+        window.location.href = urlMercadoPago;
+      },
+      error: (err) => {
+        console.error('Error al generar el link de pago:', err);
+        alert('Hubo un problema al procesar tu reserva con Mercado Pago.');
+        this.cargandoPago = false; 
+      }
+    });
   }
 }

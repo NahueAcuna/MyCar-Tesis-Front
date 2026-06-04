@@ -51,6 +51,7 @@ export class Login implements OnInit{
           email: response.email,
           rol: response.rol
         });
+        localStorage.setItem('usuario_email', response.email);
         alert('Login exitoso');
         this.router.navigate(['/']);  
       },

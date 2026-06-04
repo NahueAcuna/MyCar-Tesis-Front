@@ -155,9 +155,15 @@
                 </div>
 
                 <div class="actions">
-                    <button class="btn reserve">
-                        Reservar Vehículo
-                    </button>
+                    <button class="btn reserve" (click)="pagarReserva()" [disabled]="cargandoPago">
+    
+    @if (cargandoPago) {
+        <span>Procesando pago...</span>
+    } @else {
+        <span>Reservar Vehículo</span>
+    }
+    
+</button>
 
                     <a class="btn whatsapp"
                         href="https://wa.me/549223465798?text=Hola, me interesa el {{publicationSelected.auto.marca}} {{publicationSelected.auto.modelo}} del año {{publicationSelected.auto.anio}}"
