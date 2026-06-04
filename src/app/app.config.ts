@@ -16,6 +16,6 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'enabled'
       })),
     provideHttpClient(withInterceptors([jwtInterceptor])),
-    provideCharts(withDefaultRegisterables())
+    provideCharts(withDefaultRegisterables()),
   ]
 };

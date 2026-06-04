@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
 import { Header } from '../../Components/user-layout/header/header';
+declare const google: any;
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ import { Header } from '../../Components/user-layout/header/header';
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
-export class Register {
+export class Register implements OnInit{
 
   registerForm : FormGroup;
   hidePassword: boolean = true;
@@ -21,6 +22,15 @@ export class Register {
       email: ['', [Validators.required, Validators.email]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
+    });
+  }
+
+  ngOnInit(): void {
+    google.accounts.id.initialize({
+      client_id: '835687169998-4ocdeolb8vrd12a3tq5j9cvn4cdg0h61.apps.googleusercontent.com',
+      callback: (response: any) => {
+        this.registroGoogle(response.credential);
+      }
     });
   }
 
@@ -55,5 +65,42 @@ export class Register {
 
   togglePassword() {
     this.hidePassword = !this.hidePassword;
+  }
+
+  registroConGoogle() {
+    google.accounts.id.prompt();
+  }
+
+  registroGoogle(idToken: string) {
+    this.authService.registroGoogle(idToken)
+      .subscribe({
+
+        next: (response) => {
+
+          this.authService.saveToken(response.token);
+
+          this.authService.saveUser({
+            id: response.id,
+            nombre: response.nombre,
+            email: response.email,
+            rol: response.rol
+          });
+
+          alert('Registro con Google exitoso');
+
+          this.router.navigate(['/']);
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          if(error.status === 409){
+            alert('Ya existe una cuenta registrada con ese Google');
+          }else{
+            alert('Error al registrarse con Google');
+          }
+        }
+      });
   }
 }

@@ -100,6 +100,16 @@
     border: 2px solid orange;
     opacity: 1;
 }
+/* ================= BOTÓN DESHABILITADO ================= */
+.btn:disabled, 
+.btn.reserve:disabled {
+    background: linear-gradient(135deg, #7a5a30, #5c4220); /* Un naranja oscuro/apagado */
+    color: #a0a0a0;
+    cursor: not-allowed;
+    transform: none; /* Le sacamos el efecto de saltar */
+    box-shadow: none; /* Le sacamos el brillo */
+    opacity: 0.8;
+}
 
 /* ================= CARDS ================= */
 

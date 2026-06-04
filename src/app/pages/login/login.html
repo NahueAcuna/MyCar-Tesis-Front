@@ -72,6 +72,12 @@
 
             <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Iniciar Sesión</button>
 
+            <div class="separator">
+                    <span>o</span>
+            </div>
+
+            <button type="button" class="google-btn" (click)="loginConGoogle()"> Continuar con Google</button>
+
             <div class="form-final">
                 <div class="separator">
                     <span>o</span>
