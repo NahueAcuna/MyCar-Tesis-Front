@@ -40,6 +40,7 @@ export class Login {
           email: response.email,
           rol: response.rol
         });
+        localStorage.setItem('usuario_email', response.email);
         alert('Login exitoso');
         this.router.navigate(['/']);  
       },
