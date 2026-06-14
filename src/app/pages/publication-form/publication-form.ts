@@ -87,6 +87,13 @@ export class PublicationForm {
   }
 
   publicarVehiculo() {
+    // Verificar si hay token válido antes de intentar el request
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Tu sesión expiró. Por favor, iniciá sesión nuevamente.');
+      return;
+    }
+
     const publicacionRequestDTO: import('../../models/PublicationRequest').PublicationRequest = {
       descripcion: this.publicationData.descripcion || 'Sin descripción',
       auto: {

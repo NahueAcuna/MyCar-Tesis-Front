@@ -11,7 +11,8 @@
                     @if (selectedIsVideo) {
                         <video class="main-img" [src]="getImageUrl(selectedImage)" controls autoplay muted loop></video>
                     } @else {
-                        <img class="main-img" [src]="getImageUrl(selectedImage)" [style.transform]="transformStyle" [style.transform-origin]="transformOrigin"/>
+                        <img class="main-img" [src]="getImageUrl(selectedImage)" [style.transform]="transformStyle" [style.transform-origin]="transformOrigin"
+                             (error)="onImageError($event)"/>
                     }
                 </div>
                 
@@ -20,7 +21,8 @@
                         @if (isVideo(media)) {
                             <video [src]="getImageUrl(media)" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media" muted></video>
                         } @else {
-                            <img [src]="getImageUrl(media)" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media"/>
+                            <img [src]="getImageUrl(media)" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media"
+                                 (error)="onImageError($event)"/>
                         }
                     }
                 </div>
