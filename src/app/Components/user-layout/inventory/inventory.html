@@ -165,7 +165,7 @@
         <div id="cars">
           @for (publication of filteredPublications | slice:startIndex:endIndex; track publication.id) {
           <div class="car_publication">
-            <img [src]="publication.auto.imagenesUrl && publication.auto.imagenesUrl.length > 0 ? 'http://localhost:8080' + publication.auto.imagenesUrl[0] : 'https://via.placeholder.com/300x200/1a1a1a/ff8c00?text=Sin+Imagen'" alt="Imagen del auto" />
+            <img [src]="getImageUrl(publication.auto.imagenesUrl && publication.auto.imagenesUrl.length > 0 ? publication.auto.imagenesUrl[0] : '')" alt="Imagen del auto" (error)="onImageError($event)" />
             <div id="information">
               <div id="name_price">
                 <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>

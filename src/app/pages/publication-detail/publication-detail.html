@@ -9,18 +9,20 @@
             <div class="left">
                 <div class="image-wrapper" (mousemove)="!selectedIsVideo && onMouseMove($event)" (mouseleave)="!selectedIsVideo && onMouseLeave()">
                     @if (selectedIsVideo) {
-                        <video class="main-img" [src]="'http://localhost:8080' + selectedImage" controls autoplay muted loop></video>
+                        <video class="main-img" [src]="getImageUrl(selectedImage)" controls autoplay muted loop></video>
                     } @else {
-                        <img class="main-img" [src]="'http://localhost:8080' + selectedImage" [style.transform]="transformStyle" [style.transform-origin]="transformOrigin"/>
+                        <img class="main-img" [src]="getImageUrl(selectedImage)" [style.transform]="transformStyle" [style.transform-origin]="transformOrigin"
+                             (error)="onImageError($event)"/>
                     }
                 </div>
                 
                 <div class="thumbs">
                     @for(media of todasLasMedia; track media){
                         @if (isVideo(media)) {
-                            <video [src]="'http://localhost:8080' + media" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media" muted></video>
+                            <video [src]="getImageUrl(media)" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media" muted></video>
                         } @else {
-                            <img [src]="'http://localhost:8080' + media" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media"/>
+                            <img [src]="getImageUrl(media)" (click)="seleccionarMedia(media)" [class.active]="selectedImage === media"
+                                 (error)="onImageError($event)"/>
                         }
                     }
                 </div>

@@ -115,21 +115,21 @@
             <div class="reservation-container">
                 @for(reservation of myReservations.slice(0,2); track reservation.id){
                     <div class="reservation-card">
-                        <img src="{{ reservation.auto.imagenesUrl }}" alt="Imagen del auto">
+                        <img src="{{ getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '') }}" alt="Imagen del auto">
 
                         <div class="reservation-info"> 
-                            <h3> {{ reservation.auto.marca }} - {{ reservation.auto.modelo }}</h3>
+                            <h3> {{ reservation?.publicacion?.auto?.marca || 'Auto' }} - {{ reservation?.publicacion?.auto?.modelo || '' }}</h3>
 
                             <p class="year-km">
-                                {{ reservation.auto.anio }} - {{ reservation.auto.km }} km
+                                {{ reservation?.publicacion?.auto?.anio }} - {{ reservation?.publicacion?.auto?.km }} km
                             </p>
 
                             <p class="date">
-                                {{ reservation.auto.date }}
+                                {{ formatearFecha(reservation?.fecha) }}
                             </p>
 
                             <div class="status">
-                                {{ reservation.estado }}
+                                {{ reservation?.estado }}
                             </div>
                         </div> 
                     </div> 
