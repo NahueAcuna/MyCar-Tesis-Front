@@ -66,4 +66,17 @@ export class AuthService {
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
   }
+
+  loginGoogle(idToken: string): Observable<any> {
+    return this.http.post(`${this.url}/login/google`, {
+      idToken
+    });
+  }
+
+  registroGoogle(idToken: string): Observable<any> {
+    return this.http.post(`${this.url}/registro/google`, {
+      idToken
+    });
+  }
+
 }
