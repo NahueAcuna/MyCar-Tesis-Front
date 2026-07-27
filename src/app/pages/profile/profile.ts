@@ -21,11 +21,17 @@ export class Profile implements OnInit{
   myReservations: any[] = [];
   showAllPosts: boolean = false;
   isEditModalOpen: boolean = false;
+  showCompleteProfileModal = false;
+  telefono = '';
 
   constructor(public authService : AuthService, public profileService: ProfileService) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
+    if(this.user && !this.user.telefono){
+      console.log('Usuario sin teléfono, asignando valor vacío');
+      this.showCompleteProfileModal = true;
+    }
     this.myPost();
     this.myReservation();
   }
@@ -102,4 +108,34 @@ export class Profile implements OnInit{
       }
     }
   }
+
+ savePhone() {
+  if (!/^[0-9]{10}$/.test(this.telefono)) {
+    alert("El teléfono debe tener exactamente 10 dígitos.");
+    return;
+  }
+
+  this.profileService.completePhone(this.user!.email, this.telefono)
+    .subscribe({
+      next: () => {
+
+        this.user!.telefono = this.telefono;
+
+        localStorage.setItem("user", JSON.stringify(this.user));
+
+        this.showCompleteProfileModal = false;
+
+        alert("Perfil actualizado correctamente");
+      },
+
+      error: (error) => {
+        if(error.status === 409){
+          alert("Ese numero de telefono ya esta registrado.");
+        }else{
+          alert("Error al guardar el teléfono.");
+        }
+      }
+    });
+  }
+  
 }

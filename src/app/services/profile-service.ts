@@ -23,4 +23,8 @@ export class ProfileService {
   updateEmail(id: number, newEmail: string): Observable<any> {
     return this.http.put(`${this.url3}/${id}`, { email:newEmail });
   }
+
+  completePhone(email: string, telefono: string): Observable<any> {
+    return this.http.post(`${this.url3}/completar-telefono?email=${email}&telefono=${telefono}`,{});
+  }
 }

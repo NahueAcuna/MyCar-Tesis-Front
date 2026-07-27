@@ -56,7 +56,8 @@ export class Login implements OnInit{
           id: response.id,
           nombre: response.nombre,
           email: response.email,
-          rol: response.rol
+          rol: response.rol,
+          telefono: response.telefono
         });
         localStorage.setItem('usuario_email', response.email);
         alert('Login exitoso');
@@ -98,7 +99,8 @@ export class Login implements OnInit{
             id: response.id,
             nombre: response.nombre,
             email: response.email,
-            rol: response.rol
+            rol: response.rol,
+            telefono: response.telefono
           });
 
           localStorage.setItem('usuario_email', response.email);

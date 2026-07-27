@@ -197,5 +197,27 @@
             </div>
         </div>
     }
+    
+    @if(showCompleteProfileModal) {
+        <div class="custom-modal-overlay">
+            <div class="custom-modal">
+
+                <h2>Completa tu perfil</h2>
+
+                <p>Necesitamos tu teléfono para que los compradores puedan contactarte.</p>
+
+                <div class="form-group">
+                    <label>Teléfono</label>
+
+                    <input type="text" [(ngModel)]="telefono" placeholder="2231234567">
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-save" (click)="savePhone()">Guardar</button>
+                </div>
+
+            </div>
+        </div>
+    }
 
 </div>
