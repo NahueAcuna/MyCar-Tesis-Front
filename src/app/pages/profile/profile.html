@@ -115,21 +115,21 @@
             <div class="reservation-container">
                 @for(reservation of myReservations.slice(0,2); track reservation.id){
                     <div class="reservation-card">
-                        <img src="{{ reservation.auto.imagenesUrl }}" alt="Imagen del auto">
+                        <img src="{{ getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '') }}" alt="Imagen del auto">
 
                         <div class="reservation-info"> 
-                            <h3> {{ reservation.auto.marca }} - {{ reservation.auto.modelo }}</h3>
+                            <h3> {{ reservation?.publicacion?.auto?.marca || 'Auto' }} - {{ reservation?.publicacion?.auto?.modelo || '' }}</h3>
 
                             <p class="year-km">
-                                {{ reservation.auto.anio }} - {{ reservation.auto.km }} km
+                                {{ reservation?.publicacion?.auto?.anio }} - {{ reservation?.publicacion?.auto?.km }} km
                             </p>
 
                             <p class="date">
-                                {{ reservation.auto.date }}
+                                {{ formatearFecha(reservation?.fecha) }}
                             </p>
 
                             <div class="status">
-                                {{ reservation.estado }}
+                                {{ reservation?.estado }}
                             </div>
                         </div> 
                     </div> 
@@ -194,6 +194,28 @@
                     <button class="btn-cancel" (click)="closeEditModal()">Cancelar</button>
                     <button class="btn-save" [disabled]="email.invalid" (click)="editProfile(email.value)">Guardar Cambios</button>
                 </div>
+            </div>
+        </div>
+    }
+    
+    @if(showCompleteProfileModal) {
+        <div class="custom-modal-overlay">
+            <div class="custom-modal">
+
+                <h2>Completa tu perfil</h2>
+
+                <p>Necesitamos tu teléfono para que los compradores puedan contactarte.</p>
+
+                <div class="form-group">
+                    <label>Teléfono</label>
+
+                    <input type="text" [(ngModel)]="telefono" placeholder="2231234567">
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-save" (click)="savePhone()">Guardar</button>
+                </div>
+
             </div>
         </div>
     }

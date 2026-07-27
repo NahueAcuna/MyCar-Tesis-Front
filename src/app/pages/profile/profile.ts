@@ -6,10 +6,11 @@ import { ProfileService } from '../../services/profile-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  imports: [Header, RouterLink, FormsModule],
+  imports: [Header, RouterLink, FormsModule, CommonModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
@@ -20,11 +21,17 @@ export class Profile implements OnInit{
   myReservations: any[] = [];
   showAllPosts: boolean = false;
   isEditModalOpen: boolean = false;
+  showCompleteProfileModal = false;
+  telefono = '';
 
   constructor(public authService : AuthService, public profileService: ProfileService) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
+    if(this.user && !this.user.telefono){
+      console.log('Usuario sin teléfono, asignando valor vacío');
+      this.showCompleteProfileModal = true;
+    }
     this.myPost();
     this.myReservation();
   }
@@ -39,7 +46,12 @@ export class Profile implements OnInit{
   myReservation(){
     this.profileService.getMyReservations().subscribe({
       next: (response) => {this.myReservations = response},
-      error: (error) => {console.error('Error al obtener mis reservas:', error); alert('Error al obtener mis reservas');}
+      error: (error) => {
+        // Error silencioso: no mostramos alert para no interrumpir la navegación
+        // ni disparar la cadena de logout del interceptor
+        console.warn('No se pudieron cargar las reservas:', error?.status, error?.message);
+        this.myReservations = [];
+      }
     });
   }
 
@@ -53,6 +65,19 @@ export class Profile implements OnInit{
     }
 
     return 'http://localhost:8080' + url;
+  }
+
+  formatearFecha(fecha: string | null | undefined): string {
+    if (!fecha) return 'Sin fecha';
+    try {
+      const d = new Date(fecha);
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const year = d.getFullYear();
+      return `${day}/${month}/${year}`;
+    } catch {
+      return fecha;
+    }
   }
 
   openEditModal() {
@@ -83,4 +108,34 @@ export class Profile implements OnInit{
       }
     }
   }
+
+ savePhone() {
+  if (!/^[0-9]{10}$/.test(this.telefono)) {
+    alert("El teléfono debe tener exactamente 10 dígitos.");
+    return;
+  }
+
+  this.profileService.completePhone(this.user!.email, this.telefono)
+    .subscribe({
+      next: () => {
+
+        this.user!.telefono = this.telefono;
+
+        localStorage.setItem("user", JSON.stringify(this.user));
+
+        this.showCompleteProfileModal = false;
+
+        alert("Perfil actualizado correctamente");
+      },
+
+      error: (error) => {
+        if(error.status === 409){
+          alert("Ese numero de telefono ya esta registrado.");
+        }else{
+          alert("Error al guardar el teléfono.");
+        }
+      }
+    });
+  }
+  
 }

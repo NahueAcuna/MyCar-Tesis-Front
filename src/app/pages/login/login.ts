@@ -22,14 +22,21 @@ export class Login implements OnInit{
     });
   }
 
-  ngOnInit(): void {
-    google.accounts.id.initialize({
-      client_id: '835687169998-4ocdeolb8vrd12a3tq5j9cvn4cdg0h61.apps.googleusercontent.com',
-      callback: (response: any) => {
-        this.loginGoogle(response.credential);
-      }
-    });
+  private readonly GOOGLE_CLIENT_ID = '835687169998-4ocdeolb8vrd12a3tq5j9cvn4cdg0h61.apps.googleusercontent.com';
 
+  ngOnInit(): void {
+    this.initGoogleSignIn();
+  }
+
+  private initGoogleSignIn(): void {
+    if (typeof google !== 'undefined' && google?.accounts?.id) {
+      google.accounts.id.initialize({
+        client_id: this.GOOGLE_CLIENT_ID,
+        callback: (response: any) => {
+          this.loginGoogle(response.credential);
+        }
+      });
+    }
   }
 
   get email(){
@@ -49,7 +56,8 @@ export class Login implements OnInit{
           id: response.id,
           nombre: response.nombre,
           email: response.email,
-          rol: response.rol
+          rol: response.rol,
+          telefono: response.telefono
         });
         localStorage.setItem('usuario_email', response.email);
         alert('Login exitoso');
@@ -70,6 +78,12 @@ export class Login implements OnInit{
   }
 
   loginConGoogle() {
+    if (typeof google === 'undefined' || !google?.accounts?.id) {
+      alert('El servicio de Google no está disponible. Intentá recargar la página.');
+      return;
+    }
+    // Re-inicializamos siempre para garantizar que client_id esté configurado
+    this.initGoogleSignIn();
     google.accounts.id.prompt();
   }
 
@@ -85,8 +99,11 @@ export class Login implements OnInit{
             id: response.id,
             nombre: response.nombre,
             email: response.email,
-            rol: response.rol
+            rol: response.rol,
+            telefono: response.telefono
           });
+
+          localStorage.setItem('usuario_email', response.email);
 
           alert('Login con Google exitoso');
 

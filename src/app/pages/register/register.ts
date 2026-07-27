@@ -26,12 +26,14 @@ export class Register implements OnInit{
   }
 
   ngOnInit(): void {
-    google.accounts.id.initialize({
-      client_id: '835687169998-4ocdeolb8vrd12a3tq5j9cvn4cdg0h61.apps.googleusercontent.com',
-      callback: (response: any) => {
-        this.registroGoogle(response.credential);
-      }
-    });
+    if (typeof google !== 'undefined' && google.accounts) {
+      google.accounts.id.initialize({
+        client_id: '835687169998-4ocdeolb8vrd12a3tq5j9cvn4cdg0h61.apps.googleusercontent.com',
+        callback: (response: any) => {
+          this.registroGoogle(response.credential);
+        }
+      });
+    }
   }
 
   get nombre(){
@@ -55,7 +57,7 @@ export class Register implements OnInit{
       next: (response) => {console.log('Registro exitoso', response); alert('Registro exitoso'); this.router.navigate(['/perfil']);},
       error: (error) => {console.error(error);
         if(error.status === 409){
-          alert('El email ya está registrado');
+          alert(error.error);
         }else{
           alert('Error en el registro');
         }
@@ -68,7 +70,11 @@ export class Register implements OnInit{
   }
 
   registroConGoogle() {
-    google.accounts.id.prompt();
+    if (typeof google !== 'undefined' && google.accounts) {
+      google.accounts.id.prompt();
+    } else {
+      alert('El servicio de Google no está disponible en este momento.');
+    }
   }
 
   registroGoogle(idToken: string) {
@@ -83,8 +89,11 @@ export class Register implements OnInit{
             id: response.id,
             nombre: response.nombre,
             email: response.email,
-            rol: response.rol
+            rol: response.rol,
+            telefono: response.telefono
           });
+
+          localStorage.setItem('usuario_email', response.email);
 
           alert('Registro con Google exitoso');
 
