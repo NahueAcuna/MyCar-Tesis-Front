@@ -348,3 +348,38 @@ input[type="range"] {
     font-size: 18px; 
 }
 
+/* --- ESTILOS DE FAVORITOS EN LA CARD --- */
+
+.marca-precio-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Evita que el botón de favoritos tome los estilos del botón "Ver auto" */
+.car_publication button.btn-fav {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #8f8b8b; /* Corazón gris por defecto */
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.car_publication button.btn-fav:hover {
+    background-image: none; /* Quitamos el degradado naranja al pasar el mouse */
+    transform: scale(1.1);
+}
+
+.car_publication button.btn-fav span.material-symbols-outlined {
+    font-size: 26px;
+    transition: color 0.3s ease;
+}
+
+/* Clase que se activa cuando el auto está en favoritos */
+.car_publication button.btn-fav span.material-symbols-outlined.activo {
+    color: #ff8c00; 
+    font-variation-settings: 'FILL' 1; /* Esto hace que el ícono de Google se rellene de color sólido */
+}
+

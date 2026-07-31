@@ -175,6 +175,11 @@
                 <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>
                 <span>${{ publication.auto.precio | number:'1.0-0' }} </span>
               </div>
+              <button class="btn-fav" (click)="toggleFavorito(publication.id)">
+                  <span class="material-symbols-outlined" [class.activo]="esFavorito(publication.id)">
+                    {{ esFavorito(publication.id) ? 'favorite' : 'favorite_border' }}
+                  </span>
+                </button>
               <div id="anio_description">
                 <span>{{ publication.auto.anio }} </span>
                 <p>{{ descriptionPreview(publication.descripcion) }}</p>

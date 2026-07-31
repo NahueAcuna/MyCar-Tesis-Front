@@ -5,6 +5,8 @@ import { PublicationService } from '../../services/publication-service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Header } from '../../Components/user-layout/header/header';
+import { ProfileService } from '../../services/profile-service';
+
 
 @Component({
   selector: 'app-marketplace',
@@ -24,6 +26,8 @@ export class Marketplace {
 
   precioMinimo: number = 0;
   precioMaximo: number = 50000;
+
+  misFavoritosIds: number[] = [];
 
   // --- VARIABLES DE PAGINACIÓN ---
   currentPage: number = 1; // Cambiado a 1 para que arranque en la primer página
@@ -53,7 +57,7 @@ export class Marketplace {
   minKm: FormControl;
   maxKm: FormControl;
 
-  constructor(private publicationService: PublicationService, public router: Router) {
+  constructor(private publicationService: PublicationService, public router: Router, private profileService: ProfileService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
     this.minPrice = new FormControl(0);
@@ -212,5 +216,51 @@ export class Marketplace {
     }
 
     return 'http://localhost:8080' + url;
+  }
+
+// --- MÉTODOS DE FAVORITOS ---
+  cargarFavoritos() {
+    this.profileService.getFavoritos().subscribe({
+      next: (data) => {
+        // Guardamos solo los IDs para hacer la validación más rápida en el HTML
+        this.misFavoritosIds = data.map((pub: any) => Number(pub.id));
+      },
+      error: (err) => console.error("Error al cargar favoritos", err)
+    });
+  }
+
+  toggleFavorito(idPublicacion: number) {
+    const id = Number(idPublicacion);
+    // 1. Guardamos el estado actual (si ya era favorito o no)
+    const yaEraFavorito = this.misFavoritosIds.includes(id);
+
+    // 2. ACTUALIZACIÓN INSTANTÁNEA (Obligamos a Angular a repintar)
+    if (yaEraFavorito) {
+      this.misFavoritosIds = this.misFavoritosIds.filter(id => id !== idPublicacion);
+    } else {
+      // En vez de .push(), recreamos el array. Esto dispara el cambio en el HTML al toque.
+      this.misFavoritosIds = [...this.misFavoritosIds, idPublicacion];
+    }
+
+    // 3. Mandamos la petición al backend en segundo plano
+    this.profileService.toggleFavorito(idPublicacion).subscribe({
+      next: () => {
+        console.log("Favorito guardado en BD con éxito");
+      },
+      error: (err) => {
+        console.error("Error al modificar favorito, revirtiendo color...", err);
+        // Si el backend falla, volvemos el corazón a su estado original
+        if (yaEraFavorito) {
+          this.misFavoritosIds = [...this.misFavoritosIds, idPublicacion];
+        } else {
+          this.misFavoritosIds = this.misFavoritosIds.filter(id => id !== idPublicacion);
+        }
+      }
+    });
+  }
+
+  // Nueva función súper segura para el HTML
+  esFavorito(idPub: any): boolean {
+    return this.misFavoritosIds.includes(Number(idPub));
   }
 }

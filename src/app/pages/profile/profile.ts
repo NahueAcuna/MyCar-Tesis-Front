@@ -23,6 +23,7 @@ export class Profile implements OnInit{
   isEditModalOpen: boolean = false;
   showCompleteProfileModal = false;
   telefono = '';
+  myFavorites: PublicationResponse[] = [];
 
   constructor(public authService : AuthService, public profileService: ProfileService) {}
 
@@ -34,6 +35,7 @@ export class Profile implements OnInit{
     }
     this.myPost();
     this.myReservation();
+    this.cargarFavoritos();
   }
 
   myPost(){
@@ -138,4 +140,21 @@ export class Profile implements OnInit{
     });
   }
   
+  cargarFavoritos() {
+    this.profileService.getFavoritos().subscribe({
+      next: (data) => {
+        this.myFavorites = data;
+      },
+      error: (err) => console.error("Error al cargar favoritos", err)
+    });
+  }
+
+  // Método para cuando el usuario hace clic en el corazón desde su propio perfil
+  quitarFavorito(id: number) {
+    this.profileService.toggleFavorito(id).subscribe(() => {
+      // Recargamos la lista para que desaparezca la tarjeta instantáneamente
+      this.cargarFavoritos(); 
+    });
+  }
+
 }

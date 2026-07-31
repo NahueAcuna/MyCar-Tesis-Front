@@ -557,6 +557,33 @@ button.view-all{
     transform: none;
 }
 
+/* --- Ajustes para la tarjeta de Favoritos --- */
+
+.fav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.btn-remove-fav {
+    background: transparent;
+    border: none;
+    color: #ff8c00;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    transition: transform 0.2s ease;
+}
+
+.btn-remove-fav:hover {
+    transform: scale(1.1);
+}
+
+.btn-remove-fav .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1; /* Corazón sólido */
+    font-size: 24px;
+}
+
 /* ================= RESPONSIVE ================= */
 
 @media(max-width: 1200px){
