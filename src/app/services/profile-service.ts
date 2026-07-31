@@ -27,4 +27,12 @@ export class ProfileService {
   completePhone(email: string, telefono: string): Observable<any> {
     return this.http.post(`${this.url3}/completar-telefono?email=${email}&telefono=${telefono}`,{});
   }
+
+  toggleFavorito(idPublicacion: number): Observable<any> {
+    return this.http.post(`${this.url3}/favoritos/${idPublicacion}`, {});
+  }
+
+  getFavoritos(): Observable<any> {
+    return this.http.get(`${this.url3}/favoritos`);
+  }
 }
