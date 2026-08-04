@@ -14,7 +14,7 @@ import { Marketplace } from './pages/marketplace/marketplace';
 export const routes: Routes = [
     { path: '', component: Home },
     { path: 'vender', component: PublicationForm, canActivate: [authGuard] },
-    {path:'marketplace',component:Marketplace},
+    { path: 'marketplace', component: Marketplace},
     { path: 'publicacion/:id', component: PublicationDetail, canActivate: [authGuard] },
     { path: 'registro', component: Register },
     { path: 'login', component: Login },
