@@ -25,4 +25,9 @@ export class AdminService {
   rechazarPublicacion(id: number): Observable<any> {
     return this.http.delete(`${this.url}/admin/rechazar/${id}`);
   }
+
+  // Obtener estadísticas para el dashboard
+  getEstadisticas(): Observable<any> {
+    return this.http.get<any>(`${this.url}/admin/estadisticas`);
+  }
 }

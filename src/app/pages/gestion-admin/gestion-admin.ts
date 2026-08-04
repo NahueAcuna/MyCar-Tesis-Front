@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Header } from '../../Components/user-layout/header/header';
 import { Footer } from '../../Components/footer/footer';
 import { AdminService } from '../../services/admin-service';
-import { PublicationService } from '../../services/publication-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { forkJoin } from 'rxjs';
 import { BaseChartDirective } from 'ng2-charts';
@@ -78,7 +77,6 @@ export class GestionAdmin implements OnInit {
 
   constructor(
     private adminService: AdminService, 
-    private publicationService: PublicationService, 
     private router: Router
   ) {}
 
@@ -96,33 +94,28 @@ export class GestionAdmin implements OnInit {
 
     forkJoin({
       pendientes: this.adminService.getPublicacionesPendientes(),
-      concesionaria: this.publicationService.getPublications(),
-      comunidad: this.publicationService.getUserPublications()
+      estadisticas: this.adminService.getEstadisticas()
     }).subscribe({
       next: (res) => {
         // Pendientes data
         this.publicacionesPendientes = res.pendientes;
-        this.totalPendientes = res.pendientes.length;
-
-        // Dashboard metrics
-        this.totalConcesionaria = res.concesionaria.length;
-        this.totalComunidad = res.comunidad.length;
+        
+        // Use stats from backend
+        const stats = res.estadisticas;
+        this.totalPendientes = stats.pendientes || 0;
+        this.totalConcesionaria = stats.concesionaria || 0;
+        this.totalComunidad = stats.usuario || 0;
 
         // Update Pie Chart
         this.pieChartData.datasets[0].data = [this.totalConcesionaria, this.totalComunidad];
         
         // Update Bar Chart (Top Marcas)
-        const allApproved = [...res.concesionaria, ...res.comunidad];
-        const marcaCounts: { [key: string]: number } = {};
-        allApproved.forEach(pub => {
-          let marca = pub.auto.marca.trim();
-          marca = marca.charAt(0).toUpperCase() + marca.slice(1).toLowerCase();
-          marcaCounts[marca] = (marcaCounts[marca] || 0) + 1;
-        });
-
-        const sortedMarcas = Object.keys(marcaCounts).sort((a, b) => marcaCounts[b] - marcaCounts[a]).slice(0, 5);
-        this.barChartData.labels = sortedMarcas;
-        this.barChartData.datasets[0].data = sortedMarcas.map(marca => marcaCounts[marca]);
+        if (stats.topMarcas) {
+          const marcas = Object.keys(stats.topMarcas);
+          const counts = Object.values(stats.topMarcas) as number[];
+          this.barChartData.labels = marcas;
+          this.barChartData.datasets[0].data = counts;
+        }
 
         // Force chart update assignment hack for ng2-charts change detection
         this.pieChartData = { ...this.pieChartData };
