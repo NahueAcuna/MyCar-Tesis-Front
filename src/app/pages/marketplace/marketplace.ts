@@ -77,6 +77,7 @@ export class Marketplace {
 
   ngOnInit(): void {
     this.getPublications();
+    this.cargarFavoritos();
   }
 
   getPublications() {
