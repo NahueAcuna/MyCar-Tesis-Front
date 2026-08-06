@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Header } from '../../Components/user-layout/header/header';
-import { Footer } from '../../Components/footer/footer';
 import { AdminService } from '../../services/admin-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { forkJoin } from 'rxjs';
@@ -11,7 +10,7 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-gestion-admin',
-  imports: [CommonModule, Header, Footer, BaseChartDirective],
+  imports: [CommonModule, Header, BaseChartDirective],
   templateUrl: './gestion-admin.html',
   styleUrl: './gestion-admin.css'
 })
