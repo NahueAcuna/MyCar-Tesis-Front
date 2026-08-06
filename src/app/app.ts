@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, NgZone, OnDestroy, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import Lenis from 'lenis';
+import { Footer } from './Components/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

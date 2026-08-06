@@ -25,7 +25,7 @@ export class Marketplace {
   models: string[] = [];
 
   precioMinimo: number = 0;
-  precioMaximo: number = 50000;
+  precioMaximo: number = 1000000;
 
   misFavoritosIds: number[] = [];
 
@@ -61,7 +61,7 @@ export class Marketplace {
     this.made = new FormControl('');
     this.model = new FormControl('');
     this.minPrice = new FormControl(0);
-    this.maxPrice = new FormControl(50000);
+    this.maxPrice = new FormControl(1000000);
     this.minKm = new FormControl('');
     this.maxKm = new FormControl('');
 
@@ -186,7 +186,7 @@ export class Marketplace {
       made: '',
       model: '',
       minPrice: 0,
-      maxPrice: 50000,
+      maxPrice: 1000000,
       minKm: '',
       maxKm: ''
     });
