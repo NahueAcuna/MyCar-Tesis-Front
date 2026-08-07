@@ -1,20 +1,20 @@
 <app-header></app-header>
 
 <div class="profile-page">
+  <div class="overlay"></div>
 
-    <div class="overlay"></div>
+  <div class="left-content">
+    @if (user) {
+      <p>{{ user.nombre }}</p>
 
-    <div class="left-content">
-        @if(user){
-            <p>{{ user.nombre }}</p>
+      <div class="line"></div>
 
-            <div class="line"></div>
-
-            <div class="email-box">
-                <span class="material-symbols-outlined">mail</span>
-                <p>{{ user.email }}</p>
-            </div>
-        }
+      <div class="email-box">
+        <span class="material-symbols-outlined">mail</span>
+        <p>{{ user.email }}</p>
+      </div>
+    }
+            
  
         <div class="pr-box">
             <div class="number-post">
@@ -33,112 +33,119 @@
             </div>
         </div>
 
-        <div class="action-btn">
-            <span class="material-symbols-outlined">edit</span>
-            <button (click)="openEditModal()">Editar Perfil</button>
-        </div>
- 
-        <div class="action-btn logout">
-            <span class="material-symbols-outlined">logout</span>
-            <button (click)="authService.logout()">Cerrar sesión</button>
-        </div>
+   
+   
+
+    <div class="action-btn">
+      <span class="material-symbols-outlined"> chat </span>
+      <button (click)="irChats()">Chats</button>
+    </div>
+    <div class="action-btn">
+      <span class="material-symbols-outlined">edit</span>
+      <button (click)="openEditModal()">Editar Perfil</button>
     </div>
 
-    <div class="right-content">
-        <div class="welcome">
-            <div class="welcome-text">
-                <span>Bienvenido de vuelta</span>
+    <div class="action-btn logout">
+      <span class="material-symbols-outlined">logout</span>
+      <button (click)="authService.logout()">Cerrar sesión</button>
+    </div>
+  </div>
 
-                <p>Hola, <span class="color">{{ user?.nombre }}</span></p>
+  <div class="right-content">
+    <div class="welcome">
+      <div class="welcome-text">
+        <span>Bienvenido de vuelta</span>
 
-                <p>Gestiona tus publicaciones, reservas y favoritos <br> desde tu perfil.</p>
+        <p>
+          Hola, <span class="color">{{ user?.nombre }}</span>
+        </p>
 
-            </div>
+        <p>
+          Gestiona tus publicaciones, reservas y favoritos <br />
+          desde tu perfil.
+        </p>
+      </div>
 
-            <div class="welcome-image">
-                <img src="/profileWelcome.png" alt="Imagen de bienvenida">
-            </div>
+      <div class="welcome-image">
+        <img src="/profileWelcome.png" alt="Imagen de bienvenida" />
+      </div>
+    </div>
+
+    <div class="my-post">
+      <div class="section-header">
+        <div class="title-box">
+          <span class="material-symbols-outlined">directions_car</span>
+          <h2>Mis Publicaciones</h2>
         </div>
 
-        <div class="my-post">
-            <div class="section-header">
-            
-                <div class="title-box">
-                    <span class="material-symbols-outlined">directions_car</span>
-                    <h2>Mis Publicaciones</h2>
-                </div>
+        <button class="view-all" routerLink="/mis-publicaciones">
+          Ver todas
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </div>
 
-                <button class="view-all" routerLink="/mis-publicaciones">
-                    Ver todas
-                    <span class="material-symbols-outlined">arrow_forward</span>
-                </button>
+      <div class="post-container">
+        @for (post of myPosts.slice(0, 2); track post.id) {
+          <div class="post-card">
+            <div class="post-img-container" [routerLink]="['/publicacion', post.id]">
+              <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto" />
             </div>
 
-            <div class="post-container">
-                @for(post of myPosts.slice(0,2); track post.id){
-                    <div class="post-card">
+            <div class="post-info">
+              <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
 
-                        <div class="post-img-container" [routerLink]="['/publicacion', post.id]">
-                            <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto">
-                        </div>
+              <p class="year-km">{{ post.auto.anio }} - {{ post.auto.km }} km</p>
 
-                        <div class="post-info">
-                            <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
-                            
-                            <p class="year-km">
-                                {{ post.auto.anio }} - {{ post.auto.km }} km
-                            </p>
+              <p class="price">${{ post.auto.precio }}</p>
 
-                            <p class="price">
-                                ${{ post.auto.precio  }}
-                            </p>
- 
-                            <div class="status">
-                                {{ post.estado }}
-                            </div>
-
-                        </div>
-                    </div>
-                }
+              <div class="status">
+                {{ post.estado }}
+              </div>
             </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="my-reservations">
+      <div class="section-header">
+        <div class="title-box">
+          <span class="material-symbols-outlined">calendar_today</span>
+          <h2>Mis Reservas</h2>
         </div>
 
-        <div class="my-reservations">
-            <div class="section-header">
-                
-                <div class="title-box">
-                    <span class="material-symbols-outlined">calendar_today</span>
-                    <h2>Mis Reservas</h2>
-                </div>
+        <button class="view-all" routerLink="">
+          Ver todas
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </div>
 
-                <button class="view-all" routerLink="">
-                    Ver todas
-                    <span class="material-symbols-outlined">arrow_forward</span>
-                </button>
-            </div>
+      <div class="reservation-container">
+        @for (reservation of myReservations.slice(0, 2); track reservation.id) {
+          <div class="reservation-card">
+            <img
+              src="{{ getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '') }}"
+              alt="Imagen del auto"
+            />
 
-            <div class="reservation-container">
-                @for(reservation of myReservations.slice(0,2); track reservation.id){
-                    <div class="reservation-card">
-                        <img src="{{ getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '') }}" alt="Imagen del auto">
+            <div class="reservation-info">
+              <h3>
+                {{ reservation?.publicacion?.auto?.marca || 'Auto' }} -
+                {{ reservation?.publicacion?.auto?.modelo || '' }}
+              </h3>
 
-                        <div class="reservation-info"> 
-                            <h3> {{ reservation?.publicacion?.auto?.marca || 'Auto' }} - {{ reservation?.publicacion?.auto?.modelo || '' }}</h3>
+              <p class="year-km">
+                {{ reservation?.publicacion?.auto?.anio }} -
+                {{ reservation?.publicacion?.auto?.km }} km
+              </p>
 
-                            <p class="year-km">
-                                {{ reservation?.publicacion?.auto?.anio }} - {{ reservation?.publicacion?.auto?.km }} km
-                            </p>
+              <p class="date">
+                {{ formatearFecha(reservation?.fecha) }}
+              </p>
 
-                            <p class="date">
-                                {{ formatearFecha(reservation?.fecha) }}
-                            </p>
-
-                            <div class="status">
-                                {{ reservation?.estado }}
-                            </div>
-                        </div> 
-                    </div> 
-                }
+              <div class="status">
+                {{ reservation?.estado }}
+              </div>
             </div>
         </div> 
 
@@ -233,4 +240,13 @@
         </div>
     }
 
+        <div class="modal-actions">
+          <button class="btn-cancel" (click)="closeEditModal()">Cancelar</button>
+          <button class="btn-save" [disabled]="email.invalid" (click)="editProfile(email.value)">
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </div>

@@ -481,3 +481,202 @@
         font-size: 13px;
     }
 }
+/* =========================================
+   ESTILOS DEL CHAT EN TIEMPO REAL
+   ========================================= */
+
+.chat-section {
+    margin-top: 1.5rem;
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid #333;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ff8c00;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.8rem;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.chat-messages {
+    height: 300px; /* Fija la altura para que aparezca la barra de scroll */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-right: 0.5rem;
+}
+
+/* Scrollbar personalizada para el chat */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-messages::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 4px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.message {
+    max-width: 85%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.message p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Mensajes enviados por mí (Naranjas, a la derecha) */
+.message.sent {
+    align-self: flex-end;
+    background-color: #ff8c00;
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+/* Mensajes recibidos de la otra persona (Grises, a la izquierda) */
+.message.received {
+    align-self: flex-start;
+    background-color: #333;
+    color: #eee;
+    border-bottom-left-radius: 2px;
+}
+
+.message .sender {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.no-messages {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    margin: auto; /* Lo centra vertical y horizontalmente */
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #444;
+    background-color: #222;
+    color: white;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.chat-input-area input:focus {
+    border-color: #ff8c00;
+}
+
+.chat-input-area button {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.chat-input-area button:hover:not(:disabled) {
+    background-color: #e67e00;
+    transform: scale(1.05);
+}
+
+.chat-input-area button:disabled {
+    background-color: #555;
+    color: #888;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   BOTÓN DE CHAT (CONTACTAR VENDEDOR)
+   ========================================= */
+#button_chats {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-top: 1rem;
+    background-color: transparent;
+    color: #ff8c00;
+    border: 2px solid #ff8c00;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre el ícono y el texto */
+    transition: all 0.3s ease;
+}
+
+#button_chats:hover {
+    background-color: #ff8c00;
+    color: #1a1a1a;
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.2);
+}
+
+#button_chats:active {
+    transform: scale(0.98); /* Pequeño efecto de "click" físico */
+}
+/* =========================================
+   BOTÓN DE WHATSAPP (RECTANGULAR)
+   ========================================= */
+#btn_w_Mycar {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase; /* Letras en mayúscula para un look más sólido */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#btn_w_Mycar:hover {
+    background-color: #1ebe57;
+}
+
+#btn_w_Mycar:active {
+    background-color: #189e47;
+}

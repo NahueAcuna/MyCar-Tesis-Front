@@ -4,7 +4,7 @@ import { Header } from '../../Components/user-layout/header/header';
 import { User } from '../../models/User';
 import { ProfileService } from '../../services/profile-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -25,7 +25,7 @@ export class Profile implements OnInit{
   telefono = '';
   myFavorites: PublicationResponse[] = [];
 
-  constructor(public authService : AuthService, public profileService: ProfileService) {}
+  constructor(public authService : AuthService, public profileService: ProfileService, private router: Router) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
@@ -43,6 +43,10 @@ export class Profile implements OnInit{
       next: (response) => {this.myPosts = response},
       error: (error) => {console.error('Error al obtener mis publicaciones:', error); alert('Error al obtener mis publicaciones');}
     });
+  }
+  
+  irChats(){
+    this.router.navigate(['chats'])
   }
 
   myReservation(){
