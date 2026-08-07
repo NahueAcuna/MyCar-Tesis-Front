@@ -9,4 +9,5 @@ export interface PublicationResponse {
   nombreVendedor: string;
   vendedorTelefono: string;
   auto: CarResponse;
+  emailVendedor: string;
 }

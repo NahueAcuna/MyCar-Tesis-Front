@@ -10,14 +10,16 @@ import { adminGuard } from './guards/admin-guard';
 import { MyPosts } from './pages/my-posts/my-posts';
 import { Profile } from './pages/profile/profile';
 import { Marketplace } from './pages/marketplace/marketplace';
+import { InboxComponent } from './pages/inbox/inbox';
 
 export const routes: Routes = [
     { path: '', component: Home },
     { path: 'vender', component: PublicationForm, canActivate: [authGuard] },
     {path:'marketplace',component:Marketplace},
-    { path: 'publicacion/:id', component: PublicationDetail, canActivate: [authGuard] },
+    { path: 'publicacion/:id', component: PublicationDetail},
     { path: 'registro', component: Register },
     { path: 'login', component: Login },
+    { path: 'chats', component: InboxComponent },
     { path: 'perfil', component: Profile, canActivate: [authGuard] },
     { path: 'mis-publicaciones', component: MyPosts, canActivate: [authGuard] },
     { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] }

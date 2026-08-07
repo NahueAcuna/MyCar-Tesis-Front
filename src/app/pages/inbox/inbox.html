@@ -1,0 +1,81 @@
+<app-header></app-header>
+
+<div class="inbox-layout">
+  
+  <!-- COLUMNA IZQUIERDA: Lista de Chats -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Mensajes</h2>
+    </div>
+    
+    <div class="chat-list">
+      @for (chat of chats; track chat.conversacionId) {
+        <div class="chat-item" [class.active]="chatSeleccionado?.conversacionId === chat.conversacionId" (click)="abrirChat(chat)">
+          
+          <div class="avatar">
+            <span class="material-symbols-outlined">person</span>
+          </div>
+          
+          <div class="chat-info">
+            <div class="top-row">
+              <h4>{{ chat.nombreContacto }}</h4>
+              <span class="badge" [ngClass]="chat.rol === 'COMPRADOR' ? 'badge-comprador' : 'badge-vendedor'">
+                {{ chat.rol === 'COMPRADOR' ? 'Comprando' : 'Vendiendo' }}
+              </span>
+            </div>
+            <p class="last-message">{{ chat.ultimoMensaje || 'Sin mensajes aún...' }}</p>
+          </div>
+
+        </div>
+      }
+
+      @if (chats.length === 0) {
+        <div class="empty-state">
+          <p>No tenés conversaciones activas.</p>
+        </div>
+      }
+    </div>
+  </aside>
+
+  <!-- COLUMNA DERECHA: Chat Activo -->
+  <main class="chat-panel">
+    
+    @if (chatSeleccionado) {
+      <div class="panel-header">
+        <div class="car-info">
+          <span class="material-symbols-outlined">directions_car</span>
+          <h3>Conversación sobre el Auto #{{ chatSeleccionado.publicacionId }}</h3>
+        </div>
+      </div>
+
+      <div class="messages-area">
+        @for (msg of mensajes; track $index) {
+          <div class="message" [ngClass]="{'sent': msg.remitenteEmail === miEmail, 'received': msg.remitenteEmail !== miEmail}">
+            <p>{{ msg.contenido }}</p>
+          </div>
+        }
+      </div>
+
+      <div class="input-area">
+        <input type="text" [(ngModel)]="nuevoMensaje" placeholder="Escribí un mensaje..." (keyup.enter)="enviarMensaje()">
+        <button (click)="enviarMensaje()" [disabled]="!nuevoMensaje.trim()">
+          <span class="material-symbols-outlined">send</span>
+        </button>
+      </div>
+
+    } @else {
+      
+      <!-- Pantalla cuando no se hizo clic en nadie -->
+      <div class="no-chat-selected">
+        <span class="material-symbols-outlined huge-icon">forum</span>
+        <h3>Seleccioná un chat</h3>
+        <p>Elegí una conversación de la lista para empezar a hablar.</p>
+      </div>
+      
+    }
+    
+  </main>
+
+</div>
+
+<app-footer></app-footer>
