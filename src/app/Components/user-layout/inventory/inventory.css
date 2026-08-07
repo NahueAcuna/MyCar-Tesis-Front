@@ -237,7 +237,7 @@ select:focus{
 
 #cars{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, 380px);
     gap: 40px;
 }
 .car_publication{
@@ -261,17 +261,62 @@ select:focus{
     border-radius: 10px;
     object-fit: cover;
 }
-#information{
+
+/* --- AJUSTES FLEXBOX PARA LA INFORMACIÓN Y EL CORAZÓN --- */
+#information {
+    display: flex;
+    flex-direction: column; /* Apila la fila superior y la fila inferior */
+    gap: 12px; /* Separación entre el bloque de arriba y el de abajo */
+    width: 100%;
+}
+
+/* Fila Superior */
+#name_price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Título a la izq, precio a la der */
+    align-items: flex-start; /* Los mantiene alineados arriba */
+    width: 100%;
+}
+
+#name_price p {
+    margin: 0;
+    font-size: 16px;
+    color: white;
+    font-weight: 600; /* Un poco de grosor para que destaque la marca */
+    max-width: 65%; /* Evita que un nombre muy largo empuje al precio */
+}
+
+#name_price span {
+    margin: 0;
+    color: #ff8c00;
+    font-weight: bold;
+    font-size: 16px; 
+    text-align: right;
+}
+
+/* Fila Inferior */
+.info-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Textos a la izq, corazón a la der */
+    align-items: flex-end; /* Empuja el corazón bien hacia abajo */
+    width: 100%;
+}
+
+#anio_description {
+    color: #727070;
     display: flex;
     flex-direction: column;
+    gap: 4px; /* Separación entre año y descripción */
 }
-#name_price{
-    display: flex;
-    justify-content: space-between;
+
+#anio_description span, #anio_description p {
+    margin: 0;
+    font-size: 14px;
 }
-#anio_description{
-    color: #727070;
-}
+/* -------------------------------------------------------- */
+
 .car_publication button{
     padding: 5px 10px 5px 10px;
     border-radius: 7px;
@@ -333,6 +378,35 @@ input[type="range"] {
 
 #pagination button .material-symbols-outlined {
     font-size: 18px; 
+}
+
+/* --- ESTILOS DE FAVORITOS EN LA CARD --- */
+
+.car_publication button.btn-fav {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #8f8b8b; 
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px; /* Margen sutil para alinear perfectamente con el texto */
+}
+
+.car_publication button.btn-fav:hover {
+    background-image: none; 
+    transform: scale(1.1);
+}
+
+.car_publication button.btn-fav span.material-symbols-outlined {
+    font-size: 26px;
+    transition: color 0.3s ease;
+}
+
+.car_publication button.btn-fav span.material-symbols-outlined.activo {
+    color: #ff8c00; 
+    font-variation-settings: 'FILL' 1; 
 }
 
 /* ================= RESPONSIVE ================= */

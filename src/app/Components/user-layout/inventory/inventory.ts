@@ -4,6 +4,7 @@ import { PublicationService } from '../../../services/publication-service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ProfileService } from '../../../services/profile-service';
 
 @Component({
   selector: 'app-inventory',
@@ -22,7 +23,10 @@ export class Inventory implements OnInit {
   models: string[] = [];
 
   precioMinimo: number = 0;
-  precioMaximo: number = 50000;
+  precioMaximo: number = 1000000;
+
+  // --- ARRAY DE FAVORITOS ---
+  misFavoritosIds: number[] = [];
 
   // --- VARIABLES DE PAGINACIÓN ---
   currentPage: number = 1; // Cambiado a 1 para que arranque en la primer página
@@ -52,11 +56,11 @@ export class Inventory implements OnInit {
   minKm: FormControl;
   maxKm: FormControl;
 
-  constructor(private publicationService: PublicationService, public router: Router) {
+  constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
     this.minPrice = new FormControl(0);
-    this.maxPrice = new FormControl(50000);
+    this.maxPrice = new FormControl(1000000);
     this.minKm = new FormControl('');
     this.maxKm = new FormControl('');
 
@@ -72,6 +76,7 @@ export class Inventory implements OnInit {
 
   ngOnInit(): void {
     this.getPublications();
+    this.cargarFavoritos();
   }
 
   getPublications() {
@@ -192,7 +197,7 @@ export class Inventory implements OnInit {
       made: '',
       model: '',
       minPrice: 0,
-      maxPrice: 50000,
+      maxPrice: 1000000,
       minKm: '',
       maxKm: ''
     });
@@ -211,6 +216,43 @@ export class Inventory implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+
+  // --- LÓGICA DE FAVORITOS ---
+  cargarFavoritos() {
+    this.profileService.getFavoritos().subscribe({
+      next: (data) => {
+        this.misFavoritosIds = data.map((pub: any) => Number(pub.id));
+      },
+      error: (err) => console.error("Error al cargar favoritos", err)
+    });
+  }
+
+  toggleFavorito(idPublicacion: any) {
+    const id = Number(idPublicacion);
+    const yaEraFavorito = this.misFavoritosIds.includes(id);
+
+    if (yaEraFavorito) {
+      this.misFavoritosIds = this.misFavoritosIds.filter(favId => favId !== id);
+    } else {
+      this.misFavoritosIds = [...this.misFavoritosIds, id];
+    }
+
+    this.profileService.toggleFavorito(id).subscribe({
+      next: () => console.log("¡Favorito actualizado en la BD!"),
+      error: (err) => {
+        console.error("Error al modificar favorito, revirtiendo...", err);
+        if (yaEraFavorito) {
+          this.misFavoritosIds = [...this.misFavoritosIds, id];
+        } else {
+          this.misFavoritosIds = this.misFavoritosIds.filter(favId => favId !== id);
+        }
+      }
+    });
+  }
+
+  esFavorito(idPublicacion: any): boolean {
+    return this.misFavoritosIds.includes(Number(idPublicacion));
   }
 
 }

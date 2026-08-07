@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../Components/user-layout/header/header';
-import { Footer } from '../../Components/footer/footer';
 import { PublicationService } from '../../services/publication-service';
 
 @Component({
   selector: 'app-publication-form',
-  imports: [CommonModule, FormsModule, Header, Footer],
+  imports: [CommonModule, FormsModule, Header],
   templateUrl: './publication-form.html',
   styleUrl: './publication-form.css'
 })

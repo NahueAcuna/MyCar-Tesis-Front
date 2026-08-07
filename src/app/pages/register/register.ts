@@ -57,7 +57,7 @@ export class Register implements OnInit{
       next: (response) => {console.log('Registro exitoso', response); alert('Registro exitoso'); this.router.navigate(['/perfil']);},
       error: (error) => {console.error(error);
         if(error.status === 409){
-          alert('El email ya está registrado');
+          alert(error.error);
         }else{
           alert('Error en el registro');
         }
@@ -89,7 +89,8 @@ export class Register implements OnInit{
             id: response.id,
             nombre: response.nombre,
             email: response.email,
-            rol: response.rol
+            rol: response.rol,
+            telefono: response.telefono
           });
 
           localStorage.setItem('usuario_email', response.email);

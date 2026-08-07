@@ -1,0 +1,191 @@
+.post-page{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    gap: 40px;
+    padding: 110px 60px 40px;
+    background-image: url('/profile.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+/* ================= OVERLAY ================= */
+
+.overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.40);
+    z-index: 1;
+}
+
+/* ================= POST CONTAINER ================= */
+
+.post-container{
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    align-self: flex-start;
+    width: 100%;
+}
+
+/* ================= POST CARD ================= */
+
+.post-card{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 22px;
+    padding: 14px;
+    transition: 0.3s ease;
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.post-card:hover{
+    transform: translateY(-4px) scale(1.01);
+    border-color: rgba(255,140,0,0.25);
+    box-shadow: 0 0 20px rgba(255,140,0,0.10);
+}
+
+/* ================= IMAGE ================= */
+
+.post-img-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #121212;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* ================= INFO ================= */
+
+.post-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.post-info h3{
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: white;
+}
+
+.year-km{
+    color: #a5a5a5;
+    margin-bottom: 16px;
+}
+
+.price{
+    color: orange;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+/* ================= CORAZÓN DE FAVORITOS ================= */
+
+.fav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.btn-remove-fav {
+    background: transparent;
+    border: none;
+    color: #ff8c00;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    transition: transform 0.2s ease;
+    z-index: 10; 
+}
+
+.btn-remove-fav:hover {
+    transform: scale(1.1);
+}
+
+.btn-remove-fav .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1; /* Esto rellena el corazón de color */
+    font-size: 26px;
+}
+
+.empty-message {
+    grid-column: 1 / -1; 
+    text-align: center; 
+    color: white; 
+    margin-top: 40px;
+}
+
+/* ================= BOTÓN VOLVER ================= */
+
+.btnBack{
+    position: fixed;
+    top: 1%;
+    height: 65px;
+    box-sizing: border-box;
+    left: 60px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0px 22px;
+    border-radius: 50px;
+    border: none;
+    background: rgba(0, 0, 0, 0.86);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btnBack:hover{
+    transform: scale(1.03);
+    box-shadow: 0 0 8px #502802;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1200px){
+    .post-container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media(max-width: 900px){
+    .post-container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 700px){
+    .post-page{
+        padding: 120px 20px 60px;
+    }
+    
+    .post-container{
+        grid-template-columns: 1fr;
+    }
+}

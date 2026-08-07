@@ -5,11 +5,9 @@
     min-height: 100vh;
     display: flex;
     gap: 40px;
-    padding: 110px 60px 40px;
-    background-image: url('/profile.png');
+    padding: 110px 60px 80px;
+    background-image: url('/profile.png') no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     color: white;
 }
 
@@ -32,7 +30,7 @@
 /* ================= LEFT PANEL ================= */
 
 .left-content{
-    width: 320px;
+    width: 380px;
     height: fit-content;
     background: rgba(0,0,0,0.72);
     border: 1px solid rgba(255,140,0,0.35);
@@ -69,12 +67,18 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 30px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .email-box p{
     margin: 0;
     color: white;
     font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
 }
 
 .email-box .material-symbols-outlined{
@@ -92,13 +96,13 @@
     margin-bottom: 30px;
 }
 
-.number-post, .number-reservation{
+.number-post, .number-reservation, .number-favorite{
     display: flex;
     align-items: center;
     gap: 14px;
 }
 
-.number-post span, .number-reservation span{
+.number-post span, .number-reservation span, .number-favorite span{
     font-size: 22px;
     font-weight: 500;
     color: white;
@@ -106,7 +110,7 @@
     align-items: center;
 }
 
-.number-post p, .number-reservation p{
+.number-post p, .number-reservation p, .number-favorite p{
     margin: 0;
     display: flex;
     align-items: center;
@@ -556,6 +560,34 @@ button.view-all{
     cursor: not-allowed;
     transform: none;
 }
+
+/* --- Ajustes para la tarjeta de Favoritos --- */
+
+.fav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.btn-remove-fav {
+    background: transparent;
+    border: none;
+    color: #ff8c00;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    transition: transform 0.2s ease;
+}
+
+.btn-remove-fav:hover {
+    transform: scale(1.1);
+}
+
+.btn-remove-fav .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1; /* Corazón sólido */
+    font-size: 24px;
+}
+
 
 /* ================= RESPONSIVE ================= */
 
