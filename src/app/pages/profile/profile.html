@@ -147,7 +147,10 @@
                 {{ reservation?.estado }}
               </div>
             </div>
-        </div> 
+          </div>
+        }
+      </div>
+    </div>
 
         <div class="my-favorite">
             <div class="section-header">
@@ -239,14 +242,4 @@
             </div>
         </div>
     }
-
-        <div class="modal-actions">
-          <button class="btn-cancel" (click)="closeEditModal()">Cancelar</button>
-          <button class="btn-save" [disabled]="email.invalid" (click)="editProfile(email.value)">
-            Guardar Cambios
-          </button>
-        </div>
-      </div>
-    </div>
-  }
 </div>

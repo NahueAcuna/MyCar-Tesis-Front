@@ -9,17 +9,17 @@ import { Footer } from './Components/footer/footer';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements AfterViewInit, OnDestroy{
+export class App implements AfterViewInit, OnDestroy {
   protected readonly title = signal('tesis-Front');
   private lenis: any;
   private reqId: any;
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone) { }
 
   ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
       this.lenis = new Lenis({
-        duration: 1.2, 
+        duration: 1.2,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });
