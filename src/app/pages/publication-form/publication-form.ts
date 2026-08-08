@@ -18,6 +18,7 @@ export class PublicationForm {
   mostrarPagina4 = false;
 
   errorMessage = '';
+  campoNumeroError: { [key: string]: boolean } = {};
 
   publicationData = {
     marca: '',
@@ -126,6 +127,25 @@ export class PublicationForm {
     });
   }
 
+  // --- Helpers de estandarización ---
+  private titleCase(texto: string): string {
+    return texto.trim().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+  }
+
+  private capitalizarPrimeraLetra(texto: string): string {
+    const trimmed = texto.trim();
+    if (!trimmed) return trimmed;
+    return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+  }
+
+  bloquearNumeros(event: KeyboardEvent, campo: string) {
+    if (/[0-9]/.test(event.key)) {
+      event.preventDefault();
+      this.campoNumeroError[campo] = true;
+      setTimeout(() => this.campoNumeroError[campo] = false, 2500);
+    }
+  }
+
   irAPagina1() {
     this.mostrarPagina1 = true;
     this.mostrarPagina2 = false;
@@ -142,6 +162,10 @@ export class PublicationForm {
       this.errorMessage = 'La marca debe tener al menos 2 caracteres.';
       return;
     }
+    if (/[0-9]/.test(this.publicationData.marca)) {
+      this.errorMessage = 'La marca no puede contener números.';
+      return;
+    }
     if (this.publicationData.modelo.trim().length < 2) {
       this.errorMessage = 'El modelo debe tener al menos 2 caracteres.';
       return;
@@ -151,6 +175,10 @@ export class PublicationForm {
       return;
     }
     this.errorMessage = '';
+    // Estandarizar textos del paso 1
+    this.publicationData.marca = this.titleCase(this.publicationData.marca);
+    this.publicationData.modelo = this.titleCase(this.publicationData.modelo);
+    this.publicationData.descripcion = this.capitalizarPrimeraLetra(this.publicationData.descripcion);
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = true;
     this.mostrarPagina3 = false;
@@ -187,6 +215,10 @@ export class PublicationForm {
     }
 
     this.errorMessage = '';
+    // Estandarizar textos del paso 2
+    this.publicationData.combustible = this.titleCase(this.publicationData.combustible);
+    this.publicationData.color = this.titleCase(this.publicationData.color);
+    this.publicationData.motor = this.publicationData.motor.trim();
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = false;
     this.mostrarPagina3 = true;
