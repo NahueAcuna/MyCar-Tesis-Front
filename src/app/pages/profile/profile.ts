@@ -7,6 +7,7 @@ import { PublicationResponse } from '../../models/PublicationResponse';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../services/toast-service';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,7 @@ export class Profile implements OnInit{
   telefono = '';
   myFavorites: PublicationResponse[] = [];
 
-  constructor(public authService : AuthService, public profileService: ProfileService, private router: Router) {}
+  constructor(public authService : AuthService, public profileService: ProfileService, private router: Router, private toast: ToastService) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
@@ -41,7 +42,7 @@ export class Profile implements OnInit{
   myPost(){
     this.profileService.getMyPosts().subscribe({
       next: (response) => {this.myPosts = response},
-      error: (error) => {console.error('Error al obtener mis publicaciones:', error); alert('Error al obtener mis publicaciones');}
+      error: (error) => {console.error('Error al obtener mis publicaciones:', error); this.toast.error('Error al obtener mis publicaciones');}
     });
   }
   
@@ -106,7 +107,7 @@ export class Profile implements OnInit{
           },
           error: (error) => {
             console.error('Error al actualizar el perfil:', error);
-            alert('Error al actualizar: ' + (error.error || 'Ocurrió un problema inesperado.'));
+            this.toast.error('Error al actualizar: ' + (error.error || 'Ocurrió un problema inesperado.'));
           }
         });
       }else{
@@ -117,7 +118,7 @@ export class Profile implements OnInit{
 
  savePhone() {
   if (!/^[0-9]{10}$/.test(this.telefono)) {
-    alert("El teléfono debe tener exactamente 10 dígitos.");
+    this.toast.warning("El teléfono debe tener exactamente 10 dígitos.");
     return;
   }
 
@@ -131,14 +132,14 @@ export class Profile implements OnInit{
 
         this.showCompleteProfileModal = false;
 
-        alert("Perfil actualizado correctamente");
+        this.toast.success("Perfil actualizado correctamente");
       },
 
       error: (error) => {
         if(error.status === 409){
-          alert("Ese numero de telefono ya esta registrado.");
+          this.toast.error("Ese numero de telefono ya esta registrado.");
         }else{
-          alert("Error al guardar el teléfono.");
+          this.toast.error("Error al guardar el teléfono.");
         }
       }
     });

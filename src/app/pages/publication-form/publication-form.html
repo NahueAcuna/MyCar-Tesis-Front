@@ -46,10 +46,14 @@
         <input type="text" placeholder="Ej: Corolla" [(ngModel)]="publicationData.modelo" (keyup.enter)="irAPagina2()">
       </div>
       <div class="input-group" style="width: 100%;">
-        <label>Descripción</label>
+        <div class="label-header">
+          <label>Descripción</label>
+          <span class="char-counter" [class.limit-warning]="(publicationData.descripcion?.length || 0) >= 450">
+            {{ publicationData.descripcion?.length || 0 }}/500 caracteres
+          </span>
+        </div>
         <textarea placeholder="Describe el estado general del vehículo..." [(ngModel)]="publicationData.descripcion"
-          rows="3"
-          style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #333; background: #111; color: white; resize: vertical;"></textarea>
+          rows="3" maxlength="500"></textarea>
       </div>
     </div>
     <p class="error-msg" *ngIf="errorMessage && mostrarPagina1">{{ errorMessage }}</p>

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../Components/user-layout/header/header';
 import { PublicationService } from '../../services/publication-service';
+import { ToastService } from '../../services/toast-service';
 
 @Component({
   selector: 'app-publication-form',
@@ -41,7 +42,7 @@ export class PublicationForm {
   selectedFiles: File[] = [];
   selectedVideoFiles: File[] = [];
 
-  constructor(private router: Router, private publicationService: PublicationService) { }
+  constructor(private router: Router, private publicationService: PublicationService, private toast: ToastService) { }
 
   get currentStep(): number {
     if (this.mostrarPagina1) return 1;
@@ -90,7 +91,7 @@ export class PublicationForm {
     // Verificar si hay token válido antes de intentar el request
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('Tu sesión expiró. Por favor, iniciá sesión nuevamente.');
+      this.toast.warning('Tu sesión expiró. Por favor, iniciá sesión nuevamente.');
       return;
     }
 
@@ -117,12 +118,12 @@ export class PublicationForm {
     const todosLosArchivos = [...this.selectedFiles, ...this.selectedVideoFiles];
     this.publicationService.createPublication(publicacionRequestDTO, todosLosArchivos).subscribe({
       next: () => {
-        alert('Publicación creada con éxito!');
+        this.toast.success('Publicación creada con éxito!');
         this.router.navigate(['/']);
       },
       error: (err) => {
         console.error(err);
-        alert('Ocurrió un error al crear la publicación.');
+        this.toast.error('Ocurrió un error al crear la publicación.');
       }
     });
   }

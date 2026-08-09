@@ -9,6 +9,7 @@ import { ReservaService } from '../../services/reserva-service';
 import { ReservaRequest } from '../../models/reserva-request';
 import { FormsModule } from '@angular/forms'; // <-- Sumamos FormsModule para el chat
 import { ChatService } from '../../services/chat-service';
+import { ToastService } from '../../services/toast-service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
     private chatService: ChatService, // <-- Inyectamos el ChatService
     private route: ActivatedRoute, 
     public router: Router, 
-    private location: Location
+    private location: Location,
+    private toast: ToastService
   ) { }
 
 
@@ -65,7 +67,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
 
     // Si por algún motivo no hay email, frenamos
     if (!emailDelVendedor) {
-      alert("No se pudo obtener el contacto del vendedor.");
+      this.toast.error("No se pudo obtener el contacto del vendedor.");
       return;
     }
 
@@ -79,7 +81,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
         },
         error: (err) => {
           console.error("Error al crear sala de chat", err);
-          alert("Hubo un problema al intentar contactar al vendedor.");
+          this.toast.error("Hubo un problema al intentar contactar al vendedor.");
         }
       });
   }
@@ -127,7 +129,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
         this.selectedImage = imagenes[0] || videos[0] || '';
         this.selectedIsVideo = this.isVideo(this.selectedImage);
       },
-      error: () => alert('Se produjo un error al mostrar el auto.')
+      error: () => this.toast.error('Se produjo un error al mostrar el auto.')
     })
   }
 
@@ -167,7 +169,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
   pagarReserva() {
     const emailUsuarioLogueado = localStorage.getItem('usuario_email');
     if (!emailUsuarioLogueado) {
-      alert('Por favor, iniciá sesión o completá tus datos para poder reservar este auto.');
+      this.toast.warning('Por favor, iniciá sesión o completá tus datos para poder reservar este auto.');
       return; 
     }
     this.cargandoPago = true;
@@ -190,11 +192,11 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
       },
       error: (err) => {
         if (err.status === 409) {
-          alert('Ya tenés una reserva activa para este vehículo.');
+          this.toast.warning('Ya tenés una reserva activa para este vehículo.');
         } else if (err.status === 0) {
-          alert('No se pudo conectar con el servidor.');
+          this.toast.error('No se pudo conectar con el servidor.');
         } else {
-          alert('Hubo un problema al procesar tu reserva.');
+          this.toast.error('Hubo un problema al procesar tu reserva.');
         }
         this.cargandoPago = false; 
       }

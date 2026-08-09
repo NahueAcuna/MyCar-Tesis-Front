@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
 import { Header } from '../../Components/user-layout/header/header';
+import { ToastService } from '../../services/toast-service';
 declare const google: any;
 
 @Component({
@@ -16,7 +17,7 @@ export class Register implements OnInit{
   registerForm : FormGroup;
   hidePassword: boolean = true;
 
-  constructor(private authService: AuthService, private fb : FormBuilder, private router: Router) {
+  constructor(private authService: AuthService, private fb : FormBuilder, private router: Router, private toast: ToastService) {
     this.registerForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')]],
       email: ['', [Validators.required, Validators.email]],
@@ -54,12 +55,12 @@ export class Register implements OnInit{
 
   register(){
     this.authService.register(this.registerForm.value).subscribe({
-      next: (response) => {console.log('Registro exitoso', response); alert('Registro exitoso'); this.router.navigate(['/perfil']);},
+      next: (response) => {console.log('Registro exitoso', response); this.toast.success('Registro exitoso'); this.router.navigate(['/perfil']);},
       error: (error) => {console.error(error);
         if(error.status === 409){
-          alert(error.error);
+          this.toast.error(error.error);
         }else{
-          alert('Error en el registro');
+          this.toast.error('Error en el registro');
         }
       }
     });
@@ -73,7 +74,7 @@ export class Register implements OnInit{
     if (typeof google !== 'undefined' && google.accounts) {
       google.accounts.id.prompt();
     } else {
-      alert('El servicio de Google no está disponible en este momento.');
+      this.toast.warning('El servicio de Google no está disponible en este momento.');
     }
   }
 
@@ -95,7 +96,7 @@ export class Register implements OnInit{
 
           localStorage.setItem('usuario_email', response.email);
 
-          alert('Registro con Google exitoso');
+          this.toast.success('Registro con Google exitoso');
 
           this.router.navigate(['/']);
         },
@@ -105,9 +106,9 @@ export class Register implements OnInit{
           console.error(error);
 
           if(error.status === 409){
-            alert('Ya existe una cuenta registrada con ese Google');
+            this.toast.error('Ya existe una cuenta registrada con ese Google');
           }else{
-            alert('Error al registrarse con Google');
+            this.toast.error('Error al registrarse con Google');
           }
         }
       });

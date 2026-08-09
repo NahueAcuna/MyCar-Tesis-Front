@@ -3,6 +3,7 @@ import { PublicationResponse } from '../../models/PublicationResponse';
 import { ProfileService } from '../../services/profile-service';
 import { Header } from '../../Components/user-layout/header/header';
 import { Router, RouterLink } from '@angular/router';
+import { ToastService } from '../../services/toast-service';
 
 @Component({
   selector: 'app-my-posts',
@@ -13,7 +14,7 @@ import { Router, RouterLink } from '@angular/router';
 export class MyPosts implements OnInit {
   myPosts: PublicationResponse[] = [];
 
-  constructor(public profileService: ProfileService, private router: Router) {}
+  constructor(public profileService: ProfileService, private router: Router, private toast: ToastService) {}
 
   ngOnInit(): void {
     this.myPost();
@@ -22,7 +23,7 @@ export class MyPosts implements OnInit {
   myPost(){
     this.profileService.getMyPosts().subscribe({
       next: (response) => {this.myPosts = response},
-      error: (error) => {console.error('Error al obtener mis publicaciones:', error); alert('Error al obtener mis publicaciones');}
+      error: (error) => {console.error('Error al obtener mis publicaciones:', error); this.toast.error('Error al obtener mis publicaciones');}
     });
   }
 
