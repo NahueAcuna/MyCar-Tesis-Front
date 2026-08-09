@@ -134,12 +134,87 @@
     </div>
   }
 
-  <!-- Tab: Reservas (proximamente) -->
+  <!-- Tab: Reservas -->
   @if (tabActivo === 'reservas') {
     <div class="tab-content">
-      <h2>Gestión de Reservas</h2>
-      <div class="proximamente">
-        <p>Esta sección estará disponible próximamente.</p>
+      <div class="reservas-header">
+        <h2>Gestión de <span class="highlight">Reservas</span></h2>
+        <div class="reservas-filtro">
+          <label>Filtrar por estado:</label>
+          <select [(ngModel)]="filtroEstado">
+            <option value="TODAS">Todas</option>
+            <option value="PENDIENTE">Pendientes</option>
+            <option value="ACEPTADA">Aceptadas</option>
+            <option value="CANCELADA">Canceladas</option>
+          </select>
+        </div>
+      </div>
+
+      @if (cargandoReservas) {
+        <div class="estado-msg">Cargando reservas...</div>
+      }
+
+      @if (errorReservas) {
+        <div class="estado-msg error">{{ errorReservas }}</div>
+      }
+
+      @if (!cargandoReservas && reservasFiltradas.length === 0 && !errorReservas) {
+        <div class="estado-msg">No hay reservas para mostrar.</div>
+      }
+
+      <div class="reservas-lista">
+        @for (reserva of reservasFiltradas; track reserva.id) {
+          <div class="reserva-card">
+            <div class="reserva-top">
+              <div class="reserva-id">#{{ reserva.id }}</div>
+              <span class="estado-badge" [class]="getBadgeClass(reserva.estadoReserva)">
+                {{ reserva.estadoReserva }}
+              </span>
+            </div>
+
+            <div class="reserva-body">
+              <div class="reserva-info">
+                <div class="info-row">
+                  <span class="info-label">👤 Usuario</span>
+                  <span class="info-value">{{ reserva.usuarioReserva?.nombre || '-' }}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">✉️ Email</span>
+                  <span class="info-value">{{ reserva.usuarioReserva?.email }}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">📞 Teléfono</span>
+                  <span class="info-value">{{ reserva.usuarioReserva?.telefono || '-' }}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">📅 Fecha</span>
+                  <span class="info-value">{{ formatFecha(reserva.fecha) }}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">🚗 Publicación</span>
+                  <span class="info-value link" (click)="verDetalle(reserva.idPublicacion)">#{{ reserva.idPublicacion }}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">💰 Monto</span>
+                  <span class="info-value monto">${{ reserva.montoReserva }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="reserva-actions">
+              @if (reserva.estadoReserva !== 'ACEPTADA') {
+                <button class="btn-reserva aceptar" (click)="cambiarEstadoReserva(reserva, 'ACEPTADA')">✔ Aceptar</button>
+              }
+              @if (reserva.estadoReserva !== 'CANCELADA') {
+                <button class="btn-reserva cancelar" (click)="cambiarEstadoReserva(reserva, 'CANCELADA')">✘ Cancelar</button>
+              }
+              @if (reserva.estadoReserva !== 'PENDIENTE') {
+                <button class="btn-reserva pendiente" (click)="cambiarEstadoReserva(reserva, 'PENDIENTE')">⏳ Pendiente</button>
+              }
+              <button class="btn-reserva eliminar" (click)="eliminarReserva(reserva)">🗑 Eliminar</button>
+            </div>
+          </div>
+        }
       </div>
     </div>
   }

@@ -2,10 +2,11 @@ import { AfterViewInit, Component, NgZone, OnDestroy, signal } from '@angular/co
 import { RouterOutlet } from '@angular/router';
 import Lenis from 'lenis';
 import { Footer } from './Components/footer/footer';
+import { ToastComponent } from './Components/toast/toast';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Footer],
+  imports: [RouterOutlet, Footer, ToastComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

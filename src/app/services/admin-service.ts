@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PublicationResponse } from '../models/PublicationResponse';
+import { ReservaResponse } from '../models/ReservaResponse';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminService {
   private url = 'http://localhost:8080/publicacion';
+  private reservaUrl = 'http://localhost:8080/reserva';
 
   constructor(private http: HttpClient) {}
 
@@ -29,5 +31,19 @@ export class AdminService {
   // Obtener estadísticas para el dashboard
   getEstadisticas(): Observable<any> {
     return this.http.get<any>(`${this.url}/admin/estadisticas`);
+  }
+
+  // --- Reservas ---
+
+  getReservas(): Observable<ReservaResponse[]> {
+    return this.http.get<ReservaResponse[]>(`${this.reservaUrl}/admin/lista`);
+  }
+
+  modificarReserva(reserva: ReservaResponse): Observable<ReservaResponse> {
+    return this.http.put<ReservaResponse>(`${this.reservaUrl}/modificar-reserva`, reserva);
+  }
+
+  eliminarReserva(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.reservaUrl}/${id}`);
   }
 }
