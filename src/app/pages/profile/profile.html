@@ -33,22 +33,20 @@
             </div>
         </div>
 
-   
-   
+        <div class="action-btn">
+          <span class="material-symbols-outlined"> chat </span>
+          <button (click)="irChats()">Chats</button>
+        </div>
 
-    <div class="action-btn">
-      <span class="material-symbols-outlined"> chat </span>
-      <button (click)="irChats()">Chats</button>
-    </div>
-    <div class="action-btn">
-      <span class="material-symbols-outlined">edit</span>
-      <button (click)="openEditModal()">Editar Perfil</button>
-    </div>
+        <div class="action-btn">
+          <span class="material-symbols-outlined">edit</span>
+          <button (click)="openEditModal()">Editar Perfil</button>
+        </div>
 
-    <div class="action-btn logout">
-      <span class="material-symbols-outlined">logout</span>
-      <button (click)="authService.logout()">Cerrar sesión</button>
-    </div>
+        <div class="action-btn logout">
+          <span class="material-symbols-outlined">logout</span>
+          <button (click)="authService.logout()">Cerrar sesión</button>
+        </div>
   </div>
 
   <div class="right-content">
@@ -120,32 +118,21 @@
         </button>
       </div>
 
-      <div class="reservation-container">
+      <div class="post-container">
         @for (reservation of myReservations.slice(0, 2); track reservation.id) {
-          <div class="reservation-card">
-            <img
-              src="{{ getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '') }}"
-              alt="Imagen del auto"
-            />
+          <div class="post-card">
+            <div class="post-img-container">
+              <img [src]="getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '')" alt="Imagen del auto" (error)="onImageError($event)">
+            </div>
 
-            <div class="reservation-info">
-              <h3>
-                {{ reservation?.publicacion?.auto?.marca || 'Auto' }} -
-                {{ reservation?.publicacion?.auto?.modelo || '' }}
-              </h3>
+            <div class="post-info"> 
+              <h3>{{ reservation?.publicacion?.auto?.marca || 'Marca' }} {{ reservation?.publicacion?.auto?.modelo || 'Modelo' }}</h3>
 
-              <p class="year-km">
-                {{ reservation?.publicacion?.auto?.anio }} -
-                {{ reservation?.publicacion?.auto?.km }} km
-              </p>
+              <p class="year-km">{{ reservation?.publicacion?.auto?.anio || '0000' }} - {{ reservation?.publicacion?.auto?.km || '0' }} km</p>
+              
+              <p class="price">{{ formatearFecha(reservation?.fecha) }}</p>
 
-              <p class="date">
-                {{ formatearFecha(reservation?.fecha) }}
-              </p>
-
-              <div class="status">
-                {{ reservation?.estado }}
-              </div>
+              <div class="status">{{ reservation?.estado }}</div>
             </div>
           </div>
         }
