@@ -46,7 +46,7 @@ export class Profile implements OnInit{
   }
   
   irChats(){
-    this.router.navigate(['chats'])
+    this.router.navigate(['/chats'])
   }
 
   myReservation(){

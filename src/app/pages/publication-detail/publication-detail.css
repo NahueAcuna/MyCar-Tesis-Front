@@ -21,21 +21,26 @@
 
 /* ================= CONTAINER ================= */
 
-.container{
+.container {
     position: relative;
     z-index: 2;
-    display: grid;
-    grid-template-columns: minmax(0, 1.7fr) 420px;
+    /* 1. Volvemos a la grilla perfecta de dos columnas */
+    display: grid; 
+    grid-template-columns: minmax(0, 1.7fr) 420px; 
     gap: 40px;
-    align-items: start;
+    padding-right: 0; /* Sacamos el hueco que habíamos inventado antes */
+    
+    /* 2. ESTA ES LA MAGIA: Si no le ponés esto, el sticky no funciona */
+    align-items: start; 
 }
 
 /* ================= LEFT ================= */
 
-.left{
+.left {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    width: 100%;
 }
 
 /* ================= IMAGE ================= */
@@ -204,16 +209,41 @@
 
 /* ================= RIGHT ================= */
 
-.right{
-    width: 100%;
-    min-width: 0;
-    padding: 34px;
-    position: sticky;
-    top: 120px;
+.right {
+    position: sticky; 
+    top: 120px; 
+    width: 100%; 
     height: fit-content;
+    max-height: calc(100vh - 140px); 
+    overflow-y: auto; 
     display: flex;
     flex-direction: column;
     gap: 28px;
+    box-sizing: border-box;
+    z-index: 10;
+    
+    /* Diseño visual */
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,140,0,0.18);
+    border-radius: 28px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 0 1px rgba(255,140,0,.04), 0 0 25px rgba(255,140,0,.06);
+    padding: 34px;
+}
+
+/* Scrollbar invisible y elegante para la columna derecha */
+.right::-webkit-scrollbar {
+    width: 5px;
+}
+.right::-webkit-scrollbar-track {
+    background: transparent;
+}
+.right::-webkit-scrollbar-thumb {
+    background: rgba(255, 140, 0, 0.4);
+    border-radius: 10px;
+}
+.right::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 140, 0, 0.8);
 }
 
 /* ================= TITLE ================= */
@@ -653,30 +683,36 @@
     transform: scale(0.98); /* Pequeño efecto de "click" físico */
 }
 /* =========================================
-   BOTÓN DE WHATSAPP (RECTANGULAR)
+   BOTÓN DE WHATSAPP (RECTANGULAR PREMIUM)
    ========================================= */
 #btn_w_Mycar {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 1rem;
+    padding: 16px;
     margin-top: 1rem;
-    background-color: #25D366;
+    background: linear-gradient(135deg, #25D366, #1da851);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1.05rem;
-    font-weight: 700;
-    text-align: center;
-    text-transform: uppercase; /* Letras en mayúscula para un look más sólido */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+    transition: all 0.3s ease;
 }
 
 #btn_w_Mycar:hover {
-    background-color: #1ebe57;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    background: linear-gradient(135deg, #28e06d, #1fba5a);
 }
 
 #btn_w_Mycar:active {
-    background-color: #189e47;
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3);
 }

@@ -52,6 +52,7 @@ export class Marketplace {
 
   made: FormControl;
   model: FormControl;
+  anio: FormControl;
   minPrice: FormControl;
   maxPrice: FormControl;
   minKm: FormControl;
@@ -60,6 +61,7 @@ export class Marketplace {
   constructor(private publicationService: PublicationService, public router: Router, private profileService: ProfileService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
+    this.anio = new FormControl('');
     this.minPrice = new FormControl(0);
     this.maxPrice = new FormControl(1000000);
     this.minKm = new FormControl('');
@@ -68,6 +70,7 @@ export class Marketplace {
     this.filtersForm = new FormGroup({
       made: this.made,
       model: this.model,
+       anio: this.anio,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
       minKm: this.minKm,
@@ -85,9 +88,17 @@ export class Marketplace {
       next: (data) => {
         this.publications = data;
         this.filteredPublications = data;
+        
         data.forEach(p => {
-          this.mades.push(p.auto.marca);
-          this.models.push(p.auto.modelo);
+          // Si la marca NO está en el arreglo, la agrego
+          if (!this.mades.includes(p.auto.marca)) {
+            this.mades.push(p.auto.marca);
+          }
+          
+          // Si el modelo NO está en el arreglo, lo agrego
+          if (!this.models.includes(p.auto.modelo)) {
+            this.models.push(p.auto.modelo);
+          }
         });
       }
     });
