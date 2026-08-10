@@ -33,9 +33,12 @@
             </div>
         </div>
 
-        <div class="action-btn">
+        <div class="action-btn chat-action" (click)="irChats()">
           <span class="material-symbols-outlined"> chat </span>
-          <button (click)="irChats()">Chats</button>
+          <button>Chats</button>
+          @if (cantidadNoLeidos > 0) {
+            <span class="chat-badge">{{ cantidadNoLeidos > 99 ? '99+' : cantidadNoLeidos }}</span>
+          }
         </div>
 
         <div class="action-btn">

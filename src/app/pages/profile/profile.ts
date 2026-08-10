@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { Header } from '../../Components/user-layout/header/header';
 import { User } from '../../models/User';
 import { ProfileService } from '../../services/profile-service';
+import { ChatService } from '../../services/chat-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../services/toast-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +17,7 @@ import { ToastService } from '../../services/toast-service';
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
-export class Profile implements OnInit{
+export class Profile implements OnInit, OnDestroy{
 
   user: User | null = null;
   myPosts: PublicationResponse[] = [];
@@ -25,8 +27,16 @@ export class Profile implements OnInit{
   showCompleteProfileModal = false;
   telefono = '';
   myFavorites: PublicationResponse[] = [];
+  cantidadNoLeidos: number = 0;
+  private noLeidosSub?: Subscription;
 
-  constructor(public authService : AuthService, public profileService: ProfileService, private router: Router, private toast: ToastService) {}
+  constructor(
+    public authService: AuthService,
+    public profileService: ProfileService,
+    private router: Router,
+    private toast: ToastService,
+    public chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
@@ -37,6 +47,19 @@ export class Profile implements OnInit{
     this.myPost();
     this.myReservation();
     this.cargarFavoritos();
+
+    // Suscripción al contador de mensajes no leídos
+    const email = localStorage.getItem('usuario_email') || '';
+    if (email) {
+      this.chatService.refrescarContador(email);
+    }
+    this.noLeidosSub = this.chatService.cantidadNoLeidos$.subscribe(
+      cantidad => this.cantidadNoLeidos = cantidad
+    );
+  }
+
+  ngOnDestroy() {
+    this.noLeidosSub?.unsubscribe();
   }
 
   myPost(){
