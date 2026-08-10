@@ -10,103 +10,177 @@
           <p id="title">Filtrar por</p>
           <button type="button" id="cleaner-button" (click)="filterCleaner()">
             <span class="material-symbols-outlined">reset_shutter_speed</span>
-            Limpiar filtros
+            Limpiar
           </button>
         </div>
-        
-        <div class="input_filter">
-          <span>Marca</span>
-          <select name="" id="" formControlName="made">
-            @for(made of mades; track $index){
-            <option [value]="made">{{made}}</option>
-            }
-          </select>
-        </div>
-        <div class="input_filter">
-          <span>Modelo</span>
-          <select name="" id="" formControlName="model">
-            @for(model of models; track $index){
-            <option [value]="model">{{model}}</option>
-            }
-          </select>
-        </div>
-        <div class="input_filter">
-          <span>Precio</span>
 
-          <label for="min_price">Precio mínimo: ${{ precioMinimo }}</label>
-          <input type="range" id="min_price" min="0" max="1000000" step="500" [value]="precioMinimo"
-            (input)="actualizarMinimo($event)" formControlName="minPrice" />
-
-          <label for="max_price">Precio máximo: ${{ precioMaximo }}</label>
-          <input type="range" id="max_price" min="0" max="1000000" step="500" [value]="precioMaximo"
-            (input)="actualizarMaximo($event)" formControlName="maxPrice" />
-        </div>
         <div class="input_filter">
-          <span>Kilometraje</span>
-          <div id="kilometraje">
-            <div>
-              <label for="min">Minimo</label>
-              <input type="number" id="min" min="0" formControlName="minKm" />
+          <span class="filter-label">Año</span>
+          <input
+            type="number"
+            min="1950"
+            max="2026"
+            placeholder="Ej: 2018"
+            formControlName="anio"
+          />
+        </div>
+
+        <div class="input_filter">
+          <span class="filter-label">Marca</span>
+          <div class="select-wrapper">
+            <select formControlName="made">
+              <option value="" disabled selected>Seleccioná una marca</option>
+              @for (made of mades; track $index) {
+                <option [value]="made">{{ made }}</option>
+              }
+            </select>
+            <span class="material-symbols-outlined select-icon">expand_more</span>
+          </div>
+        </div>
+
+        <div class="input_filter">
+          <span class="filter-label">Modelo</span>
+          <div class="select-wrapper">
+            <select formControlName="model">
+              <option value="" disabled selected>Seleccioná un modelo</option>
+              @for (model of models; track $index) {
+                <option [value]="model">{{ model }}</option>
+              }
+            </select>
+            <span class="material-symbols-outlined select-icon">expand_more</span>
+          </div>
+        </div>
+
+        <div class="input_filter">
+          <span class="filter-label">Rango de Precio</span>
+
+          <div class="range-group">
+            <div class="range-header">
+              <label for="min_price">Mínimo</label>
+              <span class="range-value">${{ precioMinimo | number: '1.0-0' }}</span>
             </div>
-            <div>
-              <label for="max">Máximo</label>
-              <input type="number" id="max" min="0" formControlName="maxKm" />
+            <input
+              type="range"
+              id="min_price"
+              min="0"
+              max="1000000"
+              step="500"
+              [value]="precioMinimo"
+              (input)="actualizarMinimo($event)"
+              formControlName="minPrice"
+            />
+          </div>
+
+          <div class="range-group">
+            <div class="range-header">
+              <label for="max_price">Máximo</label>
+              <span class="range-value">${{ precioMaximo | number: '1.0-0' }}</span>
+            </div>
+            <input
+              type="range"
+              id="max_price"
+              min="0"
+              max="1000000"
+              step="500"
+              [value]="precioMaximo"
+              (input)="actualizarMaximo($event)"
+              formControlName="maxPrice"
+            />
+          </div>
+        </div>
+
+        <div class="input_filter">
+          <span class="filter-label">Kilometraje</span>
+          <div id="kilometraje">
+            <div class="km-box">
+              <label for="min">Desde</label>
+              <input type="number" id="min" min="0" placeholder="0" formControlName="minKm" />
+            </div>
+            <div class="km-box">
+              <label for="max">Hasta</label>
+              <input type="number" id="max" min="0" placeholder="150000" formControlName="maxKm" />
             </div>
           </div>
         </div>
-        <button type="submit">Aplicar filtros</button>
+
+        <button type="submit" id="btn-apply">Aplicar filtros</button>
       </form>
 
       <div id="publications">
-        <div id="search" [class.open]="isSearchShowed">
-          <button (click)="switchSearchView()">
-            <span class="material-symbols-outlined"> search </span>
-          </button>
-          <input #searchInput type="text" (input)="onSearch($event)" name="" id="">
+        <!-- CONTENEDOR NUEVO PARA ALINEAR BÚSQUEDA Y PAGINACIÓN -->
+        <div id="top-bar">
+          <!-- 1. Barra de Búsqueda -->
+          <div id="search" [class.open]="isSearchShowed">
+            <button (click)="switchSearchView()">
+              <span class="material-symbols-outlined"> search </span>
+            </button>
+            <input #searchInput type="text" (input)="onSearch($event)" name="" id="" />
+          </div>
+
+          <!-- 2. Paginación -->
+          <div id="pagination">
+            <button (click)="prevPage()" [disabled]="currentPage === 1">
+              <span class="material-symbols-outlined">chevron_left</span> Anterior
+            </button>
+
+            <span>Página {{ currentPage }} de {{ totalPages === 0 ? 1 : totalPages }}</span>
+
+            <button
+              (click)="nextPage()"
+              [disabled]="currentPage === totalPages || totalPages === 0"
+            >
+              Siguiente <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
         </div>
-        
+
+        <!-- 3. Grilla de Autos -->
         <div id="cars">
-          @for (publication of filteredPublications | slice:startIndex:endIndex; track publication.id) {
-          <div class="car_publication">
-            <img [src]="getImageUrl(publication.auto.imagenesUrl && publication.auto.imagenesUrl.length > 0 ? publication.auto.imagenesUrl[0] : '')" alt="Imagen del auto" (error)="onImageError($event)" />
-            <div id="information">
-              <!-- FILA SUPERIOR: Marca/Modelo (Izquierda) - Precio (Derecha) -->
-              <div id="name_price">
-                <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>
-                <span>${{ publication.auto.precio | number:'1.0-0' }} </span>
-              </div>
-              
-              <!-- FILA INFERIOR: Año/Descripción (Izquierda) - Corazón (Derecha) -->
-              <div class="info-footer">
-                <div id="anio_description">
-                  <span>{{ publication.auto.anio }} </span>
-                  <p>{{ descriptionPreview(publication.descripcion) }}</p>
+          <!-- ... (Acá sigue tu código del @for de los autos igual que antes) ... -->
+          @for (
+            publication of filteredPublications | slice: startIndex : endIndex;
+            track publication.id
+          ) {
+            <div class="car_publication">
+              <img
+                [src]="
+                  getImageUrl(
+                    publication.auto.imagenesUrl && publication.auto.imagenesUrl.length > 0
+                      ? publication.auto.imagenesUrl[0]
+                      : ''
+                  )
+                "
+                alt="Imagen del auto"
+                (error)="onImageError($event)"
+              />
+              <div id="information">
+                <!-- FILA SUPERIOR: Marca/Modelo (Izquierda) - Precio (Derecha) -->
+                <div id="name_price">
+                  <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>
+                  <span>${{ publication.auto.precio | number: '1.0-0' }} </span>
                 </div>
-                
-                <button class="btn-fav" (click)="toggleFavorito(publication.id)">
-                    <span class="material-symbols-outlined" [class.activo]="esFavorito(publication.id)">
+
+                <!-- FILA INFERIOR: Año/Descripción (Izquierda) - Corazón (Derecha) -->
+                <div class="info-footer">
+                  <div id="anio_description">
+                    <span>{{ publication.auto.anio }} </span>
+                    <p>{{ descriptionPreview(publication.descripcion) }}</p>
+                  </div>
+
+                  <button class="btn-fav" (click)="toggleFavorito(publication.id)">
+                    <span
+                      class="material-symbols-outlined"
+                      [class.activo]="esFavorito(publication.id)"
+                    >
                       {{ esFavorito(publication.id) ? 'favorite' : 'favorite_border' }}
                     </span>
-                </button>
+                  </button>
+                </div>
               </div>
+              <button (click)="carDetail(publication.id)">Ver auto</button>
             </div>
-            <button (click)="carDetail(publication.id)">Ver auto</button>
-          </div>
           }
         </div>
-
-        <div id="pagination">
-          <button (click)="prevPage()" [disabled]="currentPage === 1">
-            <span class="material-symbols-outlined">chevron_left</span> Anterior
-          </button>
-          
-          <span>Página {{ currentPage }} de {{ totalPages === 0 ? 1 : totalPages }}</span>
-          
-          <button (click)="nextPage()" [disabled]="currentPage === totalPages || totalPages === 0">
-            Siguiente <span class="material-symbols-outlined">chevron_right</span>
-          </button>
-        </div>
-
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PublicationResponse } from '../../../models/PublicationResponse';
 import { PublicationService } from '../../../services/publication-service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../../services/profile-service';
 
@@ -29,7 +29,7 @@ export class Inventory implements OnInit {
   misFavoritosIds: number[] = [];
 
   // --- VARIABLES DE PAGINACIÓN ---
-  currentPage: number = 1; // Cambiado a 1 para que arranque en la primer página
+  currentPage: number = 1; 
   itemsPerPage: number = 6;
 
   // --- GETTERS DE PAGINACIÓN ---
@@ -51,6 +51,7 @@ export class Inventory implements OnInit {
 
   made: FormControl;
   model: FormControl;
+  anio: FormControl;
   minPrice: FormControl;
   maxPrice: FormControl;
   minKm: FormControl;
@@ -59,19 +60,21 @@ export class Inventory implements OnInit {
   constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
-    this.minPrice = new FormControl(0);
-    this.maxPrice = new FormControl(1000000);
-    this.minKm = new FormControl('');
-    this.maxKm = new FormControl('');
+    this.anio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
+    this.minPrice = new FormControl(0, [Validators.min(0)]);
+    this.maxPrice = new FormControl(1000000, [Validators.min(0)]);
+    this.minKm = new FormControl('', [Validators.min(0)]);
+    this.maxKm = new FormControl('', [Validators.min(0)]);
 
     this.filtersForm = new FormGroup({
       made: this.made,
       model: this.model,
+      anio: this.anio, 
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
       minKm: this.minKm,
       maxKm: this.maxKm
-    });
+    }, { validators: this.rangoKmValidator });
   }
 
   ngOnInit(): void {
@@ -79,14 +82,35 @@ export class Inventory implements OnInit {
     this.cargarFavoritos();
   }
 
+  // --- VALIDADOR PERSONALIZADO ---
+  rangoKmValidator(control: AbstractControl): ValidationErrors | null {
+    const min = control.get('minKm')?.value;
+    const max = control.get('maxKm')?.value;
+  
+    if (min !== null && max !== null && min !== '' && max !== '') {
+      if (min > max) {
+        return { rangoInvalido: true };
+      }
+    }
+    return null;
+  }
+
   getPublications() {
     this.publicationService.getPublications().subscribe({
       next: (data) => {
         this.publications = data;
         this.filteredPublications = data;
+        
         data.forEach(p => {
-          this.mades.push(p.auto.marca);
-          this.models.push(p.auto.modelo);
+          // Si la marca NO está en el arreglo, la agrego
+          if (!this.mades.includes(p.auto.marca)) {
+            this.mades.push(p.auto.marca);
+          }
+          
+          // Si el modelo NO está en el arreglo, lo agrego
+          if (!this.models.includes(p.auto.modelo)) {
+            this.models.push(p.auto.modelo);
+          }
         });
       }
     });
@@ -137,7 +161,7 @@ export class Inventory implements OnInit {
 
     if (!query) {
       this.filteredPublications = [...this.publications];
-      this.currentPage = 1; // Volvemos a la página 1
+      this.currentPage = 1; 
       return;
     }
 
@@ -146,7 +170,7 @@ export class Inventory implements OnInit {
       return fullAutoName.includes(query);
     });
     
-    this.currentPage = 1; // Volvemos a la página 1 al buscar
+    this.currentPage = 1; 
   }
 
   actualizarMinimo(event: any) {
@@ -179,17 +203,20 @@ export class Inventory implements OnInit {
         return false;
       }
 
-      if (filters.minKm != null && car.km < filters.minKm) {
+      if (filters.minKm != null && filters.minKm !== "" && car.km < filters.minKm) {
+        return false;
+      }
+      if (filters.anio != null && filters.anio !== "" && car.anio < filters.anio) {
         return false;
       }
 
-      if (filters.maxKm != null && filters.maxKm != "" && car.km > filters.maxKm) {
+      if (filters.maxKm != null && filters.maxKm !== "" && car.km > filters.maxKm) {
         return false;
       }
       return true;
     });
     
-    this.currentPage = 1; // Volvemos a la página 1 al filtrar
+    this.currentPage = 1;
   }
 
   filterCleaner() {
@@ -201,8 +228,10 @@ export class Inventory implements OnInit {
       minKm: '',
       maxKm: ''
     });
+    this.precioMinimo = 0;
+    this.precioMaximo = 1000000;
     this.filteredPublications = [...this.publications];
-    this.currentPage = 1; // Volvemos a la página 1 al limpiar
+    this.currentPage = 1; 
   }
 
   // --- FUNCIONES DE BOTONES DE PAGINACIÓN ---
@@ -254,5 +283,4 @@ export class Inventory implements OnInit {
   esFavorito(idPublicacion: any): boolean {
     return this.misFavoritosIds.includes(Number(idPublicacion));
   }
-
 }

@@ -70,7 +70,7 @@ export class Profile implements OnInit, OnDestroy{
   }
   
   irChats(){
-    this.router.navigate(['chats'])
+    this.router.navigate(['/chats'])
   }
 
   myReservation(){

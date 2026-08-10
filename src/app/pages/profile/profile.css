@@ -121,7 +121,7 @@
 
 /* ================= ACTION BUTTONS ================= */
 
-.action-btn{
+.action-btn {
     display: flex;
     align-items: center;
     gap: 14px;
@@ -133,26 +133,24 @@
     border: 1px solid rgba(255,140,0,0.35);
     transition: 0.3s ease;
     cursor: pointer;
+    
+    /* Le sumamos las propiedades de texto acá directamente */
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    text-align: left; /* Para que el texto no se vaya al centro */
 }
 
-.action-btn:hover{
+.action-btn:hover {
     transform: translateX(5px);
     border-color: rgba(255,140,0,0.4);
     background: rgba(255,140,0,0.08);
 }
 
-.action-btn .material-symbols-outlined{
+.action-btn .material-symbols-outlined {
     color: orange;
     font-size: 22px;
-}
-
-.action-btn button{
-    background: none;
-    border: none;
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
 }
 
 .logout:hover{
