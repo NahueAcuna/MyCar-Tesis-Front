@@ -33,6 +33,13 @@ export class Profile implements OnInit{
       error: (error) => {console.error('Error al obtener mis publicaciones:', error); alert('Error al obtener mis publicaciones');}
     });
   }
+<<<<<<< Updated upstream
+=======
+  
+  irChats(){
+    this.router.navigate(['/chats'])
+  }
+>>>>>>> Stashed changes
 
   myReservation(){
     this.profileService.getMyReservations().subscribe({

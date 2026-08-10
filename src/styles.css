@@ -10,7 +10,7 @@ body{
     margin: 0;
     color: white;
     background-color: #0a0a0a;
-    overflow-x: hidden;
+    overflow-x: clip; 
     background-image: 
         radial-gradient(circle at 20% 20%, rgba(197, 120, 57, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 30%, rgba(168, 100, 32, 0.12) 0%, transparent 45%),
@@ -19,28 +19,29 @@ body{
     background-size: 200% 200%;
     animation: auroraNaranja 12s ease infinite alternate;
 }
+
 html {
     scroll-behavior: smooth;
     scrollbar-color: #c57839 #0a0a0a; 
     scrollbar-width: thin; 
+<<<<<<< Updated upstream
+=======
+    overflow-x: clip; 
+>>>>>>> Stashed changes
 }
-
 
 ::-webkit-scrollbar {
     width: 10px;
 }
 
-
 ::-webkit-scrollbar-track {
     background: #0a0a0a; 
 }
-
 
 ::-webkit-scrollbar-thumb {
     background: #c57839; 
     border-radius: 10px; 
 }
-
 
 ::-webkit-scrollbar-thumb:hover {
     background: #a86420; 

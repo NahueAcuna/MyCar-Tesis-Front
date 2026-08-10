@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /* ================= LAYOUT ================= */
 .container {
     display: grid;
@@ -14,6 +15,51 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+=======
+/* ================= PAGE ================= */
+
+.detail-page{
+    position: relative;
+    min-height: 100vh;
+    padding: 120px 50px 60px;
+    background:linear-gradient(rgba(0,0,0,.84), rgba(0,0,0,.88)), url('/profile.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+/* ================= OVERLAY ================= */
+
+.overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.30);
+}
+
+/* ================= CONTAINER ================= */
+
+.container {
+    position: relative;
+    z-index: 2;
+    /* 1. Volvemos a la grilla perfecta de dos columnas */
+    display: grid; 
+    grid-template-columns: minmax(0, 1.7fr) 420px; 
+    gap: 40px;
+    padding-right: 0; /* Sacamos el hueco que habíamos inventado antes */
+    
+    /* 2. ESTA ES LA MAGIA: Si no le ponés esto, el sticky no funciona */
+    align-items: start; 
+}
+
+/* ================= LEFT ================= */
+
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+>>>>>>> Stashed changes
 }
 
 /* Imagen principal */
@@ -89,6 +135,7 @@
     margin-bottom: 3px;
 }
 
+<<<<<<< Updated upstream
 /* ================= RIGHT PANEL ================= */
 .right {
     background: linear-gradient(135deg, #070707 40%, #3b1f05);
@@ -99,6 +146,51 @@
     flex-direction: column;
     gap: 15px;
     height: fit-content;
+=======
+.spec-card p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* ================= RIGHT ================= */
+
+.right {
+    position: sticky; 
+    top: 120px; 
+    width: 100%; 
+    height: fit-content;
+    max-height: calc(100vh - 140px); 
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    box-sizing: border-box;
+    z-index: 10;
+    
+    /* Diseño visual */
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,140,0,0.18);
+    border-radius: 28px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 0 1px rgba(255,140,0,.04), 0 0 25px rgba(255,140,0,.06);
+    padding: 34px;
+}
+
+/* Scrollbar invisible y elegante para la columna derecha */
+.right::-webkit-scrollbar {
+    width: 5px;
+}
+.right::-webkit-scrollbar-track {
+    background: transparent;
+}
+.right::-webkit-scrollbar-thumb {
+    background: rgba(255, 140, 0, 0.4);
+    border-radius: 10px;
+}
+.right::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 140, 0, 0.8);
+>>>>>>> Stashed changes
 }
 
 .right h1 {
@@ -205,4 +297,212 @@
     .grid {
         grid-template-columns: 1fr;
     }
+<<<<<<< Updated upstream
+=======
+}
+/* =========================================
+   ESTILOS DEL CHAT EN TIEMPO REAL
+   ========================================= */
+
+.chat-section {
+    margin-top: 1.5rem;
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid #333;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ff8c00;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.8rem;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.chat-messages {
+    height: 300px; /* Fija la altura para que aparezca la barra de scroll */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-right: 0.5rem;
+}
+
+/* Scrollbar personalizada para el chat */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-messages::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 4px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.message {
+    max-width: 85%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.message p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Mensajes enviados por mí (Naranjas, a la derecha) */
+.message.sent {
+    align-self: flex-end;
+    background-color: #ff8c00;
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+/* Mensajes recibidos de la otra persona (Grises, a la izquierda) */
+.message.received {
+    align-self: flex-start;
+    background-color: #333;
+    color: #eee;
+    border-bottom-left-radius: 2px;
+}
+
+.message .sender {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.no-messages {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    margin: auto; /* Lo centra vertical y horizontalmente */
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #444;
+    background-color: #222;
+    color: white;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.chat-input-area input:focus {
+    border-color: #ff8c00;
+}
+
+.chat-input-area button {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.chat-input-area button:hover:not(:disabled) {
+    background-color: #e67e00;
+    transform: scale(1.05);
+}
+
+.chat-input-area button:disabled {
+    background-color: #555;
+    color: #888;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   BOTÓN DE CHAT (CONTACTAR VENDEDOR)
+   ========================================= */
+#button_chats {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-top: 1rem;
+    background-color: transparent;
+    color: #ff8c00;
+    border: 2px solid #ff8c00;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre el ícono y el texto */
+    transition: all 0.3s ease;
+}
+
+#button_chats:hover {
+    background-color: #ff8c00;
+    color: #1a1a1a;
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.2);
+}
+
+#button_chats:active {
+    transform: scale(0.98); /* Pequeño efecto de "click" físico */
+}
+/* =========================================
+   BOTÓN DE WHATSAPP (RECTANGULAR PREMIUM)
+   ========================================= */
+#btn_w_Mycar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #25D366, #1da851);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+    transition: all 0.3s ease;
+}
+
+#btn_w_Mycar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    background: linear-gradient(135deg, #28e06d, #1fba5a);
+}
+
+#btn_w_Mycar:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3);
+>>>>>>> Stashed changes
 }
