@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../Components/user-layout/header/header';
 import { PublicationService } from '../../services/publication-service';
+import { ToastService } from '../../services/toast-service';
 
 @Component({
   selector: 'app-publication-form',
@@ -18,6 +19,7 @@ export class PublicationForm {
   mostrarPagina4 = false;
 
   errorMessage = '';
+  campoNumeroError: { [key: string]: boolean } = {};
 
   publicationData = {
     marca: '',
@@ -40,7 +42,7 @@ export class PublicationForm {
   selectedFiles: File[] = [];
   selectedVideoFiles: File[] = [];
 
-  constructor(private router: Router, private publicationService: PublicationService) { }
+  constructor(private router: Router, private publicationService: PublicationService, private toast: ToastService) { }
 
   get currentStep(): number {
     if (this.mostrarPagina1) return 1;
@@ -89,7 +91,7 @@ export class PublicationForm {
     // Verificar si hay token válido antes de intentar el request
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('Tu sesión expiró. Por favor, iniciá sesión nuevamente.');
+      this.toast.warning('Tu sesión expiró. Por favor, iniciá sesión nuevamente.');
       return;
     }
 
@@ -116,14 +118,33 @@ export class PublicationForm {
     const todosLosArchivos = [...this.selectedFiles, ...this.selectedVideoFiles];
     this.publicationService.createPublication(publicacionRequestDTO, todosLosArchivos).subscribe({
       next: () => {
-        alert('Publicación creada con éxito!');
+        this.toast.success('Publicación creada con éxito!');
         this.router.navigate(['/']);
       },
       error: (err) => {
         console.error(err);
-        alert('Ocurrió un error al crear la publicación.');
+        this.toast.error('Ocurrió un error al crear la publicación.');
       }
     });
+  }
+
+  // --- Helpers de estandarización ---
+  private titleCase(texto: string): string {
+    return texto.trim().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+  }
+
+  private capitalizarPrimeraLetra(texto: string): string {
+    const trimmed = texto.trim();
+    if (!trimmed) return trimmed;
+    return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+  }
+
+  bloquearNumeros(event: KeyboardEvent, campo: string) {
+    if (/[0-9]/.test(event.key)) {
+      event.preventDefault();
+      this.campoNumeroError[campo] = true;
+      setTimeout(() => this.campoNumeroError[campo] = false, 2500);
+    }
   }
 
   irAPagina1() {
@@ -142,6 +163,10 @@ export class PublicationForm {
       this.errorMessage = 'La marca debe tener al menos 2 caracteres.';
       return;
     }
+    if (/[0-9]/.test(this.publicationData.marca)) {
+      this.errorMessage = 'La marca no puede contener números.';
+      return;
+    }
     if (this.publicationData.modelo.trim().length < 2) {
       this.errorMessage = 'El modelo debe tener al menos 2 caracteres.';
       return;
@@ -151,6 +176,10 @@ export class PublicationForm {
       return;
     }
     this.errorMessage = '';
+    // Estandarizar textos del paso 1
+    this.publicationData.marca = this.titleCase(this.publicationData.marca);
+    this.publicationData.modelo = this.titleCase(this.publicationData.modelo);
+    this.publicationData.descripcion = this.capitalizarPrimeraLetra(this.publicationData.descripcion);
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = true;
     this.mostrarPagina3 = false;
@@ -187,6 +216,10 @@ export class PublicationForm {
     }
 
     this.errorMessage = '';
+    // Estandarizar textos del paso 2
+    this.publicationData.combustible = this.titleCase(this.publicationData.combustible);
+    this.publicationData.color = this.titleCase(this.publicationData.color);
+    this.publicationData.motor = this.publicationData.motor.trim();
     this.mostrarPagina1 = false;
     this.mostrarPagina2 = false;
     this.mostrarPagina3 = true;

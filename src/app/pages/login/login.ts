@@ -3,6 +3,7 @@ import { Header } from '../../Components/user-layout/header/header';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast-service';
 declare const google: any;
 
 @Component({
@@ -15,7 +16,7 @@ export class Login implements OnInit{
   loginForm : FormGroup;
   hidePassword: boolean = true;
 
-  constructor(private authService: AuthService, private fb : FormBuilder, private router: Router) {
+  constructor(private authService: AuthService, private fb : FormBuilder, private router: Router, private toast: ToastService) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -60,14 +61,14 @@ export class Login implements OnInit{
           telefono: response.telefono
         });
         localStorage.setItem('usuario_email', response.email);
-        alert('Login exitoso');
+        this.toast.success('Login exitoso');
         this.router.navigate(['/']);  
       },
       error: (error) => {console.error(error);
         if(error.status === 401){
-          alert('Email o contraseña incorrectos');
+          this.toast.error('Email o contraseña incorrectos');
         }else{
-          alert('Error al iniciar sesión.');
+          this.toast.error('Error al iniciar sesión.');
         }
       }
     });
@@ -79,7 +80,7 @@ export class Login implements OnInit{
 
   loginConGoogle() {
     if (typeof google === 'undefined' || !google?.accounts?.id) {
-      alert('El servicio de Google no está disponible. Intentá recargar la página.');
+      this.toast.warning('El servicio de Google no está disponible. Intentá recargar la página.');
       return;
     }
     // Re-inicializamos siempre para garantizar que client_id esté configurado
@@ -105,7 +106,7 @@ export class Login implements OnInit{
 
           localStorage.setItem('usuario_email', response.email);
 
-          alert('Login con Google exitoso');
+          this.toast.success('Login con Google exitoso');
 
           this.router.navigate(['/']);
         },
@@ -115,9 +116,9 @@ export class Login implements OnInit{
           console.error(error);
 
           if(error.status === 404){
-            alert('No existe una cuenta registrada con Google');
+            this.toast.error('No existe una cuenta registrada con Google');
           }else{
-            alert('Error al iniciar sesión con Google');
+            this.toast.error('Error al iniciar sesión con Google');
           }
         }
       });

@@ -66,6 +66,12 @@ export class InboxComponent implements OnInit, OnDestroy {
         next: (sala) => {
           this.conversacionIdActual = sala.conversacionId;
           this.chatService.conectar(this.conversacionIdActual, sala.mensajes);
+
+          // Marcar como leídos y refrescar el contador del badge
+          this.chatService.marcarComoLeidos(this.conversacionIdActual, this.miEmail)
+            .subscribe(() => {
+              this.chatService.refrescarContador(this.miEmail);
+            });
         },
         error: (err) => console.error("Error al abrir sala", err)
       });

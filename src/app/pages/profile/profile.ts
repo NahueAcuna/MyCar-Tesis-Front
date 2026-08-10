@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { Header } from '../../Components/user-layout/header/header';
 import { User } from '../../models/User';
 import { ProfileService } from '../../services/profile-service';
+import { ChatService } from '../../services/chat-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../services/toast-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +17,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
-export class Profile implements OnInit{
+export class Profile implements OnInit, OnDestroy{
 
   user: User | null = null;
   myPosts: PublicationResponse[] = [];
@@ -24,8 +27,16 @@ export class Profile implements OnInit{
   showCompleteProfileModal = false;
   telefono = '';
   myFavorites: PublicationResponse[] = [];
+  cantidadNoLeidos: number = 0;
+  private noLeidosSub?: Subscription;
 
-  constructor(public authService : AuthService, public profileService: ProfileService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    public profileService: ProfileService,
+    private router: Router,
+    private toast: ToastService,
+    public chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
@@ -36,12 +47,25 @@ export class Profile implements OnInit{
     this.myPost();
     this.myReservation();
     this.cargarFavoritos();
+
+    // Suscripción al contador de mensajes no leídos
+    const email = localStorage.getItem('usuario_email') || '';
+    if (email) {
+      this.chatService.refrescarContador(email);
+    }
+    this.noLeidosSub = this.chatService.cantidadNoLeidos$.subscribe(
+      cantidad => this.cantidadNoLeidos = cantidad
+    );
+  }
+
+  ngOnDestroy() {
+    this.noLeidosSub?.unsubscribe();
   }
 
   myPost(){
     this.profileService.getMyPosts().subscribe({
       next: (response) => {this.myPosts = response},
-      error: (error) => {console.error('Error al obtener mis publicaciones:', error); alert('Error al obtener mis publicaciones');}
+      error: (error) => {console.error('Error al obtener mis publicaciones:', error); this.toast.error('Error al obtener mis publicaciones');}
     });
   }
   
@@ -106,7 +130,7 @@ export class Profile implements OnInit{
           },
           error: (error) => {
             console.error('Error al actualizar el perfil:', error);
-            alert('Error al actualizar: ' + (error.error || 'Ocurrió un problema inesperado.'));
+            this.toast.error('Error al actualizar: ' + (error.error || 'Ocurrió un problema inesperado.'));
           }
         });
       }else{
@@ -117,7 +141,7 @@ export class Profile implements OnInit{
 
  savePhone() {
   if (!/^[0-9]{10}$/.test(this.telefono)) {
-    alert("El teléfono debe tener exactamente 10 dígitos.");
+    this.toast.warning("El teléfono debe tener exactamente 10 dígitos.");
     return;
   }
 
@@ -131,14 +155,14 @@ export class Profile implements OnInit{
 
         this.showCompleteProfileModal = false;
 
-        alert("Perfil actualizado correctamente");
+        this.toast.success("Perfil actualizado correctamente");
       },
 
       error: (error) => {
         if(error.status === 409){
-          alert("Ese numero de telefono ya esta registrado.");
+          this.toast.error("Ese numero de telefono ya esta registrado.");
         }else{
-          alert("Error al guardar el teléfono.");
+          this.toast.error("Error al guardar el teléfono.");
         }
       }
     });
@@ -161,4 +185,9 @@ export class Profile implements OnInit{
     });
   }
 
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22200%22%3E%3Crect%20width%3D%22300%22%20height%3D%22200%22%20fill%3D%22%231a1a1a%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20font-family%3D%22sans-serif%22%20font-size%3D%2218%22%20fill%3D%22%23ff8c00%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3ESin%20Imagen%3C%2Ftext%3E%3C%2Fsvg%3E';
+    img.onerror = null;
+  }
 }

@@ -105,8 +105,6 @@ button{
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
-    flex: 1;
-    justify-content: flex-end;
 }
 
 .profile-btn:hover{
@@ -116,6 +114,64 @@ button{
 .profile-btn .material-symbols-outlined{
     color: orange;
     font-size: 30px;
+}
+
+/* ================= HEADER ACTIONS (chat + profile) ================= */
+
+.header-actions{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.chat-btn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chat-btn:hover{
+    transform: scale(1.08);
+}
+
+.chat-btn .material-symbols-outlined{
+    color: #aaa;
+    font-size: 26px;
+    transition: color 0.3s ease;
+}
+
+.chat-btn:hover .material-symbols-outlined{
+    color: orange;
+}
+
+.unread-badge{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #ff3b30;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 0 6px rgba(255, 59, 48, 0.5);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse{
+    0%, 100%{ box-shadow: 0 0 6px rgba(255, 59, 48, 0.5); }
+    50%{ box-shadow: 0 0 12px rgba(255, 59, 48, 0.8); }
 }
 
 /* ================= HAMBURGER (hidden on desktop) ================= */
@@ -173,9 +229,16 @@ button{
         font-size: 12px;
     }
 
-    .profile-btn{
+    .header-actions{
         order: 3;
+    }
+
+    .profile-btn{
         padding: 6px 10px;
+    }
+
+    .chat-btn{
+        padding: 6px 8px;
     }
 
     #logo{

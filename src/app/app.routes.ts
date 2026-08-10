@@ -12,6 +12,7 @@ import { Profile } from './pages/profile/profile';
 import { Marketplace } from './pages/marketplace/marketplace';
 import { InboxComponent } from './pages/inbox/inbox';
 import { MyFavorites } from './pages/my-favorites/my-favorites';
+import { MyReservations } from './pages/my-reservations/my-reservations';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -24,5 +25,6 @@ export const routes: Routes = [
     { path: 'perfil', component: Profile, canActivate: [authGuard] },
     { path: 'mis-publicaciones', component: MyPosts, canActivate: [authGuard] },
     { path: 'mis-favoritos', component: MyFavorites, canActivate: [authGuard] },
+    { path: 'mis-reservas', component: MyReservations, canActivate: [authGuard] },
     { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] }
 ];

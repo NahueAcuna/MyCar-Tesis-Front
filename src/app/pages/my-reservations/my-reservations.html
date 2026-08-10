@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<div id="total_container">
+    <div class="reservas-page">
+        
+        <div class="page-header">
+            <div class="title-box">
+                <span class="material-symbols-outlined">calendar_today</span>
+                <h1>Mis Reservas</h1>
+            </div>
+            <p>Acá podés ver todo el historial de los autos que reservaste en MyCar.</p>
+        </div>
+
+        @if(misReservas.length === 0) {
+            <div class="empty-state">
+                <span class="material-symbols-outlined empty-icon">auto_towing</span>
+                <h2>No tenés reservas activas</h2>
+                <p>Explorá nuestro catálogo y encontrá tu próximo auto.</p>
+                <button class="btn-primary" routerLink="/marketplace">Ir al Marketplace</button>
+            </div>
+        } @else {
+            <div class="reservas-grid">
+                @for(reserva of misReservas; track reserva.id) {
+                    <div class="post-card">
+                        
+                        <div class="post-img-container" [routerLink]="['/publicacion', reserva.publicacion.id]">
+                            <img [src]="getImageUrl(reserva?.publicacion?.auto?.imagenesUrl?.[0] || '')" alt="Imagen del auto" (error)="onImageError($event)">
+                        </div>
+
+                        <div class="post-info">
+                            <div class="card-header-info">
+                                <h3>{{ reserva?.publicacion?.auto?.marca || 'Marca' }} {{ reserva?.publicacion?.auto?.modelo || 'Modelo' }}</h3>
+                                <!-- Acá a futuro le podés sumar un botón para cancelar reserva si querés -->
+                            </div>
+                            
+                            <p class="year-km">
+                                {{ reserva?.publicacion?.auto?.anio || '0000' }} - {{ reserva?.publicacion?.auto?.km || '0' }} km
+                            </p>
+
+                            <div class="reserva-details">
+                                <p class="price">
+                                    {{ formatearFecha(reserva?.fecha) }}
+                                </p>
+                                <div class="status" [ngClass]="reserva.estadoReserva">
+                                    {{ reserva?.estadoReserva }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+    <button class="btnBack" (click)="goBack()">Volver</button>
+</div>
