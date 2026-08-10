@@ -129,7 +129,8 @@ export class Inventory implements OnInit {
   }
 
   carDetail(id: number) {
-    this.router.navigate(['publicacion', id]);
+    const url = this.router.serializeUrl(this.router.createUrlTree(['publicacion', id]));
+    window.open(url, '_blank');
   }
 
   onSearch(event: any) {

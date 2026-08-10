@@ -46,6 +46,8 @@
     width: 100%;
     cursor: pointer;
     overflow: hidden;
+    text-decoration: none;
+    color: inherit;
 }
 
 .post-card:hover{

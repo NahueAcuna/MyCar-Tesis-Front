@@ -14,8 +14,6 @@
         <p>{{ user.email }}</p>
       </div>
     }
-            
- 
         <div class="pr-box">
             <div class="number-post">
                 <span>{{ myPosts.length }}</span>
@@ -76,18 +74,18 @@
           <h2>Mis Publicaciones</h2>
         </div>
 
-        <button class="view-all" routerLink="/mis-publicaciones">
+        <a class="view-all" routerLink="/mis-publicaciones" target="_blank">
           Ver todas
           <span class="material-symbols-outlined">arrow_forward</span>
-        </button>
+        </a>
       </div>
 
       <div class="post-container">
         @for (post of myPosts.slice(0, 2); track post.id) {
           <div class="post-card">
-            <div class="post-img-container" [routerLink]="['/publicacion', post.id]">
+            <a class="post-img-container" [routerLink]="['/publicacion', post.id]" target="_blank">
               <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto" />
-            </div>
+            </a>
 
             <div class="post-info">
               <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
@@ -112,18 +110,18 @@
           <h2>Mis Reservas</h2>
         </div>
 
-        <button class="view-all" routerLink="/mis-reservas">
+        <a class="view-all" routerLink="/mis-reservas" target="_blank">
           Ver todas
           <span class="material-symbols-outlined">arrow_forward</span>
-        </button>
+        </a>
       </div>
 
       <div class="post-container">
         @for (reservation of myReservations.slice(0, 2); track reservation.id) {
           <div class="post-card">
-            <div class="post-img-container">
+            <a class="post-img-container" [routerLink]="['/publicacion', reservation.publicacion.id]" target="_blank">
               <img [src]="getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '')" alt="Imagen del auto" (error)="onImageError($event)">
-            </div>
+            </a>
 
             <div class="post-info"> 
               <h3>{{ reservation?.publicacion?.auto?.marca || 'Marca' }} {{ reservation?.publicacion?.auto?.modelo || 'Modelo' }}</h3>
@@ -147,18 +145,18 @@
                     <h2>Mis Favoritos</h2>
                 </div>
 
-                <button class="view-all" routerLink="/mis-favoritos">
-                    Ver todas
-                    <span class="material-symbols-outlined">arrow_forward</span>
-                </button>
+                <a class="view-all" routerLink="/mis-favoritos" target="_blank">
+                   Ver todas
+                  <span class="material-symbols-outlined">arrow_forward</span>
+              </a>
             </div>
     
             <div class="post-container">
                 @for(favorite of myFavorites.slice(0,2); track favorite.id){
                     <div class="post-card">
-                        <div class="post-img-container" [routerLink]="['/publicacion', favorite.id]">
-                            <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
-                        </div>
+                        <a class="post-img-container" [routerLink]="['/publicacion', favorite.id]" target="_blank">
+                          <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
+                        </a>
                         
                         <div class="post-info">
                             <div class="fav-header">

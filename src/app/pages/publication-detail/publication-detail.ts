@@ -43,8 +43,6 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
     private toast: ToastService
   ) { }
 
-
-
   ngOnInit(): void {
     const idPublication = this.route.snapshot.params['id'];
     this.getPublicationById(idPublication);
@@ -116,10 +114,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
     this.transformOrigin = 'center';
   }
 
-  goBack() {
-    this.location.back();
-  }
-
+  
   getPublicationById(id: string){
     this.publicationService.getPublicationById(id).subscribe({
       next: (data) => {

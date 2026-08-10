@@ -27,7 +27,7 @@
             <button class="signup-btn" routerLink="/registro">Sign Up</button>
         </div>
     }@else{
-        <div class="profile-btn" routerLink="/perfil">
+        <div class="profile-btn" [routerLink]="authService.isAdmin() ? '/perfil-admin' : '/perfil'">
             <span class="material-symbols-outlined">account_circle</span>
         </div>
     }
