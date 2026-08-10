@@ -5,7 +5,7 @@
 
     <div class="post-container">
         @for(favorite of myFavorites; track favorite.id){
-            <div class="post-card" [routerLink]="['/publicacion', favorite.id]">
+            <a class="post-card" [routerLink]="['/publicacion', favorite.id]" target="_blank">
                 
                 <div class="post-img-container">
                     <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
@@ -30,9 +30,7 @@
                         ${{ favorite.auto.precio }}
                     </p>
                 </div>
-            </div>
+            </a>
         }
     </div>
-
-    <button class="btnBack" (click)="goBack()">Volver</button>
 </div>
