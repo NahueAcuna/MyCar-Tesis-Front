@@ -1,8 +1,10 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
+import { ChatService } from '../../../services/chat-service';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,10 +12,33 @@ import { CommonModule } from '@angular/common';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header implements AfterViewInit{
-  constructor(public authService: AuthService, private router: Router) {}
+export class Header implements AfterViewInit, OnInit, OnDestroy{
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    public chatService: ChatService
+  ) {}
+  
   seccionActiva: string = ''; 
   menuOpen = false;
+  cantidadNoLeidos: number = 0;
+  private noLeidosSub?: Subscription;
+
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      const email = localStorage.getItem('usuario_email') || '';
+      if (email) {
+        this.chatService.refrescarContador(email);
+      }
+      this.noLeidosSub = this.chatService.cantidadNoLeidos$.subscribe(
+        cantidad => this.cantidadNoLeidos = cantidad
+      );
+    }
+  }
+
+  ngOnDestroy() {
+    this.noLeidosSub?.unsubscribe();
+  }
 
   ngAfterViewInit() {
     const observador = new IntersectionObserver((entradas) => {

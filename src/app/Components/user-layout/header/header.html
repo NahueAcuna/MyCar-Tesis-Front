@@ -27,8 +27,16 @@
             <button class="signup-btn" routerLink="/registro">Sign Up</button>
         </div>
     }@else{
-        <div class="profile-btn" routerLink="/perfil">
-            <span class="material-symbols-outlined">account_circle</span>
+        <div class="header-actions">
+            <div class="chat-btn" routerLink="/chats">
+                <span class="material-symbols-outlined">chat</span>
+                @if (cantidadNoLeidos > 0) {
+                    <span class="unread-badge">{{ cantidadNoLeidos > 99 ? '99+' : cantidadNoLeidos }}</span>
+                }
+            </div>
+            <div class="profile-btn" routerLink="/perfil">
+                <span class="material-symbols-outlined">account_circle</span>
+            </div>
         </div>
     }
 
