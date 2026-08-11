@@ -28,10 +28,6 @@ export class MyPosts implements OnInit {
     });
   }
 
-  goBack(){
-    this.router.navigate(['/perfil']);
-  }
-
   getImageUrl(url: string): string {
     if (!url) {
       return 'assets/no-image.png';

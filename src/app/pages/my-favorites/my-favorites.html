@@ -5,30 +5,30 @@
 
     <div class="post-container">
         @for(favorite of myFavorites; track favorite.id){
-            <a class="post-card" [routerLink]="['/publicacion', favorite.id]" target="_blank">
+            <!-- Toda la tarjeta es un enlace hacia la publicación -->
+            <a class="car_publication" [routerLink]="['/publicacion', favorite.id]" target="_blank" style="text-decoration: none;">
                 
-                <div class="post-img-container">
-                    <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
-                </div>
-
-                <div class="post-info">
-                    <!-- Agrupamos el título y el corazón -->
-                    <div class="fav-header">
-                        <h3>{{ favorite.auto.marca }} {{ favorite.auto.modelo }}</h3>
+                <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto" (error)="onImageError($event)">
+                
+                <div class="information">
+                    <!-- FILA SUPERIOR: Marca/Modelo y Precio -->
+                    <div class="name_price">
+                        <p>{{ favorite.auto.marca }} {{ favorite.auto.modelo }}</p>
+                        <span>${{ favorite.auto.precio | number:'1.0-0' }}</span>
+                    </div>
+                    
+                    <!-- FILA INFERIOR: Año/Km y el Corazón -->
+                    <div class="info-footer">
+                        <div class="anio_description">
+                            <span>{{ favorite.auto.anio }} - {{ favorite.auto.km }} km</span><br>
+                            <span>{{ descriptionPreview(favorite.descripcion) }}</span>
+                        </div>
                         
-                        <!-- Pasamos $event a la función -->
-                        <button class="btn-remove-fav" (click)="quitarFavorito($event, favorite.id)" title="Quitar de favoritos">
-                            <span class="material-symbols-outlined">favorite</span>
+                        <!-- Botón de favoritos con freno de propagación -->
+                        <button class="btn-fav" (click)="$event.preventDefault(); $event.stopPropagation(); quitarFavorito($event,favorite.id)" title="Quitar de favoritos">
+                            <span class="material-symbols-outlined activo">favorite</span>
                         </button>
                     </div>
-                                
-                    <p class="year-km">
-                        {{ favorite.auto.anio }} - {{ favorite.auto.km }} km
-                    </p>
-
-                    <p class="price">
-                        ${{ favorite.auto.precio }}
-                    </p>
                 </div>
             </a>
         }
