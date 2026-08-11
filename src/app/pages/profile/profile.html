@@ -3,12 +3,11 @@
 <div class="profile-page">
   <div class="overlay"></div>
 
+  <!-- ================= LEFT CONTENT ================= -->
   <div class="left-content">
     @if (user) {
       <p>{{ user.nombre }}</p>
-
       <div class="line"></div>
-
       <div class="email-box">
         <span class="material-symbols-outlined">mail</span>
         <p>{{ user.email }}</p>
@@ -31,42 +30,40 @@
             </div>
         </div>
 
-        <div class="action-btn">
-          <span class="material-symbols-outlined"> chat </span>
-          <button (click)="irChats()">Chats</button>
-        </div>
+    <button class="action-btn" (click)="irChats()">
+      <span class="material-symbols-outlined"> chat </span>
+      Chats
+    </button>
+    
+    <button class="action-btn" (click)="openEditModal()">
+      <span class="material-symbols-outlined">edit</span>
+      Editar Perfil
+    </button>
 
-        <div class="action-btn">
-          <span class="material-symbols-outlined">edit</span>
-          <button (click)="openEditModal()">Editar Perfil</button>
-        </div>
-
-        <div class="action-btn logout">
-          <span class="material-symbols-outlined">logout</span>
-          <button (click)="authService.logout()">Cerrar sesión</button>
-        </div>
+    <button class="action-btn logout" (click)="authService.logout()">
+      <span class="material-symbols-outlined">logout</span>
+      Cerrar sesión
+    </button>
   </div>
 
+  <!-- ================= RIGHT CONTENT ================= -->
   <div class="right-content">
+    
     <div class="welcome">
       <div class="welcome-text">
         <span>Bienvenido de vuelta</span>
-
-        <p>
-          Hola, <span class="color">{{ user?.nombre }}</span>
-        </p>
-
+        <p>Hola, <span class="color">{{ user?.nombre }}</span></p>
         <p>
           Gestiona tus publicaciones, reservas y favoritos <br />
           desde tu perfil.
         </p>
       </div>
-
       <div class="welcome-image">
         <img src="/profileWelcome.png" alt="Imagen de bienvenida" />
       </div>
     </div>
 
+    <!-- MIS PUBLICACIONES -->
     <div class="my-post">
       <div class="section-header">
         <div class="title-box">
@@ -89,11 +86,8 @@
 
             <div class="post-info">
               <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
-
               <p class="year-km">{{ post.auto.anio }} - {{ post.auto.km }} km</p>
-
               <p class="price">${{ post.auto.precio }}</p>
-
               <div class="status">
                 {{ post.estado }}
               </div>
@@ -103,6 +97,7 @@
       </div>
     </div>
 
+    <!-- MIS RESERVAS -->
     <div class="my-reservations">
       <div class="section-header">
         <div class="title-box">
@@ -180,32 +175,34 @@
             </div>
         </div>
         
-    </div>
 
+    <!-- MODAL EDITAR PERFIL -->
     @if(isEditModalOpen) {
-        <div class="custom-modal-overlay" (click)="closeEditModal()">
-            <div class="custom-modal" (click)="$event.stopPropagation()">
-                <h2>Editar Perfil</h2>
-                <p>Actualizá tu información personal.</p>
+      <div class="custom-modal-overlay" (click)="closeEditModal()">
+        <div class="custom-modal" (click)="$event.stopPropagation()">
+          <h2>Editar Perfil</h2>
+          <p>Actualizá tu información personal.</p>
 
-                <div class="form-group">
-                    <label for="emailInput">Correo Electrónico</label>
-                    <input type="email" id="emailInput" name="email" [ngModel]="user?.email" #email="ngModel" required email>
-                    @if(email?.hasError("required") && email?.touched){
-                        <p class="msjError">El email es obligatorio.</p>
-                    }@else if(email?.hasError("email") && email?.touched){
-                        <p class="msjError">El email no es válido.</p>
-                    }
-                </div>
+          <div class="form-group">
+            <label for="emailInput">Correo Electrónico</label>
+            <input type="email" id="emailInput" name="email" [ngModel]="user?.email" #email="ngModel" required email>
+            
+            @if(email?.hasError("required") && email?.touched){
+              <p class="msjError">El email es obligatorio.</p>
+            }@else if(email?.hasError("email") && email?.touched){
+              <p class="msjError">El email no es válido.</p>
+            }
+          </div>
 
-                <div class="modal-actions">
-                    <button class="btn-cancel" (click)="closeEditModal()">Cancelar</button>
-                    <button class="btn-save" [disabled]="email.invalid" (click)="editProfile(email.value)">Guardar Cambios</button>
-                </div>
-            </div>
+          <div class="modal-actions">
+            <button class="btn-cancel" (click)="closeEditModal()">Cancelar</button>
+            <button class="btn-save" [disabled]="email.invalid" (click)="editProfile(email.value)">Guardar Cambios</button>
+          </div>
         </div>
+      </div>
     }
     
+    <!-- MODAL COMPLETAR PERFIL -->
     @if(showCompleteProfileModal) {
         <div class="custom-modal-overlay">
             <div class="custom-modal">

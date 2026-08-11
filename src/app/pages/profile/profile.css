@@ -121,7 +121,7 @@
 
 /* ================= ACTION BUTTONS ================= */
 
-.action-btn{
+.action-btn {
     display: flex;
     align-items: center;
     gap: 14px;
@@ -133,26 +133,24 @@
     border: 1px solid rgba(255,140,0,0.35);
     transition: 0.3s ease;
     cursor: pointer;
+    
+    /* Le sumamos las propiedades de texto acá directamente */
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    text-align: left; /* Para que el texto no se vaya al centro */
 }
 
-.action-btn:hover{
+.action-btn:hover {
     transform: translateX(5px);
     border-color: rgba(255,140,0,0.4);
     background: rgba(255,140,0,0.08);
 }
 
-.action-btn .material-symbols-outlined{
+.action-btn .material-symbols-outlined {
     color: orange;
     font-size: 22px;
-}
-
-.action-btn button{
-    background: none;
-    border: none;
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
 }
 
 .logout:hover{
@@ -160,7 +158,36 @@
     background: rgba(255,80,80,0.08);
 }
 
-/* ================= RIGHT CONTENT ================= */
+/* ================= CHAT BADGE ================= */
+
+.chat-action{
+    position: relative;
+}
+
+.chat-badge{
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #ff3b30;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 0 8px rgba(255, 59, 48, 0.5);
+    animation: chatBadgePulse 2s ease-in-out infinite;
+}
+
+@keyframes chatBadgePulse{
+    0%, 100%{ box-shadow: 0 0 6px rgba(255, 59, 48, 0.5); }
+    50%{ box-shadow: 0 0 14px rgba(255, 59, 48, 0.8); }
+}
 
 .right-content{
     flex: 1;

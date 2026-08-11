@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import SockJS from 'sockjs-client';
 import { CompatClient, Stomp } from '@stomp/stompjs';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http'; // <-- Importamos HttpClient
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +13,34 @@ export class ChatService {
   public mensajes$ = this.mensajesSubject.asObservable();
   private mensajesActuales: any[] = [];
 
-  constructor(private http: HttpClient) {} // <-- Lo inyectamos
+  // Contador compartido de mensajes no leídos
+  private noLeidosSubject = new BehaviorSubject<number>(0);
+  public cantidadNoLeidos$ = this.noLeidosSubject.asObservable();
 
-  // 1. Nuevo método para pedir la sala al backend
+  constructor(private http: HttpClient) {}
+
+  // Pedir la sala al backend
   obtenerSalaPrivada(pubId: number, comprador: string, vendedor: string): Observable<any> {
     return this.http.get(`http://localhost:8080/conversacion/iniciar?publicacionId=${pubId}&compradorEmail=${comprador}&vendedorEmail=${vendedor}`);
   }
 
-  // 2. Conectar al canal privado
+  // Obtener cantidad de mensajes no leídos
+  refrescarContador(email: string): void {
+    if (!email) return;
+    this.http.get<number>(`http://localhost:8080/conversacion/no-leidos?email=${email}`)
+      .subscribe({
+        next: (cantidad) => this.noLeidosSubject.next(cantidad),
+        error: (err) => console.error('Error al obtener mensajes no leídos', err)
+      });
+  }
+
+  // Marcar como leídos los mensajes de una conversación
+  marcarComoLeidos(conversacionId: number, email: string): Observable<any> {
+    return this.http.post(`http://localhost:8080/conversacion/marcar-leidos?conversacionId=${conversacionId}&email=${email}`, {});
+  }
+
+  // Conectar al canal privado
   conectar(conversacionId: number, historialAntiguo: any[]) {
-    // Cargamos el historial previo a la vista
     this.mensajesActuales = historialAntiguo;
     this.mensajesSubject.next(this.mensajesActuales);
 
@@ -31,7 +49,6 @@ export class ChatService {
     this.stompClient.debug = () => {};
 
     this.stompClient.connect({}, () => {
-      // Nos suscribimos a la SALA PRIVADA
       this.stompClient?.subscribe(`/topic/chat/${conversacionId}`, (sdkEvent: any) => {
         const mensajeRecibido = JSON.parse(sdkEvent.body);
         this.mensajesActuales = [...this.mensajesActuales, mensajeRecibido];
