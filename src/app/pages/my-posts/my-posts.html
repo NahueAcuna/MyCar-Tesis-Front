@@ -22,14 +22,40 @@
                             <span>{{ post.auto.anio }} - {{ post.auto.km }} km</span><br>
                             <span>{{ descriptionPreview(post.descripcion) }}</span>
                         </div>
-                        
+                    
                         <div class="status-badge" [ngClass]="post.estado">
                             {{ post.estado }}
                         </div>
                     </div>
+
+                    <div class="action-buttons">
+                            <!-- mas adelante 
+                            <button class="btn-edit" (click)="$event.preventDefault(); $event.stopPropagation(); editPost(post.id)" title="Editar">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                            -->
+                            <button class="btn-delete" (click)="$event.preventDefault(); $event.stopPropagation(); confirmDelete(post.id)" title="Eliminar">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </div>
                 </div>
 
             </a>
         }
     </div>
 </div>
+
+<!-- MODAL DE CONFIRMACIÓN -->
+@if (postToDelete !== null) {
+  <div class="modal-overlay-confirm">
+      <div class="modal-content">
+          <span class="material-symbols-outlined warning-icon">warning</span>
+          <h3>Eliminar Publicación</h3>
+          <p>¿Usted desea eliminar la publicación de forma permanente?</p>
+          <div class="modal-actions">
+              <button class="btn-cancelar" (click)="cancelDelete()">Cancelar</button>
+              <button class="btn-aceptar" (click)="executeDelete()">Aceptar</button>
+          </div>
+      </div>
+  </div>
+}

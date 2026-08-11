@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { ProfileService } from '../../services/profile-service';
 import { Header } from '../../Components/user-layout/header/header';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ToastService } from '../../services/toast-service';
 import { CommonModule } from '@angular/common';
+import { PublicationService } from '../../services/publication-service';
 
 @Component({
   selector: 'app-my-posts',
@@ -14,8 +15,9 @@ import { CommonModule } from '@angular/common';
 })
 export class MyPosts implements OnInit {
   myPosts: PublicationResponse[] = [];
+  postToDelete: number | null = null;
 
-  constructor(public profileService: ProfileService, private router: Router, private toast: ToastService) {}
+  constructor(public profileService: ProfileService, public publicationService: PublicationService, private toast: ToastService) {}
 
   ngOnInit(): void {
     this.myPost();
@@ -58,5 +60,32 @@ export class MyPosts implements OnInit {
       i++;
     }
     return description.trim() + '...';
+  }
+
+  confirmDelete(id: number) {
+    this.postToDelete = id;
+  }
+
+  cancelDelete() {
+    this.postToDelete = null;
+  }
+
+  executeDelete() {
+    if (this.postToDelete) {
+      this.publicationService.deletePublication(this.postToDelete).subscribe({
+        next: (response) => {
+          // Filtramos el array para sacar la publicación eliminada al instante sin recargar la página
+          this.myPosts = this.myPosts.filter(p => p.id !== this.postToDelete);
+          this.postToDelete = null; // Cerramos el modal
+          const mensajeExito = 'Publicación eliminada correctamente';
+          this.toast.success(mensajeExito);
+        },
+        error: (err) => {
+          console.error("Error al eliminar la publicación", err);
+          this.postToDelete = null;
+          this.toast.error('No se pudo eliminar la publicación');
+        }
+      });
+    }
   }
 }
