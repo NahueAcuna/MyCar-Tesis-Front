@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Header } from '../../Components/user-layout/header/header';
 import { ProfileService } from '../../services/profile-service';
+import { AuthService } from '../../services/auth-service';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class Marketplace {
 
   precioMinimo: number = 0;
   precioMaximo: number = 1000000;
+
+  miEmail: string = '';
 
   misFavoritosIds: number[] = [];
 
@@ -58,7 +61,7 @@ export class Marketplace {
   minKm: FormControl;
   maxKm: FormControl;
 
-  constructor(private publicationService: PublicationService, public router: Router, private profileService: ProfileService) {
+  constructor(private publicationService: PublicationService, public router: Router, private profileService: ProfileService, private authService: AuthService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
     this.anio = new FormControl('');
@@ -81,6 +84,11 @@ export class Marketplace {
   ngOnInit(): void {
     this.getPublications();
     this.cargarFavoritos();
+
+    const usuarioActual = this.authService.getUser();
+    if (usuarioActual && usuarioActual.email) {
+      this.miEmail = usuarioActual.email;
+    }
   }
 
   getPublications() {

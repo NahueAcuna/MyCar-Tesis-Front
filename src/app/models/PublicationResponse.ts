@@ -1,6 +1,5 @@
 import { CarResponse } from "./CarResponse";
 
-
 export interface PublicationResponse {
   id: number;
   descripcion: string;
