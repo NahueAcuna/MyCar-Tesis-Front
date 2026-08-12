@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Header } from '../../Components/user-layout/header/header';
 import { AdminService } from '../../services/admin-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
@@ -13,7 +13,7 @@ import { ToastService } from '../../services/toast-service';
 
 @Component({
   selector: 'app-gestion-admin',
-  imports: [CommonModule, FormsModule, Header, BaseChartDirective],
+  imports: [CommonModule, FormsModule, Header, BaseChartDirective, RouterLink],
   templateUrl: './gestion-admin.html',
   styleUrl: './gestion-admin.css'
 })

@@ -128,7 +128,7 @@
       @if (publicationData.imagenes.length > 0) {
         <div class="media-preview">
           @for (img of publicationData.imagenes; track img) {
-            <img [src]="img" class="media-thumb" alt="preview">
+            <img [src]="img" class="media-thumb" alt="">
           }
         </div>
       }
@@ -158,7 +158,7 @@
 
   @if (mostrarPagina4) {
   <div class="form-wrapper" style="max-width: 800px;">
-    <h2>Paso 4: Revisión</h2>
+    <h2>{{ editMode ? 'Editar Publicación' : 'Paso 4: Revisión' }}</h2>
     <p class="review-text">Verifica cómo se verá tu vehículo en el catálogo:</p>
 
     <div class="preview-card">
@@ -185,7 +185,9 @@
 
     <div class="form-actions">
       <button class="btn secondary" (click)="irAPagina3()">Modificar</button>
-      <button class="btn primary" (click)="publicarVehiculo()">Publicar Vehículo</button>
+      <button class="btn primary" (click)="publicarVehiculo()">
+        {{ editMode ? 'Guardar Cambios' : 'Publicar Vehículo' }}
+      </button>
       <button class="btn secondary outline" (click)="cancelar()">Cancelar</button>
     </div>
   </div>

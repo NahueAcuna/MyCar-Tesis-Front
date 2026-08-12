@@ -16,17 +16,18 @@ import { MyReservations } from './pages/my-reservations/my-reservations';
 import { ProfileAdmin } from './pages/profile-admin/profile-admin';
 
 export const routes: Routes = [
-    { path: '', component: Home },
+    { path: '', component: Home, canActivate: [authGuard] },
     { path: 'vender', component: PublicationForm, canActivate: [authGuard] },
-    { path: 'marketplace', component: Marketplace},
+    { path: 'marketplace', component: Marketplace, canActivate: [authGuard] },
     { path: 'publicacion/:id', component: PublicationDetail, canActivate: [authGuard] },
     { path: 'registro', component: Register },
     { path: 'login', component: Login },
-    { path: 'chats', component: InboxComponent },
+    { path: 'chats', component: InboxComponent, canActivate: [authGuard] },
     { path: 'perfil', component: Profile, canActivate: [authGuard] },
     { path: 'perfil-admin', component: ProfileAdmin, canActivate: [adminGuard] },
     { path: 'mis-publicaciones', component: MyPosts, canActivate: [authGuard] },
     { path: 'mis-favoritos', component: MyFavorites, canActivate: [authGuard] },
     { path: 'mis-reservas', component: MyReservations, canActivate: [authGuard] },
-    { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] }
+    { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] },
+    { path: 'editar/:id', component: PublicationForm, canActivate: [authGuard] },
 ];
