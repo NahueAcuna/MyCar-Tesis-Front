@@ -40,4 +40,22 @@ export class PublicationService {
     return this.http.delete(`${this.url}/${id}`);
   }
 
+  updatePublication(id: number, publicacion: any, files: File[]) {
+    const formData = new FormData();
+
+    // Convertimos el JSON a un Blob indicando explícitamente el tipo 'application/json'
+    const publicacionBlob = new Blob([JSON.stringify(publicacion)], {
+      type: 'application/json'
+    });
+    
+    formData.append('publicacion', publicacionBlob);
+      
+    if (files && files.length > 0) {
+      files.forEach((file) => {
+        formData.append('files', file);
+      });
+    }
+
+    return this.http.put<PublicationResponse>(`${this.url}/${id}`, formData);
+  }
 }

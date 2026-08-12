@@ -124,7 +124,7 @@
               </div>
             </div>
             <div class="card-actions">
-              <button class="btn ver" (click)="verDetalle(pub.id)">Ver detalle</button>
+              <a class="btn ver" [routerLink]="['/publicacion', pub.id]" target="_blank">Ver detalle</a>
               <button class="btn aprobar" (click)="aprobar(pub.id)">✔ Aprobar</button>
               <button class="btn rechazar" (click)="rechazar(pub.id)">✘ Rechazar</button>
             </div>

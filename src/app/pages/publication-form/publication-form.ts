@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../Components/user-layout/header/header';
 import { PublicationService } from '../../services/publication-service';
@@ -12,7 +12,7 @@ import { ToastService } from '../../services/toast-service';
   templateUrl: './publication-form.html',
   styleUrl: './publication-form.css'
 })
-export class PublicationForm {
+export class PublicationForm implements OnInit {
   mostrarPagina1 = true;
   mostrarPagina2 = false;
   mostrarPagina3 = false;
@@ -42,7 +42,21 @@ export class PublicationForm {
   selectedFiles: File[] = [];
   selectedVideoFiles: File[] = [];
 
-  constructor(private router: Router, private publicationService: PublicationService, private toast: ToastService) { }
+  editMode = false;
+  publicationId: number | null = null;
+
+  constructor(private router: Router, private publicationService: PublicationService, private toast: ToastService, private route: ActivatedRoute) { }
+
+  ngOnInit(): void{
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.editMode = true;
+        this.publicationId = Number(id);
+        this.cargarDatosEdicion(this.publicationId);
+      }
+    });
+  }
 
   get currentStep(): number {
     if (this.mostrarPagina1) return 1;
@@ -55,15 +69,19 @@ export class PublicationForm {
   onFileSelected(event: any) {
     const files = event.target.files;
     if (files && files.length > 0) {
-      this.publicationData.imagenes = [];
-      this.selectedFiles = Array.from(files);
+      const nuevosArchivos = Array.from(files) as File[];
+      
+      // Acumulamos los nuevos archivos junto con los que ya estaban seleccionados
+      this.selectedFiles = [...this.selectedFiles, ...nuevosArchivos];
 
-      this.selectedFiles.forEach((file: File) => {
+      nuevosArchivos.forEach((file: File) => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
+          // Agregamos la previsualización al array visual sin borrar las anteriores
           this.publicationData.imagenes.push(e.target.result);
-          // Set the first image as preview
-          if (this.publicationData.imagenes.length === 1) {
+          
+          // Si no hay foto principal o era el placeholder, seteamos esta como vista previa principal
+          if (!this.publicationData.fotoUrl || this.publicationData.fotoUrl.includes('placeholder')) {
             this.publicationData.fotoUrl = e.target.result;
           }
         };
@@ -75,9 +93,12 @@ export class PublicationForm {
   onVideoSelected(event: any) {
     const files = event.target.files;
     if (files && files.length > 0) {
-      this.publicationData.videos = [];
-      this.selectedVideoFiles = Array.from(files);
-      this.selectedVideoFiles.forEach((file: File) => {
+      const nuevosVideos = Array.from(files) as File[];
+      
+      // Acumulamos los nuevos videos con los anteriores
+      this.selectedVideoFiles = [...this.selectedVideoFiles, ...nuevosVideos];
+
+      nuevosVideos.forEach((file: File) => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.publicationData.videos.push(e.target.result);
@@ -87,13 +108,18 @@ export class PublicationForm {
     }
   }
 
-  publicarVehiculo() {
+ publicarVehiculo() {
     // Verificar si hay token válido antes de intentar el request
     const token = localStorage.getItem('token');
     if (!token) {
       this.toast.warning('Tu sesión expiró. Por favor, iniciá sesión nuevamente.');
       return;
     }
+
+    const fotosViejasQueQuedan = this.publicationData.imagenes.filter(url => url.startsWith('http'));
+    const videosViejosQueQuedan = this.publicationData.videos.filter(url => url.startsWith('http'));
+
+    const urlsQueSeMantienen = [...fotosViejasQueQuedan, ...videosViejosQueQuedan];
 
     const publicacionRequestDTO: import('../../models/PublicationRequest').PublicationRequest = {
       descripcion: this.publicationData.descripcion || 'Sin descripción',
@@ -111,21 +137,35 @@ export class PublicationForm {
           puertas: this.publicationData.puertas ? this.publicationData.puertas.toString() : '4',
           potencia: this.publicationData.caballos ? this.publicationData.caballos.toString() : ''
         },
-        imagenesUrl: []
+        imagenesUrl: urlsQueSeMantienen 
       }
     };
 
     const todosLosArchivos = [...this.selectedFiles, ...this.selectedVideoFiles];
-    this.publicationService.createPublication(publicacionRequestDTO, todosLosArchivos).subscribe({
-      next: () => {
-        this.toast.success('Publicación creada con éxito!');
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.error(err);
-        this.toast.error('Ocurrió un error al crear la publicación.');
-      }
-    });
+
+    if (this.editMode && this.publicationId) {
+      this.publicationService.updatePublication(this.publicationId, publicacionRequestDTO, todosLosArchivos).subscribe({
+        next: () => {
+          this.toast.success('Publicación actualizada correctamente!');
+          this.router.navigate(['/mis-publicaciones']);
+        },
+        error: (err) => {
+          console.error(err);
+          this.toast.error('Error al actualizar la publicación.');
+        }
+      });
+    } else {
+      this.publicationService.createPublication(publicacionRequestDTO, todosLosArchivos).subscribe({
+        next: () => {
+          this.toast.success('Publicación creada con éxito!');
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error(err);
+          this.toast.error('Ocurrió un error al crear la publicación.');
+        }
+      });
+    }
   }
 
   // --- Helpers de estandarización ---
@@ -227,7 +267,9 @@ export class PublicationForm {
   }
 
   irAPagina4() {
-    if (this.selectedFiles.length === 0 || !this.publicationData.precio) {
+    const tieneFotos = this.selectedFiles.length > 0 || this.publicationData.imagenes.length > 0;
+
+    if (!tieneFotos || !this.publicationData.precio) {
       this.errorMessage = 'Subí al menos una foto y completá el precio.';
       return;
     }
@@ -244,5 +286,49 @@ export class PublicationForm {
 
   cancelar() {
     this.router.navigate(['/']);
+  }
+
+  cargarDatosEdicion(id: number) {
+    this.publicationService.getPublicationById(id.toString()).subscribe({
+      next: (data: any) => {
+        const imagenesReales: string[] = [];
+        const videosReales: string[] = [];
+
+        // Filtramos y separamos las URLs
+        (data.auto.imagenesUrl || []).forEach((url: any) => {
+          if (!url) return;
+          const urlStr = String(url).trim();
+          if (urlStr === '' || urlStr === 'null' || urlStr === 'undefined' || urlStr === 'http://localhost:8080') return;
+
+          const urlCompleta = urlStr.startsWith('http') ? urlStr : 'http://localhost:8080' + (urlStr.startsWith('/') ? '' : '/') + urlStr;
+
+          // Verificamos si la URL es de un video por su extensión
+          const urlMinuscula = urlCompleta.toLowerCase();
+          if (urlMinuscula.endsWith('.mp4') || urlMinuscula.endsWith('.webm') || urlMinuscula.endsWith('.mov')) {
+            videosReales.push(urlCompleta); // Lo mandamos al array de videos
+          } else {
+            imagenesReales.push(urlCompleta); // Lo mandamos al array de imágenes
+          }
+        });
+
+        this.publicationData = {
+          marca: data.auto.marca,
+          modelo: data.auto.modelo,
+          caballos: Number(data.auto.fichaTecnica?.potencia || 0),
+          color: data.auto.color,
+          puertas: Number(data.auto.fichaTecnica?.puertas || 4),
+          motor: data.auto.fichaTecnica?.motor || '',
+          anio: data.auto.anio,
+          precio: data.auto.precio,
+          descripcion: data.descripcion,
+          km: data.auto.km,
+          combustible: data.auto.fichaTecnica?.combustible || '',
+          caja: data.auto.fichaTecnica?.caja || '',
+          fotoUrl: imagenesReales.length > 0 ? imagenesReales[0] : 'https://via.placeholder.com/300x200/1a1a1a/ff8c00?text=Vista+Previa',
+          imagenes: imagenesReales, // Acá van solo las fotos
+          videos: videosReales      // Acá van solo los videos
+        };
+      }
+    });
   }
 }

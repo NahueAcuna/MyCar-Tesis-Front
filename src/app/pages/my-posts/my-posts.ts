@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ToastService } from '../../services/toast-service';
 import { CommonModule } from '@angular/common';
 import { PublicationService } from '../../services/publication-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-posts',
@@ -17,7 +18,7 @@ export class MyPosts implements OnInit {
   myPosts: PublicationResponse[] = [];
   postToDelete: number | null = null;
 
-  constructor(public profileService: ProfileService, public publicationService: PublicationService, private toast: ToastService) {}
+  constructor(public profileService: ProfileService, public publicationService: PublicationService, private toast: ToastService, private router: Router) {}
 
   ngOnInit(): void {
     this.myPost();
@@ -87,5 +88,9 @@ export class MyPosts implements OnInit {
         }
       });
     }
+  }
+
+  editPost(id: number) {
+    this.router.navigate(['/editar', id]);
   }
 }
