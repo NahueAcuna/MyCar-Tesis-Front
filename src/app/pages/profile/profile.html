@@ -44,6 +44,11 @@
       <span class="material-symbols-outlined">logout</span>
       Cerrar sesión
     </button>
+
+    <button class="action-btn delete-account" (click)="openDeleteAccountModal()">
+      <span class="material-symbols-outlined">delete</span>
+      Eliminar Cuenta
+    </button>
   </div>
 
   <!-- ================= RIGHT CONTENT ================= -->
@@ -224,4 +229,25 @@
 
             </div>
         </div>
+    }
+
+    <!-- MODAL ELIMINAR CUENTA -->
+    @if(showDeleteAccountModal) {
+      <div class="custom-modal-overlay" (click)="closeDeleteAccountModal()">
+        <div class="custom-modal warning-modal" (click)="$event.stopPropagation()">
+          
+          <div class="warning-icon">
+            <span class="material-symbols-outlined">warning</span>
+          </div>
+          
+          <h2>Eliminar Cuenta</h2>
+          <p>¿Usted desea eliminar su cuenta y todas sus publicaciones de forma permanente?</p>
+
+          <div class="modal-actions-warning">
+            <button class="btn-cancel-warning" (click)="closeDeleteAccountModal()">Cancelar</button>
+            <button class="btn-accept-warning" (click)="confirmarEliminarCuenta()">Aceptar</button>
+          </div>
+
+        </div>
+      </div>
     }
