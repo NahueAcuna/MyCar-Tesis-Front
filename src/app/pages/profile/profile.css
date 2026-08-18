@@ -611,6 +611,69 @@ button.view-all{
     font-size: 24px;
 }
 
+/* ================= MODAL ADVERTENCIA (ELIMINAR) ================= */
+.warning-modal {
+  border: 1px solid #ff8c00; /* Borde naranja/dorado */
+  text-align: center;
+  padding: 35px 25px;
+  max-width: 400px;
+}
+
+.warning-icon .material-symbols-outlined {
+  color: #ff4d4d; /* Rojo peligro */
+  font-size: 55px;
+  margin-bottom: 15px;
+}
+
+.warning-modal h2 {
+  color: #ffffff;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.warning-modal p {
+  color: #a0a0a0;
+  margin-bottom: 30px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.modal-actions-warning {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-cancel-warning {
+  background-color: transparent;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel-warning:hover {
+  background-color: #333;
+}
+
+.btn-accept-warning {
+  background-color: #00c853; /* Verde brillante exacto */
+  border: none;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-accept-warning:hover {
+  background-color: #00e676; /* Iluminación al pasar el mouse */
+}
+
 
 /* ================= RESPONSIVE ================= */
 
