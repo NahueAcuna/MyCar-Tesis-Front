@@ -6,7 +6,12 @@ export interface ReservaResponse {
         telefono?: string;
     };
     fecha: string;
-    idPublicacion: number;
+    publicacion: {
+        id: number;
+        descripcion?: string;
+        nombreVendedor?: string;
+        auto?: any;
+    };
     montoReserva: number;
     estadoReserva: 'PENDIENTE' | 'ACEPTADA' | 'CANCELADA';
 }

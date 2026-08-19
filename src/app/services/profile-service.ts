@@ -38,4 +38,8 @@ export class ProfileService {
   getFavoritos(): Observable<any> {
     return this.http.get(`${this.url3}/favoritos`);
   }
+
+  deleteAccount(): Observable<any> {
+    return this.http.delete(`${this.url3}/cuenta`);  
+  }
 }

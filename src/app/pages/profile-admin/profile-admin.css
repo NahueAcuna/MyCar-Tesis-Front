@@ -121,7 +121,7 @@
 
 /* ================= ACTION BUTTONS ================= */
 
-.action-btn {
+.action-btn{
     display: flex;
     align-items: center;
     gap: 14px;
@@ -133,24 +133,26 @@
     border: 1px solid rgba(255,140,0,0.35);
     transition: 0.3s ease;
     cursor: pointer;
-    
-    /* Le sumamos las propiedades de texto acá directamente */
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: inherit;
-    text-align: left; /* Para que el texto no se vaya al centro */
 }
 
-.action-btn:hover {
+.action-btn:hover{
     transform: translateX(5px);
     border-color: rgba(255,140,0,0.4);
     background: rgba(255,140,0,0.08);
 }
 
-.action-btn .material-symbols-outlined {
+.action-btn .material-symbols-outlined{
     color: orange;
     font-size: 22px;
+}
+
+.action-btn button{
+    background: none;
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .logout:hover{
@@ -158,36 +160,7 @@
     background: rgba(255,80,80,0.08);
 }
 
-/* ================= CHAT BADGE ================= */
-
-.chat-action{
-    position: relative;
-}
-
-.chat-badge{
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background: #ff3b30;
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    box-shadow: 0 0 8px rgba(255, 59, 48, 0.5);
-    animation: chatBadgePulse 2s ease-in-out infinite;
-}
-
-@keyframes chatBadgePulse{
-    0%, 100%{ box-shadow: 0 0 6px rgba(255, 59, 48, 0.5); }
-    50%{ box-shadow: 0 0 14px rgba(255, 59, 48, 0.8); }
-}
+/* ================= RIGHT CONTENT ================= */
 
 .right-content{
     flex: 1;
@@ -338,13 +311,13 @@
     border-radius: 14px;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,140,0,0.25);
-    color: white;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s ease;
     backdrop-filter: blur(8px);
     text-decoration: none;
+    color: inherit;
 }
 
 .view-all .material-symbols-outlined{
@@ -609,69 +582,6 @@ button.view-all{
 .btn-remove-fav .material-symbols-outlined {
     font-variation-settings: 'FILL' 1; /* Corazón sólido */
     font-size: 24px;
-}
-
-/* ================= MODAL ADVERTENCIA (ELIMINAR) ================= */
-.warning-modal {
-  border: 1px solid #ff8c00; /* Borde naranja/dorado */
-  text-align: center;
-  padding: 35px 25px;
-  max-width: 400px;
-}
-
-.warning-icon .material-symbols-outlined {
-  color: #ff4d4d; /* Rojo peligro */
-  font-size: 55px;
-  margin-bottom: 15px;
-}
-
-.warning-modal h2 {
-  color: #ffffff;
-  font-size: 22px;
-  margin-bottom: 10px;
-}
-
-.warning-modal p {
-  color: #a0a0a0;
-  margin-bottom: 30px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.modal-actions-warning {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.btn-cancel-warning {
-  background-color: transparent;
-  border: 1px solid #444;
-  color: #fff;
-  padding: 12px 25px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-cancel-warning:hover {
-  background-color: #333;
-}
-
-.btn-accept-warning {
-  background-color: #00c853; /* Verde brillante exacto */
-  border: none;
-  color: #fff;
-  padding: 12px 25px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-accept-warning:hover {
-  background-color: #00e676; /* Iluminación al pasar el mouse */
 }
 
 

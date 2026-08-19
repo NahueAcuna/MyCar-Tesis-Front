@@ -1,6 +1,5 @@
 <header>
-    <span id="logo" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-        style="cursor: pointer;">MyCar</span>
+    <span id="logo" routerLink="/" style="cursor: pointer;">MyCar</span>
 
     <button class="menu-toggle" (click)="menuOpen = !menuOpen">
         <span class="material-symbols-outlined">{{ menuOpen ? 'close' : 'menu' }}</span>
@@ -28,13 +27,15 @@
         </div>
     }@else{
         <div class="header-actions">
-            <div class="chat-btn" routerLink="/chats">
+            @if(!authService.isAdmin()){
+                <div class="chat-btn" routerLink="/chats">
                 <span class="material-symbols-outlined">chat</span>
                 @if (cantidadNoLeidos > 0) {
                     <span class="unread-badge">{{ cantidadNoLeidos > 99 ? '99+' : cantidadNoLeidos }}</span>
                 }
             </div>
-            <div class="profile-btn" routerLink="/perfil">
+            }
+            <div class="profile-btn" [routerLink]="authService.isAdmin() ? '/perfil-admin' : '/perfil'">
                 <span class="material-symbols-outlined">account_circle</span>
             </div>
         </div>

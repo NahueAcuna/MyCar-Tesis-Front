@@ -13,23 +13,22 @@
         <p>{{ user.email }}</p>
       </div>
     }
-            
-    <div class="pr-box">
-      <div class="number-post">
-        <span>{{ myPosts.length }}</span>
-        <p>Publicaciones</p>
-      </div>
-      <div class="line"></div>
-      <div class="number-reservation">
-        <span>{{ myReservations.length }}</span>
-        <p>Reservas</p>
-      </div>
-      <div class="line"></div>
-      <div class="number-favorite">
-        <span>{{ myFavorites.length }}</span>
-        <p>Favoritos</p>
-      </div>
-    </div>
+        <div class="pr-box">
+            <div class="number-post">
+                <span>{{ myPosts.length }}</span>
+                <p>Publicaciones</p>
+            </div>
+            <div class="line"></div>
+            <div class="number-reservation">
+                <span>{{ myReservations.length }}</span>
+                <p>Reservas</p>
+            </div>
+            <div class="line"></div>
+            <div class="number-favorite">
+                <span>{{ myFavorites.length }}</span>
+                <p>Favoritos</p>
+            </div>
+        </div>
 
     <button class="action-btn" (click)="irChats()">
       <span class="material-symbols-outlined"> chat </span>
@@ -44,6 +43,11 @@
     <button class="action-btn logout" (click)="authService.logout()">
       <span class="material-symbols-outlined">logout</span>
       Cerrar sesión
+    </button>
+
+    <button class="action-btn delete-account" (click)="openDeleteAccountModal()">
+      <span class="material-symbols-outlined">delete</span>
+      Eliminar Cuenta
     </button>
   </div>
 
@@ -71,18 +75,20 @@
           <span class="material-symbols-outlined">directions_car</span>
           <h2>Mis Publicaciones</h2>
         </div>
-        <button class="view-all" routerLink="/mis-publicaciones">
+
+        <a class="view-all" routerLink="/mis-publicaciones" target="_blank">
           Ver todas
           <span class="material-symbols-outlined">arrow_forward</span>
-        </button>
+        </a>
       </div>
 
       <div class="post-container">
         @for (post of myPosts.slice(0, 2); track post.id) {
           <div class="post-card">
-            <div class="post-img-container" [routerLink]="['/publicacion', post.id]">
+            <a class="post-img-container" [routerLink]="['/publicacion', post.id]" target="_blank">
               <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto" />
-            </div>
+            </a>
+
             <div class="post-info">
               <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
               <p class="year-km">{{ post.auto.anio }} - {{ post.auto.km }} km</p>
@@ -103,18 +109,19 @@
           <span class="material-symbols-outlined">calendar_today</span>
           <h2>Mis Reservas</h2>
         </div>
-        <button class="view-all" routerLink="">
+
+        <a class="view-all" routerLink="/mis-reservas" target="_blank">
           Ver todas
           <span class="material-symbols-outlined">arrow_forward</span>
-        </button>
+        </a>
       </div>
 
       <div class="post-container">
         @for (reservation of myReservations.slice(0, 2); track reservation.id) {
           <div class="post-card">
-            <div class="post-img-container">
+            <a class="post-img-container" [routerLink]="['/publicacion', reservation.publicacion.id]" target="_blank">
               <img [src]="getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '')" alt="Imagen del auto" (error)="onImageError($event)">
-            </div>
+            </a>
 
             <div class="post-info"> 
               <h3>{{ reservation?.publicacion?.auto?.marca || 'Marca' }} {{ reservation?.publicacion?.auto?.modelo || 'Modelo' }}</h3>
@@ -138,45 +145,44 @@
                     <h2>Mis Favoritos</h2>
                 </div>
 
-    <!-- MIS FAVORITOS -->
-    <div class="my-favorite">
-      <div class="section-header">
-        <div class="title-box">
-          <span class="material-symbols-outlined">favorite</span>
-          <h2>Mis Favoritos</h2>
-        </div>
-        <button class="view-all" routerLink="/mis-favoritos">
-          Ver todas
-          <span class="material-symbols-outlined">arrow_forward</span>
-        </button>
-      </div>
+                <a class="view-all" routerLink="/mis-favoritos" target="_blank">
+                   Ver todas
+                  <span class="material-symbols-outlined">arrow_forward</span>
+              </a>
+            </div>
     
-      <div class="post-container">
-        @for(favorite of myFavorites.slice(0,2); track favorite.id){
-          <div class="post-card">
-            <div class="post-img-container" [routerLink]="['/publicacion', favorite.id]">
-              <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
-            </div>
-            <div class="post-info">
-              <div class="fav-header">
-                <h3>{{ favorite.auto.marca }} {{ favorite.auto.modelo }}</h3>
-                <button class="btn-remove-fav" (click)="quitarFavorito(favorite.id)" title="Quitar de favoritos">
-                  <span class="material-symbols-outlined">favorite</span>
-                </button>
-              </div>
-              <p class="year-km">
-                {{ favorite.auto.anio }} - {{ favorite.auto.km }} km
-              </p>
-              <p class="price">
-                ${{ favorite.auto.precio | number:'1.0-0' }}
-              </p>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
+            <div class="post-container">
+                @for(favorite of myFavorites.slice(0,2); track favorite.id){
+                    <div class="post-card">
+                        <a class="post-img-container" [routerLink]="['/publicacion', favorite.id]" target="_blank">
+                          <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
+                        </a>
+                        
+                        <div class="post-info">
+                            <div class="fav-header">
+                                <h3>{{ favorite.auto.marca }} {{ favorite.auto.modelo }}</h3>
+                                <!-- Botón para quitar de favoritos -->
+                                <button class="btn-remove-fav" (click)="quitarFavorito(favorite.id)" title="Quitar de favoritos">
+                                    <span class="material-symbols-outlined">favorite</span>
+                                </button>
+                            </div>
+                            
+                            <p class="year-km">
+                                {{ favorite.auto.anio }} - {{ favorite.auto.km }} km
+                            </p>
 
-    <!-- MODAL EDITAR PERFIL -->
+                            <p class="price">
+                                ${{ favorite.auto.precio | number:'1.0-0' }}
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+  </div>
+</div>
+
+ <!-- MODAL EDITAR PERFIL -->
     @if(isEditModalOpen) {
       <div class="custom-modal-overlay" (click)="closeEditModal()">
         <div class="custom-modal" (click)="$event.stopPropagation()">
@@ -224,4 +230,24 @@
             </div>
         </div>
     }
-</div>
+
+    <!-- MODAL ELIMINAR CUENTA -->
+    @if(showDeleteAccountModal) {
+      <div class="custom-modal-overlay" (click)="closeDeleteAccountModal()">
+        <div class="custom-modal warning-modal" (click)="$event.stopPropagation()">
+          
+          <div class="warning-icon">
+            <span class="material-symbols-outlined">warning</span>
+          </div>
+          
+          <h2>Eliminar Cuenta</h2>
+          <p>¿Usted desea eliminar su cuenta y todas sus publicaciones de forma permanente?</p>
+
+          <div class="modal-actions-warning">
+            <button class="btn-cancel-warning" (click)="closeDeleteAccountModal()">Cancelar</button>
+            <button class="btn-accept-warning" (click)="confirmarEliminarCuenta()">Aceptar</button>
+          </div>
+
+        </div>
+      </div>
+    }

@@ -1,43 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { Header } from '../../Components/user-layout/header/header';
 import { User } from '../../models/User';
 import { ProfileService } from '../../services/profile-service';
-import { ChatService } from '../../services/chat-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../services/toast-service';
-import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-profile-admin',
   imports: [Header, RouterLink, FormsModule, CommonModule],
-  templateUrl: './profile.html',
-  styleUrl: './profile.css',
+  templateUrl: './profile-admin.html',
+  styleUrl: './profile-admin.css',
 })
-export class Profile implements OnInit, OnDestroy{
+export class ProfileAdmin implements OnInit {
 
   user: User | null = null;
   myPosts: PublicationResponse[] = [];
-  myReservations: any[] = [];
   showAllPosts: boolean = false;
   isEditModalOpen: boolean = false;
   showCompleteProfileModal = false;
   telefono = '';
-  myFavorites: PublicationResponse[] = [];
-  cantidadNoLeidos: number = 0;
-  private noLeidosSub?: Subscription;
-  showDeleteAccountModal: boolean = false;
 
-  constructor(
-    public authService: AuthService,
-    public profileService: ProfileService,
-    private router: Router,
-    private toast: ToastService,
-    public chatService: ChatService
-  ) {}
+  constructor(public authService : AuthService, public profileService: ProfileService, private router: Router, private toast: ToastService) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
@@ -46,21 +33,6 @@ export class Profile implements OnInit, OnDestroy{
       this.showCompleteProfileModal = true;
     }
     this.myPost();
-    this.myReservation();
-    this.cargarFavoritos();
-
-    // Suscripción al contador de mensajes no leídos
-    const email = localStorage.getItem('usuario_email') || '';
-    if (email) {
-      this.chatService.refrescarContador(email);
-    }
-    this.noLeidosSub = this.chatService.cantidadNoLeidos$.subscribe(
-      cantidad => this.cantidadNoLeidos = cantidad
-    );
-  }
-
-  ngOnDestroy() {
-    this.noLeidosSub?.unsubscribe();
   }
 
   myPost(){
@@ -70,21 +42,6 @@ export class Profile implements OnInit, OnDestroy{
     });
   }
   
-  irChats(){
-    this.router.navigate(['/chats'])
-  }
-
-  myReservation(){
-    this.profileService.getMyReservations().subscribe({
-      next: (response) => {this.myReservations = response},
-      error: (error) => {
-        // Error silencioso: no mostramos alert para no interrumpir la navegación
-        // ni disparar la cadena de logout del interceptor
-        console.warn('No se pudieron cargar las reservas:', error?.status, error?.message);
-        this.myReservations = [];
-      }
-    });
-  }
 
   getImageUrl(url: string): string {
     if (!url){
@@ -96,19 +53,6 @@ export class Profile implements OnInit, OnDestroy{
     }
 
     return 'http://localhost:8080' + url;
-  }
-
-  formatearFecha(fecha: string | null | undefined): string {
-    if (!fecha) return 'Sin fecha';
-    try {
-      const d = new Date(fecha);
-      const day = String(d.getDate()).padStart(2, '0');
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const year = d.getFullYear();
-      return `${day}/${month}/${year}`;
-    } catch {
-      return fecha;
-    }
   }
 
   openEditModal() {
@@ -168,23 +112,6 @@ export class Profile implements OnInit, OnDestroy{
       }
     });
   }
-  
-  cargarFavoritos() {
-    this.profileService.getFavoritos().subscribe({
-      next: (data) => {
-        this.myFavorites = data;
-      },
-      error: (err) => console.error("Error al cargar favoritos", err)
-    });
-  }
-
-  // Método para cuando el usuario hace clic en el corazón desde su propio perfil
-  quitarFavorito(id: number) {
-    this.profileService.toggleFavorito(id).subscribe(() => {
-      // Recargamos la lista para que desaparezca la tarjeta instantáneamente
-      this.cargarFavoritos(); 
-    });
-  }
 
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
@@ -192,33 +119,5 @@ export class Profile implements OnInit, OnDestroy{
     img.onerror = null;
   }
 
-  // Abre el cartel
-  openDeleteAccountModal() {
-    this.showDeleteAccountModal = true;
-  }
-
-  // Cierra el cartel sin hacer nada
-  closeDeleteAccountModal() {
-    this.showDeleteAccountModal = false;
-  }
-
-  // Se ejecuta SOLO cuando aprietan "Aceptar" en el cartel verde
-  confirmarEliminarCuenta() {
-    if (this.user) {
-      this.profileService.deleteAccount().subscribe({
-        next: () => {
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
-          this.toast.success("Cuenta eliminada correctamente.");
-          this.closeDeleteAccountModal();
-          this.router.navigate(['/login']);
-        },
-        error: (error) => {
-          console.error("Error al eliminar la cuenta:", error);
-          this.toast.error("Error al eliminar la cuenta.");
-          this.closeDeleteAccountModal();
-        }
-      });
-    }
-  }
+  
 }

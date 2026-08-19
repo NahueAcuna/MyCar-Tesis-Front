@@ -5,30 +5,56 @@
 
     <div class="post-container">
         @for(post of myPosts; track post.id){
-            <div class="post-card" [routerLink]="['/publicacion', post.id]">
+            
+            <a class="car_publication" [routerLink]="['/publicacion', post.id]" target="_blank" style="text-decoration: none;">
                 
-                <div class="post-img-container">
-                    <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto">
-                </div>
-
-                <div class="post-info">
-                    <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
-                                
-                    <p class="year-km">
-                        {{ post.auto.anio }} - {{ post.auto.km }} km
-                    </p>
-
-                    <p class="price">
-                        ${{ post.auto.precio  }}
-                    </p>
-    
-                    <div class="status">
-                        {{ post.estado }}
+                <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto" (error)="onImageError($event)">
+                
+                <div class="information">
+                    
+                    <div class="name_price">
+                        <p>{{ post.auto.marca }} {{ post.auto.modelo }}</p>
+                        <span>${{ post.auto.precio | number:'1.0-0' }}</span>
                     </div>
-                </div>
-            </div>
-                    }
-    </div>
+                    
+                    <div class="info-footer">
+                        <div class="anio_description">
+                            <span>{{ post.auto.anio }} - {{ post.auto.km }} km</span><br>
+                            <span>{{ descriptionPreview(post.descripcion) }}</span>
+                        </div>
+                    
+                        <div class="status-badge" [ngClass]="post.estado">
+                            {{ post.estado }}
+                        </div>
+                    </div>
 
-    <button class="btnBack" (click)="goBack()">Volver</button>
+                    <div class="action-buttons"> 
+                            <button class="btn-edit" (click)="$event.preventDefault(); $event.stopPropagation(); editPost(post.id)" title="Editar">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                            
+                            <button class="btn-delete" (click)="$event.preventDefault(); $event.stopPropagation(); confirmDelete(post.id)" title="Eliminar">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </div>
+                </div>
+
+            </a>
+        }
+    </div>
 </div>
+
+<!-- MODAL DE CONFIRMACIÓN -->
+@if (postToDelete !== null) {
+  <div class="modal-overlay-confirm">
+      <div class="modal-content">
+          <span class="material-symbols-outlined warning-icon">warning</span>
+          <h3>Eliminar Publicación</h3>
+          <p>¿Usted desea eliminar la publicación de forma permanente?</p>
+          <div class="modal-actions">
+              <button class="btn-cancelar" (click)="cancelDelete()">Cancelar</button>
+              <button class="btn-aceptar" (click)="executeDelete()">Aceptar</button>
+          </div>
+      </div>
+  </div>
+}

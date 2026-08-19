@@ -167,14 +167,16 @@
                     <p>{{ descriptionPreview(publication.descripcion) }}</p>
                   </div>
 
-                  <button class="btn-fav" (click)="toggleFavorito(publication.id)">
-                    <span
-                      class="material-symbols-outlined"
-                      [class.activo]="esFavorito(publication.id)"
-                    >
-                      {{ esFavorito(publication.id) ? 'favorite' : 'favorite_border' }}
-                    </span>
-                  </button>
+                  @if(publication.emailVendedor !== miEmail) {
+                    <button class="btn-fav" (click)="toggleFavorito(publication.id)">
+                      <span
+                        class="material-symbols-outlined"
+                        [class.activo]="esFavorito(publication.id)"
+                      >
+                        {{ esFavorito(publication.id) ? 'favorite' : 'favorite_border' }}
+                      </span>
+                    </button>
+                  }
                 </div>
               </div>
               <button (click)="carDetail(publication.id)">Ver auto</button>

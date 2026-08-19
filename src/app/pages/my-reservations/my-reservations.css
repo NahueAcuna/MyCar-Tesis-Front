@@ -54,6 +54,8 @@
     transition: 0.3s ease;
     width: 100%;
     overflow: hidden;
+    text-decoration: none; 
+    color: inherit;
 }
 
 .post-card:hover {
@@ -167,36 +169,6 @@
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
-}
-
-/* ================= BOTÓN VOLVER ================= */
-
-.btnBack{
-    position: fixed;
-    top: 1%;
-    height: 65px;
-    box-sizing: border-box;
-    left: 60px;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 0px 22px;
-    border-radius: 50px;
-    border: none;
-    background: rgba(0, 0, 0, 0.86);
-    backdrop-filter: blur(10px);
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.btnBack:hover{
-    transform: scale(1.03);
-    box-shadow: 0 0 8px #502802;
 }
 
 /* ================= RESPONSIVE ================= */
