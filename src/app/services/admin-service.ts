@@ -3,13 +3,16 @@ import { Injectable } from '@angular/core';
 import { PublicationResponse } from '../models/PublicationResponse';
 import { ReservaResponse } from '../models/ReservaResponse';
 import { Observable } from 'rxjs';
+// 1. Importamos el environment (verificá que la ruta de los ../ coincida con tu estructura de carpetas)
+import { environment } from '../../environments/environment'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private url = 'http://localhost:8080/publicacion';
-  private reservaUrl = 'http://localhost:8080/reserva';
+  // 2. Reemplazamos el localhost duro por la variable dinámica
+  private url = `${environment.apiUrl}publicacion`;
+  private reservaUrl = `${environment.apiUrl}reserva`;
 
   constructor(private http: HttpClient) {}
 
