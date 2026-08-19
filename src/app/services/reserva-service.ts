@@ -1,18 +1,19 @@
-import { HttpClient, HttpHeaders, httpResource } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReservaRequest } from '../models/reserva-request';
 import { Observable } from 'rxjs';
+// 1. Importamos el environment
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReservaService {
 
-  readonly URL = 'http://localhost:8080/reserva'
+  // 2. Reemplazamos el localhost
+  readonly URL = `${environment.apiUrl}reserva`;
 
-  constructor(private http:HttpClient){
-
-  }
+  constructor(private http: HttpClient) {}
 
   iniciarReserva(reserva: ReservaRequest): Observable<string> {
     

@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+// 1. Importamos el environment (verificá los niveles de carpetas con los ../)
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  private url = 'http://localhost:8080/publicacion';
-  private url2 = 'http://localhost:8080/reserva';
-  private url3 = "http://localhost:8080/usuario";
+  // 2. Reemplazamos localhost por la variable dinámica en las tres URLs
+  private url = `${environment.apiUrl}publicacion`;
+  private url2 = `${environment.apiUrl}reserva`;
+  private url3 = `${environment.apiUrl}usuario`;
 
   constructor(private http: HttpClient) {}
 
@@ -21,11 +24,11 @@ export class ProfileService {
   }
 
   updateEmail(id: number, newEmail: string): Observable<any> {
-    return this.http.put(`${this.url3}/${id}`, { email:newEmail });
+    return this.http.put(`${this.url3}/${id}`, { email: newEmail });
   }
 
   completePhone(email: string, telefono: string): Observable<any> {
-    return this.http.post(`${this.url3}/completar-telefono?email=${email}&telefono=${telefono}`,{});
+    return this.http.post(`${this.url3}/completar-telefono?email=${email}&telefono=${telefono}`, {});
   }
 
   toggleFavorito(idPublicacion: number): Observable<any> {

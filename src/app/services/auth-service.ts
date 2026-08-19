@@ -5,12 +5,13 @@ import { Observable } from 'rxjs';
 import { LoginRequest } from '../models/LoginRequest';
 import { Router } from '@angular/router';
 import { User } from '../models/User';
+import { environment } from '../../environments/environment'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private url = 'http://localhost:8080/usuario';
+  private url = `${environment.apiUrl}usuario`;
 
   constructor(private http: HttpClient, public router : Router) {}
 
