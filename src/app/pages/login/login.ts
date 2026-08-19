@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Header } from '../../Components/user-layout/header/header';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../services/toast-service';
 declare const google: any;
 
 @Component({
   selector: 'app-login',
-  imports: [Header, ReactiveFormsModule],
+  imports: [Header, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
