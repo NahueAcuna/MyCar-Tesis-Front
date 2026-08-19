@@ -70,6 +70,11 @@
                 <span class="material-symbols-outlined eye-icon" (click)="togglePassword()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</span>
             </div>
 
+            <!-- Nuevo recuperar cuenta -->        
+            <div class="forgot-pass-container">
+                <a class="forgot-pass-link" routerLink="/olvide-password" target="_blank">¿Olvidaste tu contraseña?</a>
+            </div>
+
             <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Iniciar Sesión</button>
 
             <div class="separator">

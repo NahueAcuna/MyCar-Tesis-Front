@@ -238,8 +238,9 @@
 
 .ver {
     background: #1a1a1a;
-    color: #ccc;
     border: 1px solid #444;
+    text-decoration: none;
+    color: inherit;
 }
 
 .ver:hover {

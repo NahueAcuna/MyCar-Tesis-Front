@@ -100,7 +100,7 @@
       }
 
       @if (!cargando && publicacionesPendientes.length === 0 && !error) {
-        <div class="estado-msg">✅ No hay publicaciones pendientes de aprobación.</div>
+        <div class="estado-msg">No hay publicaciones pendientes de aprobación.</div>
       }
 
       <div class="publicaciones-lista">
@@ -124,9 +124,9 @@
               </div>
             </div>
             <div class="card-actions">
-              <button class="btn ver" (click)="verDetalle(pub.id)">Ver detalle</button>
-              <button class="btn aprobar" (click)="aprobar(pub.id)">✔ Aprobar</button>
-              <button class="btn rechazar" (click)="rechazar(pub.id)">✘ Rechazar</button>
+              <a class="btn ver" [routerLink]="['/publicacion', pub.id]" target="_blank">Ver detalle</a>
+              <button class="btn aprobar" (click)="aprobar(pub.id)">Aprobar</button>
+              <button class="btn rechazar" (click)="rechazar(pub.id)">Rechazar</button>
             </div>
           </div>
         }
@@ -175,27 +175,27 @@
             <div class="reserva-body">
               <div class="reserva-info">
                 <div class="info-row">
-                  <span class="info-label">👤 Usuario</span>
+                  <span class="info-label">Usuario</span>
                   <span class="info-value">{{ reserva.usuarioReserva?.nombre || '-' }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">✉️ Email</span>
+                  <span class="info-label">Email</span>
                   <span class="info-value">{{ reserva.usuarioReserva?.email }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">📞 Teléfono</span>
+                  <span class="info-label">Teléfono</span>
                   <span class="info-value">{{ reserva.usuarioReserva?.telefono || '-' }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">📅 Fecha</span>
+                  <span class="info-label">Fecha</span>
                   <span class="info-value">{{ formatFecha(reserva.fecha) }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">🚗 Publicación</span>
-                  <span class="info-value link" (click)="verDetalle(reserva.idPublicacion)">#{{ reserva.idPublicacion }}</span>
+                  <span class="info-label">Publicación</span>
+                  <span class="info-value link" (click)="verDetalle(reserva.publicacion.id)">#{{ reserva.publicacion.id }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">💰 Monto</span>
+                  <span class="info-label">Monto</span>
                   <span class="info-value monto">${{ reserva.montoReserva }}</span>
                 </div>
               </div>
@@ -203,15 +203,15 @@
 
             <div class="reserva-actions">
               @if (reserva.estadoReserva !== 'ACEPTADA') {
-                <button class="btn-reserva aceptar" (click)="cambiarEstadoReserva(reserva, 'ACEPTADA')">✔ Aceptar</button>
+                <button class="btn-reserva aceptar" (click)="cambiarEstadoReserva(reserva, 'ACEPTADA')">Aceptar</button>
               }
               @if (reserva.estadoReserva !== 'CANCELADA') {
-                <button class="btn-reserva cancelar" (click)="cambiarEstadoReserva(reserva, 'CANCELADA')">✘ Cancelar</button>
+                <button class="btn-reserva cancelar" (click)="cambiarEstadoReserva(reserva, 'CANCELADA')">Cancelar</button>
               }
               @if (reserva.estadoReserva !== 'PENDIENTE') {
-                <button class="btn-reserva pendiente" (click)="cambiarEstadoReserva(reserva, 'PENDIENTE')">⏳ Pendiente</button>
+                <button class="btn-reserva pendiente" (click)="cambiarEstadoReserva(reserva, 'PENDIENTE')">Pendiente</button>
               }
-              <button class="btn-reserva eliminar" (click)="eliminarReserva(reserva)">🗑 Eliminar</button>
+              <button class="btn-reserva eliminar" (click)="eliminarReserva(reserva)">Eliminar</button>
             </div>
           </div>
         }

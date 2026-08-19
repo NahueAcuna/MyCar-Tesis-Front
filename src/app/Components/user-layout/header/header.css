@@ -18,8 +18,10 @@ header{
 #logo{
     font-size: 18px;
     font-weight: 750;
-    color: #777;
-    transition: 0.3s ease-in-out;
+    background: linear-gradient(to right, #ffb347, #ff8c00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     flex: 1;
     text-align: left;
 }

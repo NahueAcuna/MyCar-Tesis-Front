@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../../services/profile-service';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-inventory',
@@ -24,6 +25,8 @@ export class Inventory implements OnInit {
 
   precioMinimo: number = 0;
   precioMaximo: number = 1000000;
+  
+  miEmail: string = '';
 
   // --- ARRAY DE FAVORITOS ---
   misFavoritosIds: number[] = [];
@@ -57,7 +60,7 @@ export class Inventory implements OnInit {
   minKm: FormControl;
   maxKm: FormControl;
 
-  constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService) {
+  constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService, private authService: AuthService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
     this.anio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
@@ -80,6 +83,11 @@ export class Inventory implements OnInit {
   ngOnInit(): void {
     this.getPublications();
     this.cargarFavoritos();
+    
+    const usuarioActual = this.authService.getUser();
+    if (usuarioActual && usuarioActual.email) {
+      this.miEmail = usuarioActual.email;
+    }
   }
 
   // --- VALIDADOR PERSONALIZADO ---
@@ -153,7 +161,8 @@ export class Inventory implements OnInit {
   }
 
   carDetail(id: number) {
-    this.router.navigate(['publicacion', id]);
+    const url = this.router.serializeUrl(this.router.createUrlTree(['publicacion', id]));
+    window.open(url, '_blank');
   }
 
   onSearch(event: any) {

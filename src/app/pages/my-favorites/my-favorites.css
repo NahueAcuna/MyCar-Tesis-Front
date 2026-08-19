@@ -20,150 +20,120 @@
     z-index: 1;
 }
 
-/* ================= POST CONTAINER ================= */
-
-.post-container{
+/* ================= GRID DE FAVORITOS ================= */
+.post-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 360px)); 
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
     position: relative;
     z-index: 2;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-    align-self: flex-start;
-    width: 100%;
 }
 
-/* ================= POST CARD ================= */
-
-.post-card{
+/* ================= CARD (Estilo Inventory) ================= */
+.car_publication {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 22px;
-    padding: 14px;
-    transition: 0.3s ease;
-    width: 100%;
-    cursor: pointer;
-    overflow: hidden;
+    height: 340px;
+    border: 1px solid #663f18;
+    border-radius: 15px;
+    padding: 12px;
+    background: linear-gradient(135deg, #070707 45%, #472504);
+    box-shadow: -5px 4px 20px #472504;
+    transition: 0.4s;
+    gap: 10px;
+    color: inherit;
 }
 
-.post-card:hover{
-    transform: translateY(-4px) scale(1.01);
-    border-color: rgba(255,140,0,0.25);
-    box-shadow: 0 0 20px rgba(255,140,0,0.10);
+.car_publication:hover {
+    box-shadow: -4px 3px 32px #693806;
+    transform: translateY(-3px);
 }
 
-/* ================= IMAGE ================= */
-
-.post-img-container {
+.car_publication img {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: #121212;
+    height: 190px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* --- INFORMACIÓN INTERNA --- */
+.information {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    flex: 1;
+}
+
+.name_price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.name_price p {
+    margin: 0;
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+    max-width: 65%;
+}
+
+.name_price span {
+    margin: 0;
+    color: #ff8c00;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: right;
+}
+
+.info-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.anio_description {
+    color: #727070;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.anio_description span {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* --- BOTÓN FAVORITO (CORAZÓN) --- */
+.car_publication button.btn-fav {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #ff8c00; 
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.post-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-
-/* ================= INFO ================= */
-
-.post-info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-}
-
-.post-info h3{
-    font-size: 20px;
-    margin-bottom: 6px;
-    color: white;
-}
-
-.year-km{
-    color: #a5a5a5;
-    margin-bottom: 16px;
-}
-
-.price{
-    color: orange;
-    font-size: 24px;
-    font-weight: 800;
-    margin-bottom: 14px;
-}
-
-/* ================= CORAZÓN DE FAVORITOS ================= */
-
-.fav-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.btn-remove-fav {
-    background: transparent;
-    border: none;
-    color: #ff8c00;
+    margin-bottom: 2px;
     cursor: pointer;
-    padding: 0;
-    margin-left: 10px;
     transition: transform 0.2s ease;
-    z-index: 10; 
 }
 
-.btn-remove-fav:hover {
+.car_publication button.btn-fav:hover {
     transform: scale(1.1);
 }
 
-.btn-remove-fav .material-symbols-outlined {
-    font-variation-settings: 'FILL' 1; /* Esto rellena el corazón de color */
+.car_publication button.btn-fav span.material-symbols-outlined.activo {
     font-size: 26px;
-}
-
-.empty-message {
-    grid-column: 1 / -1; 
-    text-align: center; 
-    color: white; 
-    margin-top: 40px;
-}
-
-/* ================= BOTÓN VOLVER ================= */
-
-.btnBack{
-    position: fixed;
-    top: 1%;
-    height: 65px;
-    box-sizing: border-box;
-    left: 60px;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 0px 22px;
-    border-radius: 50px;
-    border: none;
-    background: rgba(0, 0, 0, 0.86);
-    backdrop-filter: blur(10px);
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.btnBack:hover{
-    transform: scale(1.03);
-    box-shadow: 0 0 8px #502802;
+    color: #ff8c00; 
+    font-variation-settings: 'FILL' 1; /* Esto hace que el corazón se vea relleno */
 }
 
 /* ================= RESPONSIVE ================= */
