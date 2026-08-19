@@ -324,6 +324,29 @@ form{
     background: #f5f5f5;
 }
 
+/* ================= Nuevo recuperar cuenta ================= */
+
+.forgot-pass-container {
+    display: flex;
+    justify-content: flex-end; /* Lo alinea a la derecha */
+    width: 100%;
+    margin-top: 6px; /* Sube un poquito el texto si quedó muy separado */
+    margin-bottom: 20px;
+}
+
+.forgot-pass-link {
+    color: #ff8c00; /* El color de tu marca */
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-pass-link:hover {
+    color: #e07b00;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 /* ================= ANIMATION ================= */
 
 @keyframes fadeUp{

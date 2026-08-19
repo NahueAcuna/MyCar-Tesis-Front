@@ -80,4 +80,13 @@ export class AuthService {
     });
   }
 
+  // Nuevo recuperar cuenta //
+  olvidePassword(email: string): Observable<any> {
+    return this.http.post(`${this.url}/olvide-password`, { email });
+  }
+
+  restablecerPassword(token: string, nuevaPassword: string): Observable<any> {
+    return this.http.post(`${this.url}/restablecer-password`, { token, nuevaPassword });
+  }
+
 }

@@ -14,6 +14,8 @@ import { InboxComponent } from './pages/inbox/inbox';
 import { MyFavorites } from './pages/my-favorites/my-favorites';
 import { MyReservations } from './pages/my-reservations/my-reservations';
 import { ProfileAdmin } from './pages/profile-admin/profile-admin';
+import { ForgotPassword } from './pages/forgot-password/forgot-password';
+import { ResetPassword } from './pages/reset-password/reset-password';
 
 export const routes: Routes = [
     { path: '', component: Home, canActivate: [authGuard] },
@@ -30,4 +32,7 @@ export const routes: Routes = [
     { path: 'mis-reservas', component: MyReservations, canActivate: [authGuard] },
     { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] },
     { path: 'editar/:id', component: PublicationForm, canActivate: [authGuard] },
+    // Nuevo recuperar cuenta //
+    { path: 'olvide-password', component: ForgotPassword },
+    { path: 'restablecer-password', component: ResetPassword }
 ];
