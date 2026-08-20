@@ -146,7 +146,7 @@ export class GestionAdmin implements OnInit {
     this.adminService.aprobarPublicacion(id).subscribe({
       next: () => {
         this.publicacionesPendientes = this.publicacionesPendientes.filter(p => p.id !== id);
-        this.toast.success('Publicación aprobada correctamente');
+        this.toast.success('Publicación aprobada correctamente.');
       },
       error: () => this.toast.error('Error al aprobar la publicación.')
     });
@@ -156,7 +156,7 @@ export class GestionAdmin implements OnInit {
     this.adminService.rechazarPublicacion(id).subscribe({
       next: () => {
         this.publicacionesPendientes = this.publicacionesPendientes.filter(p => p.id !== id);
-        this.toast.success('Publicación rechazada correctamente');
+        this.toast.success('Publicación rechazada correctamente.');
       },
       error: () => this.toast.error('Error al rechazar la publicación.')
     });
@@ -212,7 +212,7 @@ export class GestionAdmin implements OnInit {
         if (index !== -1) {
           this.reservas[index] = actualizada;
         }
-        this.toast.success(`Reserva #${reserva.id} actualizada a ${nuevoEstado}`);
+        this.toast.success(`Reserva #${reserva.id} actualizada a ${nuevoEstado}.`);
       },
       error: () => this.toast.error('Error al modificar la reserva.')
     });
@@ -226,7 +226,7 @@ export class GestionAdmin implements OnInit {
     this.adminService.eliminarReserva(reserva.id).subscribe({
       next: () => {
         this.reservas = this.reservas.filter(r => r.id !== reserva.id);
-        this.toast.success(`Reserva #${reserva.id} eliminada`);
+        this.toast.success(`Reserva #${reserva.id} eliminada.`);
       },
       error: () => this.toast.error('Error al eliminar la reserva.')
     });

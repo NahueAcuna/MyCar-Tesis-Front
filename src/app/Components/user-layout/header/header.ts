@@ -26,7 +26,7 @@ export class Header implements AfterViewInit, OnInit, OnDestroy{
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      const email = localStorage.getItem('usuario_email') || '';
+      const email = this.authService.getEmail() || '';
       if (email) {
         this.chatService.refrescarContador(email);
       }

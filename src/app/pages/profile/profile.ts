@@ -30,6 +30,9 @@ export class Profile implements OnInit, OnDestroy{
   cantidadNoLeidos: number = 0;
   private noLeidosSub?: Subscription;
   showDeleteAccountModal: boolean = false;
+  showPosts: boolean = false;
+  showReservations: boolean = false;
+  showFavorites: boolean = false;
 
   constructor(
     public authService: AuthService,
@@ -50,7 +53,7 @@ export class Profile implements OnInit, OnDestroy{
     this.cargarFavoritos();
 
     // Suscripción al contador de mensajes no leídos
-    const email = localStorage.getItem('usuario_email') || '';
+    const email = this.authService.getEmail();
     if (email) {
       this.chatService.refrescarContador(email);
     }
@@ -126,8 +129,8 @@ export class Profile implements OnInit, OnDestroy{
           next: (response) => {
             this.closeEditModal();
             this.user!.email = response.email;
-            localStorage.setItem('user', JSON.stringify(response));
-            localStorage.setItem('token', response.token);
+            this.authService.saveUser(response);
+            this.authService.saveToken(response.token);
           },
           error: (error) => {
             console.error('Error al actualizar el perfil:', error);
@@ -152,11 +155,11 @@ export class Profile implements OnInit, OnDestroy{
 
         this.user!.telefono = this.telefono;
 
-        localStorage.setItem("user", JSON.stringify(this.user));
+        this.authService.saveUser(this.user!);
 
         this.showCompleteProfileModal = false;
 
-        this.toast.success("Perfil actualizado correctamente");
+        this.toast.success("Perfil actualizado correctamente.");
       },
 
       error: (error) => {
@@ -207,8 +210,7 @@ export class Profile implements OnInit, OnDestroy{
     if (this.user) {
       this.profileService.deleteAccount().subscribe({
         next: () => {
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
+          this.authService.logout();
           this.toast.success("Cuenta eliminada correctamente.");
           this.closeDeleteAccountModal();
           this.router.navigate(['/login']);

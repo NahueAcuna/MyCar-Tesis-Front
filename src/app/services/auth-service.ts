@@ -23,21 +23,31 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    localStorage.setItem('token', token);
+    this.setCookie('token', token); // Guardar el token en una cookie con duración de 1 día
   }
 
   saveUser(user: User): void {
-    localStorage.setItem('user', JSON.stringify(user));
+    this.setCookie('user', JSON.stringify(user));
   }
 
   getUser(): User | null {
-    const user = localStorage.getItem('user');
+    const user = this.getCookie('user');
     return user ? JSON.parse(user) : null;
   }
+  getToken(): string | null {
+    return this.getCookie('token');
+  }
+
+  saveEmail(email: string): void {
+    this.setCookie('usuario_email', email);
+  }
+
+  getEmail(): string {
+    return this.getCookie('usuario_email') || '';
+  }
   
-  // Decodifica el payload del JWT guardado en localStorage
   private getPayload(): any {
-    const token = localStorage.getItem('token');
+    const token = this.getCookie('token');
     if (!token) return null;
     try {
       const payload = token.split('.')[1];
@@ -58,13 +68,13 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getCookie('token');
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('usuario_email');
+    this.removeCookie('token');
+    this.removeCookie('user');
+    this.removeCookie('usuario_email');
     this.router.navigate(['/login']);
   }
 
@@ -87,6 +97,23 @@ export class AuthService {
 
   restablecerPassword(token: string, nuevaPassword: string): Observable<any> {
     return this.http.post(`${this.url}/restablecer-password`, { token, nuevaPassword });
+  }
+
+  // --- MÉTODOS PRIVADOS PARA MANEJAR COOKIES DE SESIÓN ---
+  
+  private setCookie(name: string, value: string): void {
+    // Al no especificar 'expires', se crea como Cookie de Sesión (se borra al cerrar el navegador)
+    document.cookie = `${name}=${encodeURIComponent(value)}; path=/`;
+  }
+
+  private getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+  }
+
+  private removeCookie(name: string): void {
+    // Para borrar una cookie, le seteamos una fecha que ya pasó (1970)
+    document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
   }
 
 }

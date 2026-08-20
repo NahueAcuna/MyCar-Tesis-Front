@@ -78,13 +78,13 @@ export class MyPosts implements OnInit {
           // Filtramos el array para sacar la publicación eliminada al instante sin recargar la página
           this.myPosts = this.myPosts.filter(p => p.id !== this.postToDelete);
           this.postToDelete = null; // Cerramos el modal
-          const mensajeExito = 'Publicación eliminada correctamente';
+          const mensajeExito = 'Publicación eliminada correctamente.';
           this.toast.success(mensajeExito);
         },
         error: (err) => {
           console.error("Error al eliminar la publicación", err);
           this.postToDelete = null;
-          this.toast.error('No se pudo eliminar la publicación');
+          this.toast.error('No se pudo eliminar la publicación.');
         }
       });
     }

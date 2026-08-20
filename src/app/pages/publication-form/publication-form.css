@@ -661,3 +661,52 @@
     color: #ff8c00;
     font-weight: bold;
 }
+
+.input-group label .form-formats {
+  font-size: 0.9em;       
+  font-weight: normal;   
+  opacity: 0.7;          
+}
+
+/* =======================================================
+   ESTILOS PARA ELIMINAR ARCHIVOS (LA CRUZ)
+======================================================= */
+
+/* Contenedor padre de cada foto/video */
+.preview-container {
+  position: relative; 
+  display: inline-block; 
+  margin-right: 10px; 
+  margin-bottom: 10px;
+}
+
+/* Estilo del botón de la cruz (Fondo Transparente) */
+.btn-delete-media {
+  position: absolute; 
+  top: -8px; 
+  right: -8px; 
+  background-color: transparent; 
+  color: #ffffff; 
+  border: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 1);
+  transition: all 0.2s ease;
+  z-index: 10; 
+}
+
+.btn-delete-media .material-symbols-outlined {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-delete-media:hover {
+  background-color: rgba(255, 255, 255, 0.2); 
+  transform: scale(1.1); 
+  border-radius: 50%;
+}

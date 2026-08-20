@@ -674,6 +674,45 @@ button.view-all{
   background-color: #00e676; /* Iluminación al pasar el mouse */
 }
 
+/* Contenedor para alinear Ver todas y la flecha */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacio entre el enlace y el botón desplegable */
+}
+
+/* Estilo para el botón de la flecha */
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #ff8c00; /* Naranja característico de tu diseño */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background-color: rgba(255, 140, 0, 0.1); /* Efecto sutil al pasar el mouse */
+  transform: translateY(-2px);
+}
+
+.toggle-btn .material-symbols-outlined {
+  font-size: 28px; /* Tamaño de la flecha */
+}
+
+/* Contenedor para alinear el botón Ver Todas abajo a la derecha */
+.view-all-container {
+  display: flex;
+  justify-content: flex-end; /* Empuja el botón a la derecha */
+  width: 100%;
+  margin-top: 15px; /* Separación con las tarjetas de los autos */
+  padding-right: 10px; /* Un pequeño margen para que no toque el borde exacto */
+}
+
 
 /* ================= RESPONSIVE ================= */
 

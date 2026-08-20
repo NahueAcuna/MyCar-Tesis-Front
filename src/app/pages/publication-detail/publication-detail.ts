@@ -10,6 +10,7 @@ import { ReservaRequest } from '../../models/reserva-request';
 import { FormsModule } from '@angular/forms'; // <-- Sumamos FormsModule para el chat
 import { ChatService } from '../../services/chat-service';
 import { ToastService } from '../../services/toast-service';
+import { AuthService } from '../../services/auth-service';
 
 
 @Component({
@@ -40,7 +41,8 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
     private route: ActivatedRoute, 
     public router: Router, 
     private location: Location,
-    private toast: ToastService
+    private toast: ToastService,
+    private authService: AuthService 
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
     this.getPublicationById(idPublication);
 
     // Recuperamos el email del usuario logueado (si no hay, le ponemos Invitado)
-    this.emailUsuarioActual = localStorage.getItem('usuario_email') || 'invitado@mail.com';
+    this.emailUsuarioActual = this.authService.getEmail() || 'invitado@mail.com';
     
     // Escuchamos los mensajes en tiempo real para pintar el HTML
     this.chatService.mensajes$.subscribe(mensajes => {
@@ -57,6 +59,12 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
   }
 
   irAChats() {
+    if (!this.authService.isLoggedIn()) {
+      this.toast.warning('Tiene que estar registrado en la página.');
+      this.router.navigate(['/login']);
+      return; 
+    }
+    
     const idActual = Number(this.route.snapshot.params['id']);
     
     // 🔥 ACÁ APLICAMOS LA CORRECCIÓN DEL EMAIL 🔥
@@ -162,12 +170,13 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
   }
 
   pagarReserva() {
-    const emailUsuarioLogueado = localStorage.getItem('usuario_email');
-    if (!emailUsuarioLogueado) {
-      this.toast.warning('Por favor, iniciá sesión o completá tus datos para poder reservar este auto.');
+    if (!this.authService.isLoggedIn()) {
+      this.toast.warning('Tiene que estar registrado en la página.');
       return; 
     }
+
     this.cargandoPago = true;
+    const emailUsuarioLogueado = this.authService.getEmail();
     const idActual = Number(this.route.snapshot.params['id']);
     const fechaParaJava = new Date().toISOString().substring(0, 19);
 

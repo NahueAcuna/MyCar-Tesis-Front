@@ -60,13 +60,13 @@ export class Login implements OnInit{
           rol: response.rol,
           telefono: response.telefono
         });
-        localStorage.setItem('usuario_email', response.email);
-        this.toast.success('Login exitoso');
+        this.authService.saveEmail(response.email);
+        this.toast.success('Login exitoso.');
         this.router.navigate(['/']);  
       },
       error: (error) => {console.error(error);
         if(error.status === 401){
-          this.toast.error('Email o contraseña incorrectos');
+          this.toast.error('Email o contraseña incorrectos.');
         }else{
           this.toast.error('Error al iniciar sesión.');
         }
@@ -104,9 +104,9 @@ export class Login implements OnInit{
             telefono: response.telefono
           });
 
-          localStorage.setItem('usuario_email', response.email);
+          this.authService.saveEmail(response.email);
 
-          this.toast.success('Login con Google exitoso');
+          this.toast.success('Login con Google exitoso.');
 
           this.router.navigate(['/']);
         },
@@ -116,9 +116,9 @@ export class Login implements OnInit{
           console.error(error);
 
           if(error.status === 404){
-            this.toast.error('No existe una cuenta registrada con Google');
+            this.toast.error('No existe una cuenta registrada con Google.');
           }else{
-            this.toast.error('Error al iniciar sesión con Google');
+            this.toast.error('Error al iniciar sesión con Google.');
           }
         }
       });

@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Header } from '../../Components/user-layout/header/header'; // Ajustá la ruta
 import { Footer } from '../../Components/footer/footer'; // Ajustá la ruta
 import { ChatService } from '../../services/chat-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-inbox',
@@ -22,10 +23,10 @@ export class InboxComponent implements OnInit, OnDestroy {
   nuevoMensaje: string = '';
   conversacionIdActual: number = 0;
 
-  constructor(private http: HttpClient, private chatService: ChatService) {}
+  constructor(private http: HttpClient, private chatService: ChatService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.miEmail = localStorage.getItem('usuario_email') || '';
+    this.miEmail = this.authService.getEmail() || '';
     this.cargarMisChats();
 
     // Nos suscribimos para escuchar los mensajes en tiempo real

@@ -70,8 +70,8 @@ export class ProfileAdmin implements OnInit {
           next: (response) => {
             this.closeEditModal();
             this.user!.email = response.email;
-            localStorage.setItem('user', JSON.stringify(response));
-            localStorage.setItem('token', response.token);
+            this.authService.saveUser(response);
+            this.authService.saveToken(response.token);
           },
           error: (error) => {
             console.error('Error al actualizar el perfil:', error);
@@ -96,11 +96,11 @@ export class ProfileAdmin implements OnInit {
 
         this.user!.telefono = this.telefono;
 
-        localStorage.setItem("user", JSON.stringify(this.user));
+        this.authService.saveUser(this.user!);
 
         this.showCompleteProfileModal = false;
 
-        this.toast.success("Perfil actualizado correctamente");
+        this.toast.success("Perfil actualizado correctamente.");
       },
 
       error: (error) => {
