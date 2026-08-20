@@ -75,4 +75,7 @@ export class ChatService {
     this.mensajesActuales = [];
     this.mensajesSubject.next([]);
   }
+  obtenerMisChats(email: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}conversacion/mis-chats?emailUsuario=${email}`);
+  }
 }
