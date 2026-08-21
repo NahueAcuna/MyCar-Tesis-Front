@@ -27,6 +27,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
   transformStyle: string = 'scale(1)';
   transformOrigin: string = 'center';
   cargandoPago: boolean = false;
+  esDeMarketplace: boolean = false; 
 
   // --- VARIABLES DEL CHAT ---
   listaDeMensajes: any[] = [];
@@ -47,6 +48,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
 
   ngOnInit(): void {
     const idPublication = this.route.snapshot.params['id'];
+    this.esDeMarketplace = this.route.snapshot.queryParams['origen'] === 'marketplace';
     this.getPublicationById(idPublication);
 
     // Recuperamos el email del usuario logueado (si no hay, le ponemos Invitado)
