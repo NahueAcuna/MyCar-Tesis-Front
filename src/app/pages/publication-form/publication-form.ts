@@ -136,7 +136,7 @@ export class PublicationForm implements OnInit {
 
  publicarVehiculo() {
     // Verificar si hay token válido antes de intentar el request
-    const token = this.authService.getToken();
+    const token = localStorage.getItem('token');
     if (!token) {
       this.toast.warning('Tu sesión expiró. Por favor, iniciá sesión nuevamente.');
       return;

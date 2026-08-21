@@ -16,7 +16,7 @@ export class ReservaService {
   iniciarReserva(reserva: ReservaRequest): Observable<string> {
     
     let headers = new HttpHeaders();
-    const token = this.authService.getToken();
+    const token = localStorage.getItem('token'); // Obtener el token desde localStorage
     
     // Solo inyectamos el Token si existe (evita mandar "Bearer null")
     if (token) {

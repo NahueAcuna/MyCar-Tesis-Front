@@ -62,15 +62,15 @@ export class Register implements OnInit{
         
         this.authService.login({ email: formData.email, password: formData.password }).subscribe({
           next: (loginResponse) => {
-            this.authService.saveToken(loginResponse.token);
-            this.authService.saveUser({
+            localStorage.setItem('token', loginResponse.token);
+            localStorage.setItem('user', JSON.stringify({
               id: loginResponse.id,
               nombre: loginResponse.nombre,
               email: loginResponse.email,
               rol: loginResponse.rol,
               telefono: loginResponse.telefono
-            });
-            this.authService.saveEmail(loginResponse.email);
+            }));
+            localStorage.setItem('usuario_email', loginResponse.email);
 
             this.toast.success('¡Registro exitoso! Iniciando sesión...');
             this.router.navigate(['/perfil']);
@@ -111,17 +111,17 @@ export class Register implements OnInit{
 
         next: (response) => {
 
-          this.authService.saveToken(response.token);
+          localStorage.setItem('token', response.token);
 
-          this.authService.saveUser({
+          localStorage.setItem('user', JSON.stringify({
             id: response.id,
             nombre: response.nombre,
             email: response.email,
             rol: response.rol,
             telefono: response.telefono
-          });
+          }));
 
-          this.authService.saveEmail(response.email);
+          localStorage.setItem('usuario_email', response.email);
 
           this.toast.success('Registro con Google exitoso.');
 
@@ -133,7 +133,7 @@ export class Register implements OnInit{
           console.error(error);
 
           if(error.status === 409){
-            this.toast.error('Ya existe una cuenta registrada con ese Google.');
+            this.toast.error('Ya existe una cuenta registrada con Google.');
           }else{
             this.toast.error('Error al registrarse con Google.');
           }

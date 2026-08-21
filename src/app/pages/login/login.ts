@@ -52,15 +52,15 @@ export class Login implements OnInit{
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log('Login exitoso', response);
-        this.authService.saveToken(response.token);
-        this.authService.saveUser({
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify({
           id: response.id,
           nombre: response.nombre,
           email: response.email,
           rol: response.rol,
           telefono: response.telefono
-        });
-        this.authService.saveEmail(response.email);
+        }));
+        localStorage.setItem('usuario_email', response.email);
         this.toast.success('Login exitoso.');
         this.router.navigate(['/']);  
       },
@@ -94,17 +94,17 @@ export class Login implements OnInit{
 
         next: (response) => {
 
-          this.authService.saveToken(response.token);
+          localStorage.setItem('token', response.token);
 
-          this.authService.saveUser({
+          localStorage.setItem('user', JSON.stringify({
             id: response.id,
             nombre: response.nombre,
             email: response.email,
             rol: response.rol,
             telefono: response.telefono
-          });
+          }));
 
-          this.authService.saveEmail(response.email);
+          localStorage.setItem('usuario_email', response.email);
 
           this.toast.success('Login con Google exitoso.');
 

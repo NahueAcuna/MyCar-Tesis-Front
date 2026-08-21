@@ -2,7 +2,6 @@ import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
-import { AuthService } from '../services/auth-service';
 
 /** Verifica si el JWT guardado está expirado decodificando su payload */
 function isTokenExpired(token: string): boolean {
@@ -17,8 +16,7 @@ function isTokenExpired(token: string): boolean {
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const authService = inject(AuthService);
-  const token = authService.getToken();
+  const token = localStorage.getItem('token');
   const router = inject(Router);
 
   let clonedRequest = req;
@@ -34,14 +32,16 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   return next(clonedRequest).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        const tokenActual = authService.getToken();
+        const tokenActual = localStorage.getItem('token');
 
         // Solo cerrar sesión si el token está realmente expirado o ausente.
         // Si el token sigue siendo válido, el 401 es por otra razón (permisos,
         // endpoint específico, etc.) y NO debemos destruir la sesión.
         if (!tokenActual || isTokenExpired(tokenActual)) {
           console.warn('[JWT Interceptor] Token expirado o ausente. Cerrando sesión...');
-          authService.logout();
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('usuario_email');
           router.navigate(['/login']);
         } else {
           console.warn('[JWT Interceptor] 401 recibido pero el token sigue vigente. No se cierra sesión.');

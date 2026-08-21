@@ -53,7 +53,7 @@ export class Profile implements OnInit, OnDestroy{
     this.cargarFavoritos();
 
     // Suscripción al contador de mensajes no leídos
-    const email = this.authService.getEmail();
+    const email = localStorage.getItem('usuario_email') || '';
     if (email) {
       this.chatService.refrescarContador(email);
     }
@@ -129,8 +129,8 @@ export class Profile implements OnInit, OnDestroy{
           next: (response) => {
             this.closeEditModal();
             this.user!.email = response.email;
-            this.authService.saveUser(response);
-            this.authService.saveToken(response.token);
+            localStorage.setItem('user', JSON.stringify(response));
+            localStorage.setItem('token', response.token);
           },
           error: (error) => {
             console.error('Error al actualizar el perfil:', error);
@@ -155,7 +155,7 @@ export class Profile implements OnInit, OnDestroy{
 
         this.user!.telefono = this.telefono;
 
-        this.authService.saveUser(this.user!);
+        localStorage.setItem('user', JSON.stringify(this.user!));
 
         this.showCompleteProfileModal = false;
 
@@ -210,7 +210,9 @@ export class Profile implements OnInit, OnDestroy{
     if (this.user) {
       this.profileService.deleteAccount().subscribe({
         next: () => {
-          this.authService.logout();
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('usuario_email');
           this.toast.success("Cuenta eliminada correctamente.");
           this.closeDeleteAccountModal();
           this.router.navigate(['/login']);

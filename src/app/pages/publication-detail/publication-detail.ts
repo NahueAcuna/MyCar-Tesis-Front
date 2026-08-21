@@ -50,7 +50,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
     this.getPublicationById(idPublication);
 
     // Recuperamos el email del usuario logueado (si no hay, le ponemos Invitado)
-    this.emailUsuarioActual = this.authService.getEmail() || 'invitado@mail.com';
+    this.emailUsuarioActual = localStorage.getItem('usuario_email') || 'invitado@mail.com';
     
     // Escuchamos los mensajes en tiempo real para pintar el HTML
     this.chatService.mensajes$.subscribe(mensajes => {
@@ -176,7 +176,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
     }
 
     this.cargandoPago = true;
-    const emailUsuarioLogueado = this.authService.getEmail();
+    const emailUsuarioLogueado = localStorage.getItem('usuario_email') || '';
     const idActual = Number(this.route.snapshot.params['id']);
     const fechaParaJava = new Date().toISOString().substring(0, 19);
 

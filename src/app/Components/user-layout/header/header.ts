@@ -26,7 +26,7 @@ export class Header implements AfterViewInit, OnInit, OnDestroy{
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      const email = this.authService.getEmail() || '';
+      const email = localStorage.getItem('usuario_email') || '';
       if (email) {
         this.chatService.refrescarContador(email);
       }
@@ -59,5 +59,4 @@ export class Header implements AfterViewInit, OnInit, OnDestroy{
     
     if (seccionAutos) observador.observe(seccionAutos);
   }
-
 }
