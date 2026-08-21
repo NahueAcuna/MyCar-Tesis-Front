@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PublicationResponse } from '../models/PublicationResponse';
+// 1. Importamos el environment
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PublicationService {
   
-  readonly url = 'http://localhost:8080/publicacion';
+  // 2. Reemplazamos el localhost por la variable de entorno
+  readonly url = `${environment.apiUrl}publicacion`;
 
   constructor(private http: HttpClient) {}
   
@@ -20,7 +23,7 @@ export class PublicationService {
   }
 
   getUserPublications(){
-    return this.http.get<PublicationResponse[]>(`${this.url}/usados`)
+    return this.http.get<PublicationResponse[]>(`${this.url}/usados`);
   }
 
   createPublication(publicacion: import('../models/PublicationRequest').PublicationRequest, files: File[]) {

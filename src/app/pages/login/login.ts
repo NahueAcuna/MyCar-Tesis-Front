@@ -61,7 +61,7 @@ export class Login implements OnInit{
           telefono: response.telefono
         }));
         localStorage.setItem('usuario_email', response.email);
-        this.toast.success('Login exitoso.');
+        this.toast.success('Inicio de sesión exitoso.');
         this.router.navigate(['/']);  
       },
       error: (error) => {console.error(error);
@@ -106,7 +106,7 @@ export class Login implements OnInit{
 
           localStorage.setItem('usuario_email', response.email);
 
-          this.toast.success('Login con Google exitoso.');
+          this.toast.success('Inicio de sesión con Google exitoso.');
 
           this.router.navigate(['/']);
         },
@@ -116,7 +116,7 @@ export class Login implements OnInit{
           console.error(error);
 
           if(error.status === 404){
-            this.toast.error('No existe una cuenta registrada con Google.');
+            this.toast.error('No existe una cuenta registrada con esa cuenta de Google.');
           }else{
             this.toast.error('Error al iniciar sesión con Google.');
           }

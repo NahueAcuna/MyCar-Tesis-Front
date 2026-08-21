@@ -27,7 +27,7 @@ export class MyPosts implements OnInit {
   myPost(){
     this.profileService.getMyPosts().subscribe({
       next: (response) => {this.myPosts = response},
-      error: (error) => {console.error('Error al obtener mis publicaciones:', error); this.toast.error('Error al obtener mis publicaciones');}
+      error: (error) => {console.error('Error al obtener mis publicaciones:', error); this.toast.error('Error al obtener mis publicaciones.');}
     });
   }
 

@@ -132,7 +132,9 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
         this.selectedImage = imagenes[0] || videos[0] || '';
         this.selectedIsVideo = this.isVideo(this.selectedImage);
       },
-      error: () => this.toast.error('Se produjo un error al mostrar el auto.')
+      error: () => {
+        this.toast.error('Se produjo un error al mostrar el auto.');
+      }
     })
   }
 
