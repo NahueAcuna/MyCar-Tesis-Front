@@ -6,6 +6,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, A
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../../services/profile-service';
 import { AuthService } from '../../../services/auth-service';
+import { ToastService } from '../../../services/toast-service';
 
 @Component({
   selector: 'app-inventory',
@@ -64,7 +65,7 @@ export class Inventory implements OnInit {
   minKm: FormControl;
   maxKm: FormControl;
 
-  constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService, private authService: AuthService) {
+  constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService, private authService: AuthService, private toast: ToastService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
     // Reemplazamos 'anio' por un rango
@@ -313,6 +314,11 @@ export class Inventory implements OnInit {
   }
 
   toggleFavorito(idPublicacion: any) {
+    if (!this.authService.isLoggedIn()) {
+      this.toast.warning('Tiene que estar registrado en la página para agregar a favoritos.');
+      return;
+    }
+    
     const id = Number(idPublicacion);
     const yaEraFavorito = this.misFavoritosIds.includes(id);
 

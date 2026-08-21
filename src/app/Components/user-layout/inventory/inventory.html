@@ -170,7 +170,7 @@
                     <p>{{ descriptionPreview(publication.descripcion) }}</p>
                   </div>
 
-                  @if(isLoggedIn && publication.emailVendedor !== miEmail) {
+                  @if(publication.emailVendedor !== miEmail) {
                     <button class="btn-fav" (click)="toggleFavorito(publication.id)">
                       <span
                         class="material-symbols-outlined"
