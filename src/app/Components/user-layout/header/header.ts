@@ -59,5 +59,4 @@ export class Header implements AfterViewInit, OnInit, OnDestroy{
     
     if (seccionAutos) observador.observe(seccionAutos);
   }
-
 }

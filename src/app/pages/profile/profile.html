@@ -76,30 +76,42 @@
           <h2>Mis Publicaciones</h2>
         </div>
 
-        <a class="view-all" routerLink="/mis-publicaciones" target="_blank">
-          Ver todas
-          <span class="material-symbols-outlined">arrow_forward</span>
-        </a>
+        <div class="header-actions">
+          <button class="toggle-btn" (click)="showPosts = !showPosts" title="Desplegar publicaciones">
+            <span class="material-symbols-outlined">
+              {{ showPosts ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+            </span>
+          </button>
+        </div>
       </div>
 
-      <div class="post-container">
-        @for (post of myPosts.slice(0, 2); track post.id) {
-          <div class="post-card">
-            <a class="post-img-container" [routerLink]="['/publicacion', post.id]" target="_blank">
-              <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto" />
-            </a>
+      @if (showPosts) {
+        <div class="post-container">
+          @for (post of myPosts.slice(0, 2); track post.id) {
+            <div class="post-card">
+              <a class="post-img-container" [routerLink]="['/publicacion', post.id]" target="_blank">
+                <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto" />
+              </a>
 
-            <div class="post-info">
-              <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
-              <p class="year-km">{{ post.auto.anio }} - {{ post.auto.km }} km</p>
-              <p class="price">${{ post.auto.precio }}</p>
-              <div class="status">
-                {{ post.estado }}
+              <div class="post-info">
+                <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
+                <p class="year-km">{{ post.auto.anio }} - {{ post.auto.km }} km</p>
+                <p class="price">${{ post.auto.precio }}</p>
+                <div class="status">
+                  {{ post.estado }}
+                </div>
               </div>
             </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+        <!-- Botón Ver todas abajo a la derecha -->
+        <div class="view-all-container">
+          <a class="view-all" routerLink="/mis-publicaciones" target="_blank">
+            Ver todas
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      }
     </div>
 
     <!-- MIS RESERVAS -->
@@ -110,75 +122,93 @@
           <h2>Mis Reservas</h2>
         </div>
 
-        <a class="view-all" routerLink="/mis-reservas" target="_blank">
-          Ver todas
-          <span class="material-symbols-outlined">arrow_forward</span>
-        </a>
+        <div class="header-actions">
+          <button class="toggle-btn" (click)="showReservations = !showReservations" title="Desplegar reservas">
+            <span class="material-symbols-outlined">
+              {{ showReservations ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+            </span>
+          </button>
+        </div>
       </div>
 
-      <div class="post-container">
-        @for (reservation of myReservations.slice(0, 2); track reservation.id) {
-          <div class="post-card">
-            <a class="post-img-container" [routerLink]="['/publicacion', reservation.publicacion.id]" target="_blank">
-              <img [src]="getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '')" alt="Imagen del auto" (error)="onImageError($event)">
-            </a>
+      @if (showReservations) {
+        <div class="post-container">
+          @for (reservation of myReservations.slice(0, 2); track reservation.id) {
+            <div class="post-card">
+              <a class="post-img-container" [routerLink]="['/publicacion', reservation.publicacion.id]" target="_blank">
+                <img [src]="getImageUrl(reservation?.publicacion?.auto?.imagenesUrl?.[0] || '')" alt="Imagen del auto" (error)="onImageError($event)">
+              </a>
 
-            <div class="post-info"> 
-              <h3>{{ reservation?.publicacion?.auto?.marca || 'Marca' }} {{ reservation?.publicacion?.auto?.modelo || 'Modelo' }}</h3>
-
-              <p class="year-km">{{ reservation?.publicacion?.auto?.anio || '0000' }} - {{ reservation?.publicacion?.auto?.km || '0' }} km</p>
-              
-              <p class="price">{{ formatearFecha(reservation?.fecha) }}</p>
-
-              <div class="status">{{ reservation?.estado }}</div>
+              <div class="post-info"> 
+                <h3>{{ reservation?.publicacion?.auto?.marca || 'Marca' }} {{ reservation?.publicacion?.auto?.modelo || 'Modelo' }}</h3>
+                <p class="year-km">{{ reservation?.publicacion?.auto?.anio || '0000' }} - {{ reservation?.publicacion?.auto?.km || '0' }} km</p>
+                <p class="price">{{ formatearFecha(reservation?.fecha) }}</p>
+                <div class="status">{{ reservation?.estado }}</div>
+              </div>
             </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+        <!-- Botón Ver todas abajo a la derecha -->
+        <div class="view-all-container">
+          <a class="view-all" routerLink="/mis-reservas" target="_blank">
+            Ver todas
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      }
     </div>
 
-        <div class="my-favorite">
-            <div class="section-header">
-            
-                <div class="title-box">
-                    <span class="material-symbols-outlined">favorite</span>
-                    <h2>Mis Favoritos</h2>
-                </div>
-
-                <a class="view-all" routerLink="/mis-favoritos" target="_blank">
-                   Ver todas
-                  <span class="material-symbols-outlined">arrow_forward</span>
-              </a>
-            </div>
-    
-            <div class="post-container">
-                @for(favorite of myFavorites.slice(0,2); track favorite.id){
-                    <div class="post-card">
-                        <a class="post-img-container" [routerLink]="['/publicacion', favorite.id]" target="_blank">
-                          <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
-                        </a>
-                        
-                        <div class="post-info">
-                            <div class="fav-header">
-                                <h3>{{ favorite.auto.marca }} {{ favorite.auto.modelo }}</h3>
-                                <!-- Botón para quitar de favoritos -->
-                                <button class="btn-remove-fav" (click)="quitarFavorito(favorite.id)" title="Quitar de favoritos">
-                                    <span class="material-symbols-outlined">favorite</span>
-                                </button>
-                            </div>
-                            
-                            <p class="year-km">
-                                {{ favorite.auto.anio }} - {{ favorite.auto.km }} km
-                            </p>
-
-                            <p class="price">
-                                ${{ favorite.auto.precio | number:'1.0-0' }}
-                            </p>
-                        </div>
-                    </div>
-                }
-            </div>
+    <!-- MIS FAVORITOS -->
+    <div class="my-favorite">
+      <div class="section-header">
+        <div class="title-box">
+          <span class="material-symbols-outlined">favorite</span>
+          <h2>Mis Favoritos</h2>
         </div>
+
+        <div class="header-actions">
+          <button class="toggle-btn" (click)="showFavorites = !showFavorites" title="Desplegar favoritos">
+            <span class="material-symbols-outlined">
+              {{ showFavorites ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      @if (showFavorites) {
+        <div class="post-container">
+          @for(favorite of myFavorites.slice(0,2); track favorite.id){
+            <div class="post-card">
+              <a class="post-img-container" [routerLink]="['/publicacion', favorite.id]" target="_blank">
+                <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
+              </a>
+              
+              <div class="post-info">
+                <div class="fav-header">
+                  <h3>{{ favorite.auto.marca }} {{ favorite.auto.modelo }}</h3>
+                  <button class="btn-remove-fav" (click)="quitarFavorito(favorite.id)" title="Quitar de favoritos">
+                    <span class="material-symbols-outlined">favorite</span>
+                  </button>
+                </div>
+                <p class="year-km">
+                  {{ favorite.auto.anio }} - {{ favorite.auto.km }} km
+                </p>
+                <p class="price">
+                  ${{ favorite.auto.precio | number:'1.0-0' }}
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+        <!-- Botón Ver todas abajo a la derecha -->
+        <div class="view-all-container">
+          <a class="view-all" routerLink="/mis-favoritos" target="_blank">
+            Ver todas
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      }
+    </div>
   </div>
 </div>
 

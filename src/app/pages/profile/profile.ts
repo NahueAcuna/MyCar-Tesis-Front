@@ -30,6 +30,9 @@ export class Profile implements OnInit, OnDestroy{
   cantidadNoLeidos: number = 0;
   private noLeidosSub?: Subscription;
   showDeleteAccountModal: boolean = false;
+  showPosts: boolean = false;
+  showReservations: boolean = false;
+  showFavorites: boolean = false;
 
   constructor(
     public authService: AuthService,
@@ -152,7 +155,7 @@ export class Profile implements OnInit, OnDestroy{
 
         this.user!.telefono = this.telefono;
 
-        localStorage.setItem("user", JSON.stringify(this.user));
+        localStorage.setItem('user', JSON.stringify(this.user!));
 
         this.showCompleteProfileModal = false;
 
@@ -207,8 +210,9 @@ export class Profile implements OnInit, OnDestroy{
     if (this.user) {
       this.profileService.deleteAccount().subscribe({
         next: () => {
-          localStorage.removeItem('user');
           localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('usuario_email');
           this.toast.success("Cuenta eliminada correctamente.");
           this.closeDeleteAccountModal();
           this.router.navigate(['/login']);

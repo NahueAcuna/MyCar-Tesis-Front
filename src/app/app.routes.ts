@@ -18,10 +18,10 @@ import { ForgotPassword } from './pages/forgot-password/forgot-password';
 import { ResetPassword } from './pages/reset-password/reset-password';
 
 export const routes: Routes = [
-    { path: '', component: Home, canActivate: [authGuard] },
+    { path: '', component: Home },
     { path: 'vender', component: PublicationForm, canActivate: [authGuard] },
     { path: 'marketplace', component: Marketplace, canActivate: [authGuard] },
-    { path: 'publicacion/:id', component: PublicationDetail, canActivate: [authGuard] },
+    { path: 'publicacion/:id', component: PublicationDetail },
     { path: 'registro', component: Register },
     { path: 'login', component: Login },
     { path: 'chats', component: InboxComponent, canActivate: [authGuard] },

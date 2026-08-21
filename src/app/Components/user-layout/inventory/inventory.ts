@@ -31,6 +31,8 @@ export class Inventory implements OnInit {
   // --- ARRAY DE FAVORITOS ---
   misFavoritosIds: number[] = [];
 
+  isLoggedIn: boolean = false;
+
   // --- VARIABLES DE PAGINACIÓN ---
   currentPage: number = 1; 
   itemsPerPage: number = 6;
@@ -82,12 +84,17 @@ export class Inventory implements OnInit {
 
   ngOnInit(): void {
     this.getPublications();
-    this.cargarFavoritos();
-    
+
+    this.isLoggedIn = this.authService.isLoggedIn();
+    if(this.isLoggedIn) {
+      this.cargarFavoritos();
+    }
+  
     const usuarioActual = this.authService.getUser();
     if (usuarioActual && usuarioActual.email) {
       this.miEmail = usuarioActual.email;
     }
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   // --- VALIDADOR PERSONALIZADO ---
