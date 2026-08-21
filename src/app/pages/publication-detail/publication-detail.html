@@ -173,16 +173,18 @@
           </div>
         </div>
 
-        <div class="actions">
-          <button class="btn reserve" (click)="pagarReserva()" [disabled]="cargandoPago">
-            @if (cargandoPago) {
-              <span>Procesando pago...</span>
-            } @else {
-              <span>Reservar Vehículo</span>
-            }
-          </button>
-        </div>
-
+        @if(!esDeMarketplace){
+          <div class="actions">
+            <button class="btn reserve" (click)="pagarReserva()" [disabled]="cargandoPago">
+              @if (cargandoPago) {
+                <span>Procesando pago...</span>
+              } @else {
+                <span>Reservar Vehículo</span>
+              }
+            </button>
+          </div>
+        }
+        
         <div class="seller">
           <div class="seller-header">
             <span class="material-symbols-outlined">person</span>

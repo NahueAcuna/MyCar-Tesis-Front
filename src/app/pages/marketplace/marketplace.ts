@@ -185,7 +185,7 @@ export class Marketplace implements OnInit {
   }
 
   carDetail(id: number) {
-    const url = this.router.serializeUrl(this.router.createUrlTree(['publicacion', id]));
+    const url = this.router.serializeUrl(this.router.createUrlTree(['publicacion', id], { queryParams: { origen: 'marketplace' } }));
     window.open(url, '_blank');
   }
 
