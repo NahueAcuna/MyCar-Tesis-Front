@@ -89,4 +89,4 @@ export class InboxComponent implements OnInit, OnDestroy {
     this.chatService.enviarMensaje(this.conversacionIdActual, this.miEmail, this.nuevoMensaje);
     this.nuevoMensaje = '';
   }
-}
+}
