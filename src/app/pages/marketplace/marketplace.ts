@@ -1,6 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PublicationResponse } from '../../models/PublicationResponse';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { PublicationService } from '../../services/publication-service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,14 +8,14 @@ import { Header } from '../../Components/user-layout/header/header';
 import { ProfileService } from '../../services/profile-service';
 import { AuthService } from '../../services/auth-service';
 
-
 @Component({
   selector: 'app-marketplace',
-  imports: [CommonModule,ReactiveFormsModule,Header],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, Header],
   templateUrl: './marketplace.html',
   styleUrl: './marketplace.css',
 })
-export class Marketplace {
+export class Marketplace implements OnInit {
 
   isSearchShowed: Boolean = false;
 
@@ -29,11 +29,10 @@ export class Marketplace {
   precioMaximo: number = 1000000;
 
   miEmail: string = '';
-
   misFavoritosIds: number[] = [];
 
   // --- VARIABLES DE PAGINACIÓN ---
-  currentPage: number = 1; // Cambiado a 1 para que arranque en la primer página
+  currentPage: number = 1; 
   itemsPerPage: number = 6;
 
   // --- GETTERS DE PAGINACIÓN ---
@@ -55,7 +54,8 @@ export class Marketplace {
 
   made: FormControl;
   model: FormControl;
-  anio: FormControl;
+  minAnio: FormControl;
+  maxAnio: FormControl;
   minPrice: FormControl;
   maxPrice: FormControl;
   minKm: FormControl;
@@ -64,21 +64,26 @@ export class Marketplace {
   constructor(private publicationService: PublicationService, public router: Router, private profileService: ProfileService, private authService: AuthService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
-    this.anio = new FormControl('');
-    this.minPrice = new FormControl(0);
-    this.maxPrice = new FormControl(1000000);
-    this.minKm = new FormControl('');
-    this.maxKm = new FormControl('');
+    
+    // Rango de años
+    this.minAnio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
+    this.maxAnio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
+    
+    this.minPrice = new FormControl(0, [Validators.min(0)]);
+    this.maxPrice = new FormControl(1000000, [Validators.min(0)]);
+    this.minKm = new FormControl('', [Validators.min(0)]);
+    this.maxKm = new FormControl('', [Validators.min(0)]);
 
     this.filtersForm = new FormGroup({
       made: this.made,
       model: this.model,
-       anio: this.anio,
+      minAnio: this.minAnio,
+      maxAnio: this.maxAnio,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
       minKm: this.minKm,
       maxKm: this.maxKm
-    });
+    }, { validators: [this.rangoKmValidator, this.rangoAnioValidator] });
   }
 
   ngOnInit(): void {
@@ -91,23 +96,62 @@ export class Marketplace {
     }
   }
 
+  // --- VALIDADORES PERSONALIZADOS ---
+  rangoKmValidator(control: AbstractControl): ValidationErrors | null {
+    const min = control.get('minKm')?.value;
+    const max = control.get('maxKm')?.value;
+  
+    if (min !== null && max !== null && min !== '' && max !== '') {
+      if (min > max) {
+        return { rangoKmInvalido: true };
+      }
+    }
+    return null;
+  }
+
+  rangoAnioValidator(control: AbstractControl): ValidationErrors | null {
+    const min = control.get('minAnio')?.value;
+    const max = control.get('maxAnio')?.value;
+  
+    if (min !== null && max !== null && min !== '' && max !== '') {
+      if (min > max) {
+        return { rangoAnioInvalido: true };
+      }
+    }
+    return null;
+  }
+
   getPublications() {
+    // ATENCIÓN: Acá usamos getUserPublications() como lo tenías originalmente en Marketplace
     this.publicationService.getUserPublications().subscribe({
       next: (data) => {
         this.publications = data;
         this.filteredPublications = data;
         
+        // Limpiamos los arrays para evitar basura
+        this.mades = [];
+        this.models = [];
+
         data.forEach(p => {
-          // Si la marca NO está en el arreglo, la agrego
-          if (!this.mades.includes(p.auto.marca)) {
-            this.mades.push(p.auto.marca);
+          const marcaLimpia = p.auto.marca.trim();
+          const modeloLimpio = p.auto.modelo.trim();
+
+          // Evitar marcas duplicadas por mayúsculas o espacios
+          const marcaExiste = this.mades.some(m => m.toLowerCase() === marcaLimpia.toLowerCase());
+          if (!marcaExiste && marcaLimpia !== '') {
+            this.mades.push(marcaLimpia);
           }
           
-          // Si el modelo NO está en el arreglo, lo agrego
-          if (!this.models.includes(p.auto.modelo)) {
-            this.models.push(p.auto.modelo);
+          // Evitar modelos duplicados
+          const modeloExiste = this.models.some(m => m.toLowerCase() === modeloLimpio.toLowerCase());
+          if (!modeloExiste && modeloLimpio !== '') {
+            this.models.push(modeloLimpio);
           }
         });
+
+        // Ordenamos alfabéticamente
+        this.mades.sort();
+        this.models.sort();
       }
     });
   }
@@ -146,7 +190,7 @@ export class Marketplace {
 
     if (!query) {
       this.filteredPublications = [...this.publications];
-      this.currentPage = 1; // Volvemos a la página 1
+      this.currentPage = 1; 
       return;
     }
 
@@ -155,7 +199,7 @@ export class Marketplace {
       return fullAutoName.includes(query);
     });
     
-    this.currentPage = 1; // Volvemos a la página 1 al buscar
+    this.currentPage = 1; 
   }
 
   actualizarMinimo(event: any) {
@@ -188,30 +232,43 @@ export class Marketplace {
         return false;
       }
 
-      if (filters.minKm != null && car.km < filters.minKm) {
+      // --- FILTRO DE RANGO DE AÑO ---
+      if (filters.minAnio != null && filters.minAnio !== "" && car.anio < filters.minAnio) {
+        return false;
+      }
+      if (filters.maxAnio != null && filters.maxAnio !== "" && car.anio > filters.maxAnio) {
         return false;
       }
 
-      if (filters.maxKm != null && filters.maxKm != "" && car.km > filters.maxKm) {
+      // --- FILTRO DE KILOMETRAJE ---
+      if (filters.minKm != null && filters.minKm !== "" && car.km < filters.minKm) {
         return false;
       }
+      if (filters.maxKm != null && filters.maxKm !== "" && car.km > filters.maxKm) {
+        return false;
+      }
+      
       return true;
     });
     
-    this.currentPage = 1; // Volvemos a la página 1 al filtrar
+    this.currentPage = 1; 
   }
 
   filterCleaner() {
     this.filtersForm.reset({
       made: '',
       model: '',
+      minAnio: '',
+      maxAnio: '',
       minPrice: 0,
       maxPrice: 1000000,
       minKm: '',
       maxKm: ''
     });
+    this.precioMinimo = 0;
+    this.precioMaximo = 1000000;
     this.filteredPublications = [...this.publications];
-    this.currentPage = 1; // Volvemos a la página 1 al limpiar
+    this.currentPage = 1; 
   }
 
   // --- FUNCIONES DE BOTONES DE PAGINACIÓN ---
@@ -239,11 +296,10 @@ export class Marketplace {
     return 'http://localhost:8080' + url;
   }
 
-// --- MÉTODOS DE FAVORITOS ---
+  // --- MÉTODOS DE FAVORITOS ---
   cargarFavoritos() {
     this.profileService.getFavoritos().subscribe({
       next: (data) => {
-        // Guardamos solo los IDs para hacer la validación más rápida en el HTML
         this.misFavoritosIds = data.map((pub: any) => Number(pub.id));
       },
       error: (err) => console.error("Error al cargar favoritos", err)
@@ -252,35 +308,29 @@ export class Marketplace {
 
   toggleFavorito(idPublicacion: number) {
     const id = Number(idPublicacion);
-    // 1. Guardamos el estado actual (si ya era favorito o no)
     const yaEraFavorito = this.misFavoritosIds.includes(id);
 
-    // 2. ACTUALIZACIÓN INSTANTÁNEA (Obligamos a Angular a repintar)
     if (yaEraFavorito) {
-      this.misFavoritosIds = this.misFavoritosIds.filter(id => id !== idPublicacion);
+      this.misFavoritosIds = this.misFavoritosIds.filter(favId => favId !== id);
     } else {
-      // En vez de .push(), recreamos el array. Esto dispara el cambio en el HTML al toque.
-      this.misFavoritosIds = [...this.misFavoritosIds, idPublicacion];
+      this.misFavoritosIds = [...this.misFavoritosIds, id];
     }
 
-    // 3. Mandamos la petición al backend en segundo plano
     this.profileService.toggleFavorito(idPublicacion).subscribe({
       next: () => {
         console.log("Favorito guardado en BD con éxito");
       },
       error: (err) => {
         console.error("Error al modificar favorito, revirtiendo color...", err);
-        // Si el backend falla, volvemos el corazón a su estado original
         if (yaEraFavorito) {
-          this.misFavoritosIds = [...this.misFavoritosIds, idPublicacion];
+          this.misFavoritosIds = [...this.misFavoritosIds, id];
         } else {
-          this.misFavoritosIds = this.misFavoritosIds.filter(id => id !== idPublicacion);
+          this.misFavoritosIds = this.misFavoritosIds.filter(favId => favId !== id);
         }
       }
     });
   }
 
-  // Nueva función súper segura para el HTML
   esFavorito(idPub: any): boolean {
     return this.misFavoritosIds.includes(Number(idPub));
   }

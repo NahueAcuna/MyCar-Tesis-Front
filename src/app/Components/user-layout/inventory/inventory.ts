@@ -9,6 +9,7 @@ import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-inventory',
+  standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './inventory.html',
   styleUrl: './inventory.css',
@@ -54,7 +55,8 @@ export class Inventory implements OnInit {
 
   made: FormControl;
   model: FormControl;
-  anio: FormControl;
+  minAnio: FormControl;
+  maxAnio: FormControl;
   minPrice: FormControl;
   maxPrice: FormControl;
   minKm: FormControl;
@@ -63,7 +65,10 @@ export class Inventory implements OnInit {
   constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService, private authService: AuthService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
-    this.anio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
+    // Reemplazamos 'anio' por un rango
+    this.minAnio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
+    this.maxAnio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
+    
     this.minPrice = new FormControl(0, [Validators.min(0)]);
     this.maxPrice = new FormControl(1000000, [Validators.min(0)]);
     this.minKm = new FormControl('', [Validators.min(0)]);
@@ -72,12 +77,13 @@ export class Inventory implements OnInit {
     this.filtersForm = new FormGroup({
       made: this.made,
       model: this.model,
-      anio: this.anio, 
+      minAnio: this.minAnio, 
+      maxAnio: this.maxAnio, 
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
       minKm: this.minKm,
       maxKm: this.maxKm
-    }, { validators: this.rangoKmValidator });
+    }, { validators: [this.rangoKmValidator, this.rangoAnioValidator] }); // Agregamos ambos validadores
   }
 
   ngOnInit(): void {
@@ -90,14 +96,26 @@ export class Inventory implements OnInit {
     }
   }
 
-  // --- VALIDADOR PERSONALIZADO ---
+  // --- VALIDADORES PERSONALIZADOS ---
   rangoKmValidator(control: AbstractControl): ValidationErrors | null {
     const min = control.get('minKm')?.value;
     const max = control.get('maxKm')?.value;
   
     if (min !== null && max !== null && min !== '' && max !== '') {
       if (min > max) {
-        return { rangoInvalido: true };
+        return { rangoKmInvalido: true };
+      }
+    }
+    return null;
+  }
+
+  rangoAnioValidator(control: AbstractControl): ValidationErrors | null {
+    const min = control.get('minAnio')?.value;
+    const max = control.get('maxAnio')?.value;
+  
+    if (min !== null && max !== null && min !== '' && max !== '') {
+      if (min > max) {
+        return { rangoAnioInvalido: true };
       }
     }
     return null;
@@ -109,17 +127,30 @@ export class Inventory implements OnInit {
         this.publications = data;
         this.filteredPublications = data;
         
+        // Limpiamos los arrays para evitar basura
+        this.mades = [];
+        this.models = [];
+
         data.forEach(p => {
-          // Si la marca NO está en el arreglo, la agrego
-          if (!this.mades.includes(p.auto.marca)) {
-            this.mades.push(p.auto.marca);
+          const marcaLimpia = p.auto.marca.trim();
+          const modeloLimpio = p.auto.modelo.trim();
+
+          // Evitar marcas duplicadas por mayúsculas o espacios
+          const marcaExiste = this.mades.some(m => m.toLowerCase() === marcaLimpia.toLowerCase());
+          if (!marcaExiste && marcaLimpia !== '') {
+            this.mades.push(marcaLimpia);
           }
           
-          // Si el modelo NO está en el arreglo, lo agrego
-          if (!this.models.includes(p.auto.modelo)) {
-            this.models.push(p.auto.modelo);
+          // Evitar modelos duplicados
+          const modeloExiste = this.models.some(m => m.toLowerCase() === modeloLimpio.toLowerCase());
+          if (!modeloExiste && modeloLimpio !== '') {
+            this.models.push(modeloLimpio);
           }
         });
+
+        // Ordenamos alfabéticamente
+        this.mades.sort();
+        this.models.sort();
       }
     });
   }
@@ -212,16 +243,22 @@ export class Inventory implements OnInit {
         return false;
       }
 
-      if (filters.minKm != null && filters.minKm !== "" && car.km < filters.minKm) {
+      // --- FILTRO DE RANGO DE AÑO ---
+      if (filters.minAnio != null && filters.minAnio !== "" && car.anio < filters.minAnio) {
         return false;
       }
-      if (filters.anio != null && filters.anio !== "" && car.anio < filters.anio) {
+      if (filters.maxAnio != null && filters.maxAnio !== "" && car.anio > filters.maxAnio) {
         return false;
       }
 
+      // --- FILTRO DE KILOMETRAJE ---
+      if (filters.minKm != null && filters.minKm !== "" && car.km < filters.minKm) {
+        return false;
+      }
       if (filters.maxKm != null && filters.maxKm !== "" && car.km > filters.maxKm) {
         return false;
       }
+      
       return true;
     });
     
@@ -232,6 +269,8 @@ export class Inventory implements OnInit {
     this.filtersForm.reset({
       made: '',
       model: '',
+      minAnio: '',
+      maxAnio: '',
       minPrice: 0,
       maxPrice: 1000000,
       minKm: '',

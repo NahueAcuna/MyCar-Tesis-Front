@@ -15,15 +15,18 @@
         </div>
 
         <div class="input_filter">
-          <span class="filter-label">Año</span>
-          <input
-            type="number"
-            min="1950"
-            max="2026"
-            placeholder="Ej: 2018"
-            formControlName="anio"
-          />
-        </div>
+  <span class="filter-label">Año</span>
+  <div id="rango-anio">
+    <div class="km-box">
+      <label for="minAnio">Desde</label>
+      <input type="number" id="minAnio" min="1950" max="2026" placeholder="2010" formControlName="minAnio" />
+    </div>
+    <div class="km-box">
+      <label for="maxAnio">Hasta</label>
+      <input type="number" id="maxAnio" min="1950" max="2026" placeholder="2024" formControlName="maxAnio" />
+    </div>
+  </div>
+</div>
 
         <div class="input_filter">
           <span class="filter-label">Marca</span>
