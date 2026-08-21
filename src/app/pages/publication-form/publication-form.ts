@@ -146,7 +146,7 @@ export class PublicationForm implements OnInit {
     if (this.editMode && this.publicationId) {
       this.publicationService.updatePublication(this.publicationId, publicacionRequestDTO, todosLosArchivos).subscribe({
         next: () => {
-          this.toast.success('Publicación actualizada correctamente!');
+          this.toast.success('Publicación actualizada correctamente.');
           this.router.navigate(['/mis-publicaciones']);
         },
         error: (err) => {
@@ -157,7 +157,7 @@ export class PublicationForm implements OnInit {
     } else {
       this.publicationService.createPublication(publicacionRequestDTO, todosLosArchivos).subscribe({
         next: () => {
-          this.toast.success('Publicación creada con éxito!');
+          this.toast.success('Publicación creada con éxito.');
           this.router.navigate(['/']);
         },
         error: (err) => {

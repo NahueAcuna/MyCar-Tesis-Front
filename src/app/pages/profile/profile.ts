@@ -66,7 +66,7 @@ export class Profile implements OnInit, OnDestroy{
   myPost(){
     this.profileService.getMyPosts().subscribe({
       next: (response) => {this.myPosts = response},
-      error: (error) => {console.error('Error al obtener mis publicaciones:', error); this.toast.error('Error al obtener mis publicaciones');}
+      error: (error) => {console.error('Error al obtener mis publicaciones:', error); this.toast.error('Error al obtener mis publicaciones.');}
     });
   }
   
@@ -156,12 +156,12 @@ export class Profile implements OnInit, OnDestroy{
 
         this.showCompleteProfileModal = false;
 
-        this.toast.success("Perfil actualizado correctamente");
+        this.toast.success("Perfil actualizado correctamente.");
       },
 
       error: (error) => {
         if(error.status === 409){
-          this.toast.error("Ese numero de telefono ya esta registrado.");
+          this.toast.error("Ese número de teléfono ya está registrado.");
         }else{
           this.toast.error("Error al guardar el teléfono.");
         }

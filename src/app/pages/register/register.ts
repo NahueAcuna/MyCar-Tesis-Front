@@ -55,12 +55,12 @@ export class Register implements OnInit{
 
   register(){
     this.authService.register(this.registerForm.value).subscribe({
-      next: (response) => {console.log('Registro exitoso', response); this.toast.success('Registro exitoso'); this.router.navigate(['/perfil']);},
+      next: (response) => {console.log('Registro exitoso', response); this.toast.success('Registro exitoso.'); this.router.navigate(['/perfil']);},
       error: (error) => {console.error(error);
         if(error.status === 409){
           this.toast.error(error.error);
         }else{
-          this.toast.error('Error en el registro');
+          this.toast.error('Error en el registro.');
         }
       }
     });
@@ -96,7 +96,7 @@ export class Register implements OnInit{
 
           localStorage.setItem('usuario_email', response.email);
 
-          this.toast.success('Registro con Google exitoso');
+          this.toast.success('Registro con Google exitoso.');
 
           this.router.navigate(['/']);
         },
@@ -106,9 +106,9 @@ export class Register implements OnInit{
           console.error(error);
 
           if(error.status === 409){
-            this.toast.error('Ya existe una cuenta registrada con ese Google');
+            this.toast.error('Ya existe una cuenta registrada con esa cuenta de Google.');
           }else{
-            this.toast.error('Error al registrarse con Google');
+            this.toast.error('Error al registrarse con Google.');
           }
         }
       });
