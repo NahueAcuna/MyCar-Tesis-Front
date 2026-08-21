@@ -344,4 +344,10 @@ export class Inventory implements OnInit {
   esFavorito(idPublicacion: any): boolean {
     return this.misFavoritosIds.includes(Number(idPublicacion));
   }
+
+  formatearNumero(valor: number | string | undefined | null): string {
+    if (valor === undefined || valor === null || valor === '') return '0';
+    // toLocaleString('es-AR') le pone el punto a los miles automáticamente
+    return Number(valor).toLocaleString('es-AR');
+  }
 }
