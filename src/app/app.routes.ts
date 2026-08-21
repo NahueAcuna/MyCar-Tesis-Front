@@ -20,7 +20,7 @@ import { ResetPassword } from './pages/reset-password/reset-password';
 export const routes: Routes = [
     { path: '', component: Home },
     { path: 'vender', component: PublicationForm, canActivate: [authGuard] },
-    { path: 'marketplace', component: Marketplace, canActivate: [authGuard] },
+    { path: 'marketplace', component: Marketplace },
     { path: 'publicacion/:id', component: PublicationDetail },
     { path: 'registro', component: Register },
     { path: 'login', component: Login },
