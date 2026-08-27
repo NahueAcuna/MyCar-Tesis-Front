@@ -246,3 +246,68 @@
 
 .huge-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.5; }
 .no-chat-selected h3 { margin: 0 0 0.5rem 0; font-size: 1.5rem; color: #888; }
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1024px){
+    .inbox-layout{
+        max-width: 95%;
+    }
+    .sidebar{
+        width: 280px;
+    }
+}
+
+@media(max-width: 768px){
+    .inbox-layout{
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 100px);
+        margin: 5rem 0.5rem 1rem;
+        max-width: 100%;
+        border-radius: 12px;
+    }
+    .sidebar{
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #333;
+        max-height: 35vh;
+    }
+    .chat-list{
+        overflow-y: auto;
+    }
+    .chat-panel{
+        min-height: 50vh;
+    }
+    .panel-header{
+        padding: 0.8rem 1rem;
+    }
+    .car-info h3{
+        font-size: 0.95rem;
+    }
+    .messages-area{
+        padding: 1rem;
+        min-height: 30vh;
+    }
+    .input-area{
+        padding: 0.8rem;
+        gap: 0.5rem;
+    }
+    .input-area input{
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    .input-area button{
+        width: 44px;
+        height: 44px;
+    }
+    .no-chat-selected{
+        padding: 2rem 1rem;
+    }
+    .no-chat-selected h3{
+        font-size: 1.2rem;
+    }
+    .huge-icon{
+        font-size: 3rem;
+    }
+}
