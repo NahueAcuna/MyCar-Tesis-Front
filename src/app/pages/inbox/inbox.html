@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <div class="messages-area">
+      <div class="messages-area" #messagesContainer>
         @for (msg of mensajes; track $index) {
           <div class="message" [ngClass]="{'sent': msg.remitenteEmail === miEmail, 'received': msg.remitenteEmail !== miEmail}">
             <p>{{ msg.contenido }}</p>

@@ -3,13 +3,14 @@ import { AuthService } from '../../services/auth-service';
 import { Header } from '../../Components/user-layout/header/header';
 import { User } from '../../models/User';
 import { ProfileService } from '../../services/profile-service';
-import { ChatService } from '../../services/chat-service';
+import { NotificationService } from '../../services/notification-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../services/toast-service';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
-export class Profile implements OnInit, OnDestroy{
+export class Profile implements OnInit, OnDestroy {
 
   user: User | null = null;
   myPosts: PublicationResponse[] = [];
@@ -28,18 +29,19 @@ export class Profile implements OnInit, OnDestroy{
   telefono = '';
   myFavorites: PublicationResponse[] = [];
   cantidadNoLeidos: number = 0;
-  private noLeidosSub?: Subscription;
   showDeleteAccountModal: boolean = false;
   showPosts: boolean = false;
   showReservations: boolean = false;
   showFavorites: boolean = false;
+
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     public authService: AuthService,
     public profileService: ProfileService,
     private router: Router,
     private toast: ToastService,
-    public chatService: ChatService
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -52,18 +54,15 @@ export class Profile implements OnInit, OnDestroy{
     this.myReservation();
     this.cargarFavoritos();
 
-    // Suscripción al contador de mensajes no leídos
-    const email = localStorage.getItem('usuario_email') || '';
-    if (email) {
-      this.chatService.refrescarContador(email);
-    }
-    this.noLeidosSub = this.chatService.cantidadNoLeidos$.subscribe(
-      cantidad => this.cantidadNoLeidos = cantidad
-    );
+    // Suscripción al contador de mensajes no leídos con teardown automático
+    this.notificationService.contadorNoLeidos$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(cantidad => this.cantidadNoLeidos = cantidad);
   }
 
-  ngOnDestroy() {
-    this.noLeidosSub?.unsubscribe();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   myPost(){
