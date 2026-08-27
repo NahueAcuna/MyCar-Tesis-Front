@@ -351,13 +351,26 @@ form{
     .register-page{
         gap: 0;
     }
+
+    .register-box{
+        margin-right: 0;
+        margin-top: 80px;
+    }
 }
 
 @media(max-width: 600px){
 
+    .register-page{
+        height: auto;
+        min-height: 100vh;
+        padding: 0 0 40px 0;
+    }
+
     .register-box{
         width: 92%;
-        padding: 34px;
+        padding: 24px 20px;
+        box-sizing: border-box;
+        margin-top: 80px;
     }
 
     .register-box h1{

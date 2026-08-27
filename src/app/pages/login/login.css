@@ -372,13 +372,20 @@ form{
     .login-page{
         gap: 0;
     }
+
+    .login-box{
+        margin-right: 0;
+        margin-top: 80px;
+    }
 }
 
 @media(max-width: 600px){
 
     .login-box{
         width: 92%;
-        padding: 34px;
+        padding: 24px 20px;
+        box-sizing: border-box;
+        margin-top: 80px;
     }
 
     .login-box h1{
