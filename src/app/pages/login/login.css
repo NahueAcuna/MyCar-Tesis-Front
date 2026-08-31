@@ -327,14 +327,14 @@ form{
 
 .forgot-pass-container {
     display: flex;
-    justify-content: flex-end; /* Lo alinea a la derecha */
+    justify-content: flex-end; 
     width: 100%;
-    margin-top: 6px; /* Sube un poquito el texto si quedó muy separado */
+    margin-top: 6px; 
     margin-bottom: 20px;
 }
 
 .forgot-pass-link {
-    color: #ff8c00; /* El color de tu marca */
+    color: #ff8c00; 
     font-size: 0.9rem;
     text-decoration: none;
     transition: color 0.3s ease;

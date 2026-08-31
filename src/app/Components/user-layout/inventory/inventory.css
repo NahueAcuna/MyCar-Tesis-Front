@@ -106,7 +106,7 @@ h1 span{
     font-size: 15px;
     transition: all 0.3s ease;
     box-sizing: border-box;
-    appearance: none; /* Quita la flecha nativa del select */
+    appearance: none; 
 }
 
 #filters input[type="number"]:focus, 
@@ -165,7 +165,7 @@ h1 span{
     font-size: 14px;
 }
 
-/* Estilización moderna para la barra de rango */
+
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
@@ -194,7 +194,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 /* --- KILOMETRAJE --- */
-/* --- RANGOS DOBLES (KILOMETRAJE Y AÑO) --- */
+
 #kilometraje, #rango-anio {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -328,20 +328,20 @@ input[type="range"]::-webkit-slider-thumb:hover {
     object-fit: cover;
 }
 
-/* --- AJUSTES FLEXBOX PARA LA INFORMACIÓN Y EL CORAZÓN --- */
+
 #information {
     display: flex;
-    flex-direction: column; /* Apila la fila superior y la fila inferior */
-    gap: 12px; /* Separación entre el bloque de arriba y el de abajo */
+    flex-direction: column; 
+    gap: 12px; 
     width: 100%;
 }
 
-/* Fila Superior */
+
 #name_price {
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* Título a la izq, precio a la der */
-    align-items: flex-start; /* Los mantiene alineados arriba */
+    justify-content: space-between;
+    align-items: flex-start; 
     width: 100%;
 }
 
@@ -349,8 +349,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
     margin: 0;
     font-size: 16px;
     color: white;
-    font-weight: 600; /* Un poco de grosor para que destaque la marca */
-    max-width: 65%; /* Evita que un nombre muy largo empuje al precio */
+    font-weight: 600; 
+    max-width: 65%; 
 }
 
 #name_price span {
@@ -361,12 +361,12 @@ input[type="range"]::-webkit-slider-thumb:hover {
     text-align: right;
 }
 
-/* Fila Inferior */
+
 .info-footer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* Textos a la izq, corazón a la der */
-    align-items: flex-end; /* Empuja el corazón bien hacia abajo */
+    justify-content: space-between; 
+    align-items: flex-end; 
     width: 100%;
 }
 
@@ -374,7 +374,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     color: #727070;
     display: flex;
     flex-direction: column;
-    gap: 4px; /* Separación entre año y descripción */
+    gap: 4px; 
 }
 
 #anio_description span, #anio_description p {
@@ -402,18 +402,18 @@ input[type="range"] {
 
 #top-bar {
     display: flex;
-    justify-content: space-between; /* Lupa a la izquierda, paginación a la derecha */
-    align-items: center; /* Las centra verticalmente */
+    justify-content: space-between; 
+    align-items: center; 
     width: 100%;
     margin-bottom: 20px;
 }
 
-/* Modificamos ligeramente el pagination para que no desentone al estar arriba */
+
 #pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px; /* Un poco menos de espacio que antes */
+    gap: 15px; 
     color: white;
     font-weight: 500;
 }
@@ -452,7 +452,7 @@ input[type="range"] {
     font-size: 18px; 
 }
 
-/* --- ESTILOS DE FAVORITOS EN LA CARD --- */
+
 
 .car_publication button.btn-fav {
     padding: 0;
@@ -463,7 +463,7 @@ input[type="range"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2px; /* Margen sutil para alinear perfectamente con el texto */
+    margin-bottom: 2px; 
 }
 
 .car_publication button.btn-fav:hover {
@@ -519,33 +519,22 @@ input[type="range"] {
 
 /* ================= BOTÓN DESHABILITADO ================= */
 #filters button:disabled {
-    background: #1a0e05; /* Fondo oscurecido */
+    background: #1a0e05;
     border: 1px solid #3d2310;
     color: #8c5d33;
     cursor: not-allowed;
     box-shadow: none;
-    transform: none; /* Evita que haga el efecto hover */
+    transform: none;
 }
 
 /* ================= RESPONSIVE ================= */
-
-@media(max-width: 1400px){
-    #cars{
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-    }
-    #inventory{
-        padding: 60px 40px;
-    }
-}
 
 @media(max-width: 1200px){
     #inventory{
         padding: 40px;
     }
-    #publications{
-        flex: 1;
-        min-width: 0;
+    #cars{
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -562,7 +551,6 @@ input[type="range"] {
         max-height: none;
         padding: 20px;
         gap: 14px;
-        position: static;
     }
     #categories{
         flex-wrap: wrap;
@@ -581,18 +569,8 @@ input[type="range"] {
     #search.open input{
         width: 100%;
     }
-    #top-bar{
-        flex-direction: column;
-        gap: 12px;
-        align-items: stretch;
-    }
     #pagination{
         flex-wrap: wrap;
         gap: 10px;
-        justify-content: center;
     }
-    #pagination button{
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-}
+}

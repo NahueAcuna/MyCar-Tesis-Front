@@ -31,7 +31,6 @@ export class ForgotPassword {
       },
       error: () => {
         this.cargando = false;
-        // Mostramos éxito igual por seguridad (para no revelar qué correos existen)
         this.toast.success('Si el correo está registrado, recibirás un enlace.');
         this.router.navigate(['/login']);
       }

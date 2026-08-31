@@ -83,7 +83,6 @@ export class Login implements OnInit{
       this.toast.warning('El servicio de Google no está disponible. Intentá recargar la página.');
       return;
     }
-    // Re-inicializamos siempre para garantizar que client_id esté configurado
     this.initGoogleSignIn();
     google.accounts.id.prompt();
   }

@@ -176,7 +176,6 @@ button{
     50%{ box-shadow: 0 0 12px rgba(255, 59, 48, 0.8); }
 }
 
-/* ================= HAMBURGER (hidden on desktop) ================= */
 
 .menu-toggle{
     display: none;
@@ -273,7 +272,6 @@ button{
         display: none;
     }
 
-    /* Expand header when menu is open */
     header:has(nav.open){
         height: auto;
         border-radius: 16px;

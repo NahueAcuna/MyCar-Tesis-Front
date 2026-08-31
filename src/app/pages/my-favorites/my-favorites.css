@@ -133,7 +133,7 @@
 .car_publication button.btn-fav span.material-symbols-outlined.activo {
     font-size: 26px;
     color: #ff8c00; 
-    font-variation-settings: 'FILL' 1; /* Esto hace que el corazón se vea relleno */
+    font-variation-settings: 'FILL' 1;
 }
 
 /* ================= RESPONSIVE ================= */
