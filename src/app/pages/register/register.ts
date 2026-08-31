@@ -54,13 +54,40 @@ export class Register implements OnInit{
   }
 
   register(){
-    this.authService.register(this.registerForm.value).subscribe({
-      next: (response) => {console.log('Registro exitoso', response); this.toast.success('Registro exitoso'); this.router.navigate(['/perfil']);},
-      error: (error) => {console.error(error);
+    const formData = this.registerForm.value;
+    
+    this.authService.register(formData).subscribe({
+      next: (response) => {
+        console.log('Registro exitoso', response);
+        
+        this.authService.login({ email: formData.email, password: formData.password }).subscribe({
+          next: (loginResponse) => {
+            localStorage.setItem('token', loginResponse.token);
+            localStorage.setItem('user', JSON.stringify({
+              id: loginResponse.id,
+              nombre: loginResponse.nombre,
+              email: loginResponse.email,
+              rol: loginResponse.rol,
+              telefono: loginResponse.telefono
+            }));
+            localStorage.setItem('usuario_email', loginResponse.email);
+
+            this.toast.success('¡Registro exitoso! Iniciando sesión...');
+            this.router.navigate(['/perfil']);
+          },
+          error: (loginError) => {
+            console.error(loginError);
+            this.toast.warning('Registro exitoso. Por favor, iniciá sesión.');
+            this.router.navigate(['/login']);
+          }
+        });
+      },
+      error: (error) => {
+        console.error(error);
         if(error.status === 409){
           this.toast.error(error.error);
-        }else{
-          this.toast.error('Error en el registro');
+        } else {
+          this.toast.error('Error en el registro.');
         }
       }
     });
@@ -84,19 +111,19 @@ export class Register implements OnInit{
 
         next: (response) => {
 
-          this.authService.saveToken(response.token);
+          localStorage.setItem('token', response.token);
 
-          this.authService.saveUser({
+          localStorage.setItem('user', JSON.stringify({
             id: response.id,
             nombre: response.nombre,
             email: response.email,
             rol: response.rol,
             telefono: response.telefono
-          });
+          }));
 
           localStorage.setItem('usuario_email', response.email);
 
-          this.toast.success('Registro con Google exitoso');
+          this.toast.success('Registro con Google exitoso.');
 
           this.router.navigate(['/']);
         },
@@ -106,9 +133,9 @@ export class Register implements OnInit{
           console.error(error);
 
           if(error.status === 409){
-            this.toast.error('Ya existe una cuenta registrada con ese Google');
+            this.toast.error('Ya existe una cuenta registrada con Google.');
           }else{
-            this.toast.error('Error al registrarse con Google');
+            this.toast.error('Error al registrarse con Google.');
           }
         }
       });

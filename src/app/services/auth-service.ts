@@ -88,5 +88,4 @@ export class AuthService {
   restablecerPassword(token: string, nuevaPassword: string): Observable<any> {
     return this.http.post(`${this.url}/restablecer-password`, { token, nuevaPassword });
   }
-
 }

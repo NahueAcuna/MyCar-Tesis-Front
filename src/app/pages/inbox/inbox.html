@@ -19,14 +19,20 @@
           <div class="chat-info">
             <div class="top-row">
               <h4>{{ chat.nombreContacto }}</h4>
-              <span class="badge" [ngClass]="chat.rol === 'COMPRADOR' ? 'badge-comprador' : 'badge-vendedor'">
-                {{ chat.rol === 'COMPRADOR' ? 'Comprando' : 'Vendiendo' }}
-              </span>
+              <div class="badges-row">
+                <span class="badge" [ngClass]="chat.rol === 'COMPRADOR' ? 'badge-comprador' : 'badge-vendedor'">
+                  {{ chat.rol === 'COMPRADOR' ? 'Comprando' : 'Vendiendo' }}
+                </span>
+                @if (chat.cantidadNoLeidos > 0) {
+                  <span class="unread-count">{{ chat.cantidadNoLeidos > 99 ? '99+' : chat.cantidadNoLeidos }}</span>
+                }
+              </div>
             </div>
             <p class="last-message">{{ chat.ultimoMensaje || 'Sin mensajes aún...' }}</p>
           </div>
 
         </div>
+
       }
 
       @if (chats.length === 0) {
@@ -47,7 +53,7 @@
         </div>
       </div>
 
-      <div class="messages-area">
+      <div class="messages-area" #messagesContainer>
         @for (msg of mensajes; track $index) {
           <div class="message" [ngClass]="{'sent': msg.remitenteEmail === miEmail, 'received': msg.remitenteEmail !== miEmail}">
             <p>{{ msg.contenido }}</p>

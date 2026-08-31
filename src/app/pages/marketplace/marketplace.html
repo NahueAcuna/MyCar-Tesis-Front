@@ -132,7 +132,7 @@
             <div id="information">
               <div id="name_price">
                 <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>
-                <span>${{ publication.auto.precio | number:'1.0-0' }} </span>
+                <span>${{ formatearNumero(publication.auto.precio) }} </span>
               </div>
               
            

@@ -10,6 +10,7 @@ import { ReservaRequest } from '../../models/reserva-request';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat-service';
 import { ToastService } from '../../services/toast-service';
+import { AuthService } from '../../services/auth-service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class PublicationDetail implements OnInit, OnDestroy {
   transformStyle: string = 'scale(1)';
   transformOrigin: string = 'center';
   cargandoPago: boolean = false;
+  esDeMarketplace: boolean = false; 
 
   // --- VARIABLES DEL CHAT ---
   listaDeMensajes: any[] = [];
@@ -40,11 +42,13 @@ export class PublicationDetail implements OnInit, OnDestroy {
     private route: ActivatedRoute, 
     public router: Router, 
     private location: Location,
-    private toast: ToastService
+    private toast: ToastService,
+    private authService: AuthService 
   ) { }
 
   ngOnInit(): void {
     const idPublication = this.route.snapshot.params['id'];
+    this.esDeMarketplace = this.route.snapshot.queryParams['origen'] === 'marketplace';
     this.getPublicationById(idPublication);
     this.emailUsuarioActual = localStorage.getItem('usuario_email') || 'invitado@mail.com';
 
@@ -54,6 +58,12 @@ export class PublicationDetail implements OnInit, OnDestroy {
   }
 
   irAChats() {
+    if (!this.authService.isLoggedIn()) {
+      this.toast.warning('Tiene que estar registrado en la página.');
+      this.router.navigate(['/login']);
+      return; 
+    }
+    
     const idActual = Number(this.route.snapshot.params['id']);
  
     const emailDelVendedor = this.publicationSelected.emailVendedor; 
@@ -114,7 +124,9 @@ export class PublicationDetail implements OnInit, OnDestroy {
         this.selectedImage = imagenes[0] || videos[0] || '';
         this.selectedIsVideo = this.isVideo(this.selectedImage);
       },
-      error: () => this.toast.error('Se produjo un error al mostrar el auto.')
+      error: () => {
+        this.toast.error('Se produjo un error al mostrar el auto.');
+      }
     })
   }
 
@@ -152,12 +164,13 @@ export class PublicationDetail implements OnInit, OnDestroy {
   }
 
   pagarReserva() {
-    const emailUsuarioLogueado = localStorage.getItem('usuario_email');
-    if (!emailUsuarioLogueado) {
-      this.toast.warning('Por favor, iniciá sesión o completá tus datos para poder reservar este auto.');
+    if (!this.authService.isLoggedIn()) {
+      this.toast.warning('Tiene que estar registrado en la página.');
       return; 
     }
+
     this.cargandoPago = true;
+    const emailUsuarioLogueado = localStorage.getItem('usuario_email') || '';
     const idActual = Number(this.route.snapshot.params['id']);
     const fechaParaJava = new Date().toISOString().substring(0, 19);
 
@@ -186,5 +199,11 @@ export class PublicationDetail implements OnInit, OnDestroy {
         this.cargandoPago = false; 
       }
     });
+  }
+
+  formatearNumero(valor: number | string | undefined | null): string {
+    if (valor === undefined || valor === null || valor === '') return '0';
+    // toLocaleString('es-AR') le pone el punto a los miles automáticamente
+    return Number(valor).toLocaleString('es-AR');
   }
 }

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
-/** Verifica si el JWT guardado en localStorage está expirado decodificando su payload */
+/** Verifica si el JWT guardado está expirado decodificando su payload */
 function isTokenExpired(token: string): boolean {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
@@ -39,7 +39,9 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
         // endpoint específico, etc.) y NO debemos destruir la sesión.
         if (!tokenActual || isTokenExpired(tokenActual)) {
           console.warn('[JWT Interceptor] Token expirado o ausente. Cerrando sesión...');
-          localStorage.clear();
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('usuario_email');
           router.navigate(['/login']);
         } else {
           console.warn('[JWT Interceptor] 401 recibido pero el token sigue vigente. No se cierra sesión.');

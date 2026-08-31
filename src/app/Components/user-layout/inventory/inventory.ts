@@ -6,6 +6,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, A
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../../services/profile-service';
 import { AuthService } from '../../../services/auth-service';
+import { ToastService } from '../../../services/toast-service';
 
 @Component({
   selector: 'app-inventory',
@@ -31,6 +32,8 @@ export class Inventory implements OnInit {
 
   // --- ARRAY DE FAVORITOS ---
   misFavoritosIds: number[] = [];
+
+  isLoggedIn: boolean = false;
 
   // --- VARIABLES DE PAGINACIÓN ---
   currentPage: number = 1; 
@@ -62,7 +65,7 @@ export class Inventory implements OnInit {
   minKm: FormControl;
   maxKm: FormControl;
 
-  constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService, private authService: AuthService) {
+  constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService, private authService: AuthService, private toast: ToastService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
     // Reemplazamos 'anio' por un rango
@@ -88,12 +91,17 @@ export class Inventory implements OnInit {
 
   ngOnInit(): void {
     this.getPublications();
-    this.cargarFavoritos();
-    
+
+    this.isLoggedIn = this.authService.isLoggedIn();
+    if(this.isLoggedIn) {
+      this.cargarFavoritos();
+    }
+  
     const usuarioActual = this.authService.getUser();
     if (usuarioActual && usuarioActual.email) {
       this.miEmail = usuarioActual.email;
     }
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   // --- VALIDADORES PERSONALIZADOS ---
@@ -306,6 +314,11 @@ export class Inventory implements OnInit {
   }
 
   toggleFavorito(idPublicacion: any) {
+    if (!this.authService.isLoggedIn()) {
+      this.toast.warning('Tiene que estar registrado en la página para agregar a favoritos.');
+      return;
+    }
+    
     const id = Number(idPublicacion);
     const yaEraFavorito = this.misFavoritosIds.includes(id);
 
@@ -330,5 +343,11 @@ export class Inventory implements OnInit {
 
   esFavorito(idPublicacion: any): boolean {
     return this.misFavoritosIds.includes(Number(idPublicacion));
+  }
+
+  formatearNumero(valor: number | string | undefined | null): string {
+    if (valor === undefined || valor === null || valor === '') return '0';
+    // toLocaleString('es-AR') le pone el punto a los miles automáticamente
+    return Number(valor).toLocaleString('es-AR');
   }
 }

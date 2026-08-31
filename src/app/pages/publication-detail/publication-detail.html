@@ -121,7 +121,7 @@
               <span class="material-symbols-outlined">route</span>
               <div>
                 <small>Kilómetros</small>
-                <p>{{ publicationSelected.auto.km }} km</p>
+                <p>{{ formatearNumero(publicationSelected.auto.km) }} km</p>
               </div>
             </div>
 
@@ -144,11 +144,11 @@
           </h1>
 
           <p class="subtitle">
-            {{ publicationSelected.auto.anio }} · {{ publicationSelected.auto.km }} km ·
+            {{ publicationSelected.auto.anio }} · {{ formatearNumero(publicationSelected.auto.km) }} km ·
             {{ publicationSelected.auto.fichaTecnica.combustible }}
           </p>
 
-          <h2 class="price">$ {{ publicationSelected.auto.precio }}</h2>
+          <h2 class="price">$ {{ formatearNumero(publicationSelected.auto.precio) }}</h2>
         </div>
 
         <div class="mini-specs">
@@ -159,7 +159,7 @@
 
           <div class="mini-card">
             <small>Kilómetros</small>
-            <p>{{ publicationSelected.auto.km }}</p>
+            <p>{{ formatearNumero(publicationSelected.auto.km) }}</p>
           </div>
 
           <div class="mini-card">
@@ -173,16 +173,18 @@
           </div>
         </div>
 
-        <div class="actions">
-          <button class="btn reserve" (click)="pagarReserva()" [disabled]="cargandoPago">
-            @if (cargandoPago) {
-              <span>Procesando pago...</span>
-            } @else {
-              <span>Reservar Vehículo</span>
-            }
-          </button>
-        </div>
-
+        @if(!esDeMarketplace){
+          <div class="actions">
+            <button class="btn reserve" (click)="pagarReserva()" [disabled]="cargandoPago">
+              @if (cargandoPago) {
+                <span>Procesando pago...</span>
+              } @else {
+                <span>Reservar Vehículo</span>
+              }
+            </button>
+          </div>
+        }
+        
         <div class="seller">
           <div class="seller-header">
             <span class="material-symbols-outlined">person</span>

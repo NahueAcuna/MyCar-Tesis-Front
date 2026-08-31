@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-browser',
@@ -6,13 +7,20 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './browser.html',
   styleUrl: './browser.css',
 })
-export class Browser implements OnInit{
+export class Browser implements OnInit {
   // Variables que arrancan en 0
   expCount: number = 0;
   clientesCount: number = 0;
 
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
   ngOnInit(): void {
     this.animarContadores();
+  }
+
+  scrollToInventory(): void {
+    const target = this.document.getElementById('inventory');
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   animarContadores() {

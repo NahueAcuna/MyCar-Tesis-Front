@@ -122,27 +122,43 @@
     <h2>Paso 3: Fotos y Precio</h2>
     <div class="form-content">
       <div class="input-group">
-        <label>Fotos del vehículo</label>
+        <label>Fotos del vehículo <span class="form-formats">(.jpg, .jpeg, .png y .webp)</span></label>
         <input type="file" multiple accept="image/*" class="file-input" (change)="onFileSelected($event)">
       </div>
       @if (publicationData.imagenes.length > 0) {
-        <div class="media-preview">
-          @for (img of publicationData.imagenes; track img) {
-            <img [src]="img" class="media-thumb" alt="">
-          }
-        </div>
-      }
+      <div class="media-preview">
+        @for (img of publicationData.imagenes; track img; let i = $index) {
+          <!-- Envolvemos en un contenedor relativo -->
+          <div class="preview-container">
+            <img [src]="img" class="media-thumb" alt="Vista previa de foto">
+            
+            <!-- Botón de eliminar (cruz) -->
+            <button type="button" class="btn-delete-media" (click)="eliminarFoto(i)" title="Eliminar foto">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+        }
+      </div>
+    }
       <div class="input-group">
-        <label>Videos del vehículo (opcional)</label>
+        <label>Videos del vehículo <span class="form-formats">(.mp4, .mov, .avi y .webm) (opcional)</span></label>
         <input type="file" multiple accept="video/*" class="file-input" (change)="onVideoSelected($event)">
       </div>
       @if (publicationData.videos.length > 0) {
-        <div class="media-preview">
-          @for (vid of publicationData.videos; track vid) {
+      <div class="media-preview">
+        @for (vid of publicationData.videos; track vid; let i = $index) {
+          <!-- Envolvemos en un contenedor relativo -->
+          <div class="preview-container">
             <video [src]="vid" class="media-thumb" controls muted></video>
-          }
-        </div>
-      }
+            
+            <!-- Botón de eliminar (cruz) -->
+            <button type="button" class="btn-delete-media" (click)="eliminarVideo(i)" title="Eliminar video">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+        }
+      </div>
+    }
       <div class="input-group">
         <label>Precio</label>
         <input type="number" placeholder="Ej: 25000" [(ngModel)]="publicationData.precio" (keyup.enter)="irAPagina4()">

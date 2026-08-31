@@ -17,7 +17,7 @@ export class ReservaService {
   iniciarReserva(reserva: ReservaRequest): Observable<string> {
     
     let headers = new HttpHeaders();
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token'); // Obtener el token desde localStorage
     
 
     if (token) {

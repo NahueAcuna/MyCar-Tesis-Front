@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Header } from '../../Components/user-layout/header/header';
 import { ProfileService } from '../../services/profile-service';
 import { AuthService } from '../../services/auth-service';
+import { ToastService } from '../../services/toast-service';
 
 @Component({
   selector: 'app-marketplace',
@@ -61,7 +62,7 @@ export class Marketplace implements OnInit {
   minKm: FormControl;
   maxKm: FormControl;
 
-  constructor(private publicationService: PublicationService, public router: Router, private profileService: ProfileService, private authService: AuthService) {
+  constructor(private publicationService: PublicationService, public router: Router, private profileService: ProfileService, private authService: AuthService, private toast: ToastService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
     
@@ -88,11 +89,14 @@ export class Marketplace implements OnInit {
 
   ngOnInit(): void {
     this.getPublications();
-    this.cargarFavoritos();
 
-    const usuarioActual = this.authService.getUser();
-    if (usuarioActual && usuarioActual.email) {
-      this.miEmail = usuarioActual.email;
+    if(this.authService.isLoggedIn()){
+      this.cargarFavoritos();
+
+      const usuarioActual = this.authService.getUser();
+      if (usuarioActual && usuarioActual.email) {
+        this.miEmail = usuarioActual.email;
+      }
     }
   }
 
@@ -180,7 +184,7 @@ export class Marketplace implements OnInit {
   }
 
   carDetail(id: number) {
-    const url = this.router.serializeUrl(this.router.createUrlTree(['publicacion', id]));
+    const url = this.router.serializeUrl(this.router.createUrlTree(['publicacion', id], { queryParams: { origen: 'marketplace' } }));
     window.open(url, '_blank');
   }
 
@@ -306,6 +310,12 @@ export class Marketplace implements OnInit {
   }
 
   toggleFavorito(idPublicacion: number) {
+    
+    if (!this.authService.isLoggedIn()) {
+      this.toast.warning('Tiene que estar registrado en la página para agregar a favoritos.');
+      return;
+    }
+    
     const id = Number(idPublicacion);
     const yaEraFavorito = this.misFavoritosIds.includes(id);
 
@@ -332,5 +342,11 @@ export class Marketplace implements OnInit {
 
   esFavorito(idPub: any): boolean {
     return this.misFavoritosIds.includes(Number(idPub));
+  }
+
+  formatearNumero(valor: number | string | undefined | null): string {
+    if (valor === undefined || valor === null || valor === '') return '0';
+    // toLocaleString('es-AR') le pone el punto a los miles automáticamente
+    return Number(valor).toLocaleString('es-AR');
   }
 }

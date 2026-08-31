@@ -16,14 +16,15 @@ import { MyReservations } from './pages/my-reservations/my-reservations';
 import { ProfileAdmin } from './pages/profile-admin/profile-admin';
 import { ForgotPassword } from './pages/forgot-password/forgot-password';
 import { ResetPassword } from './pages/reset-password/reset-password';
+import { guestGuard } from './guards/guest-guard';
 
 export const routes: Routes = [
-    { path: '', component: Home, canActivate: [authGuard] },
+    { path: '', component: Home },
     { path: 'vender', component: PublicationForm, canActivate: [authGuard] },
-    { path: 'marketplace', component: Marketplace, canActivate: [authGuard] },
-    { path: 'publicacion/:id', component: PublicationDetail, canActivate: [authGuard] },
-    { path: 'registro', component: Register },
-    { path: 'login', component: Login },
+    { path: 'marketplace', component: Marketplace },
+    { path: 'publicacion/:id', component: PublicationDetail },
+    { path: 'registro', component: Register, canActivate: [guestGuard] },
+    { path: 'login', component: Login, canActivate: [guestGuard] },
     { path: 'chats', component: InboxComponent, canActivate: [authGuard] },
     { path: 'perfil', component: Profile, canActivate: [authGuard] },
     { path: 'perfil-admin', component: ProfileAdmin, canActivate: [adminGuard] },
@@ -32,7 +33,7 @@ export const routes: Routes = [
     { path: 'mis-reservas', component: MyReservations, canActivate: [authGuard] },
     { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] },
     { path: 'editar/:id', component: PublicationForm, canActivate: [authGuard] },
-    // Nuevo recuperar cuenta //    
-    { path: 'olvide-password', component: ForgotPassword },
-    { path: 'restablecer-password', component: ResetPassword }
+    { path: 'olvide-password', component: ForgotPassword, canActivate: [guestGuard] },
+    { path: 'restablecer-password', component: ResetPassword, canActivate: [guestGuard] },
+    { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
