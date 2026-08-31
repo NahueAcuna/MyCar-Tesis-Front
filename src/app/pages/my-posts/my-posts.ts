@@ -75,9 +75,8 @@ export class MyPosts implements OnInit {
     if (this.postToDelete) {
       this.publicationService.deletePublication(this.postToDelete).subscribe({
         next: (response) => {
-          // Filtramos el array para sacar la publicación eliminada al instante sin recargar la página
           this.myPosts = this.myPosts.filter(p => p.id !== this.postToDelete);
-          this.postToDelete = null; // Cerramos el modal
+          this.postToDelete = null;
           const mensajeExito = 'Publicación eliminada correctamente';
           this.toast.success(mensajeExito);
         },

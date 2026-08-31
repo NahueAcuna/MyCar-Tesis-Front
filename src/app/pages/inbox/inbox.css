@@ -3,7 +3,7 @@
    ========================================= */
 .inbox-layout {
   display: flex;
-  height: 80vh; /* Ocupa casi toda la pantalla entre el header y el footer */
+  height: 80vh; 
   max-width: 1200px;
   margin: 2rem auto;
   background-color: #1a1a1a;
@@ -212,7 +212,7 @@
 .input-area button:hover:not(:disabled) { background-color: #e67e00; }
 .input-area button:disabled { background-color: #444; color: #777; cursor: not-allowed; }
 
-/* Estado sin seleccionar */
+
 .no-chat-selected {
   flex: 1;
   display: flex;

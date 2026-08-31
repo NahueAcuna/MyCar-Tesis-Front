@@ -24,13 +24,10 @@
 .container {
     position: relative;
     z-index: 2;
-    /* 1. Volvemos a la grilla perfecta de dos columnas */
     display: grid; 
     grid-template-columns: minmax(0, 1.7fr) 420px; 
     gap: 40px;
-    padding-right: 0; /* Sacamos el hueco que habíamos inventado antes */
-    
-    /* 2. ESTA ES LA MAGIA: Si no le ponés esto, el sticky no funciona */
+    padding-right: 0;
     align-items: start; 
 }
 
@@ -108,11 +105,11 @@
 /* ================= BOTÓN DESHABILITADO ================= */
 .btn:disabled, 
 .btn.reserve:disabled {
-    background: linear-gradient(135deg, #7a5a30, #5c4220); /* Un naranja oscuro/apagado */
+    background: linear-gradient(135deg, #7a5a30, #5c4220);
     color: #a0a0a0;
     cursor: not-allowed;
-    transform: none; /* Le sacamos el efecto de saltar */
-    box-shadow: none; /* Le sacamos el brillo */
+    transform: none;
+    box-shadow: none;
     opacity: 0.8;
 }
 
@@ -221,8 +218,6 @@
     gap: 28px;
     box-sizing: border-box;
     z-index: 10;
-    
-    /* Diseño visual */
     background: rgba(0,0,0,0.55);
     border: 1px solid rgba(255,140,0,0.18);
     border-radius: 28px;
@@ -231,7 +226,7 @@
     padding: 34px;
 }
 
-/* Scrollbar invisible y elegante para la columna derecha */
+
 .right::-webkit-scrollbar {
     width: 5px;
 }
@@ -511,7 +506,7 @@
 }
 
 .chat-messages {
-    height: 300px; /* Fija la altura para que aparezca la barra de scroll */
+    height: 300px; 
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -519,7 +514,7 @@
     padding-right: 0.5rem;
 }
 
-/* Scrollbar personalizada para el chat */
+
 .chat-messages::-webkit-scrollbar {
     width: 6px;
 }
@@ -547,7 +542,6 @@
     font-size: 0.95rem;
 }
 
-/* Mensajes enviados por mí (Naranjas, a la derecha) */
 .message.sent {
     align-self: flex-end;
     background-color: #ff8c00;
@@ -555,7 +549,6 @@
     border-bottom-right-radius: 2px;
 }
 
-/* Mensajes recibidos de la otra persona (Grises, a la izquierda) */
 .message.received {
     align-self: flex-start;
     background-color: #333;
@@ -574,7 +567,7 @@
     text-align: center;
     color: #777;
     font-style: italic;
-    margin: auto; /* Lo centra vertical y horizontalmente */
+    margin: auto;
 }
 
 .chat-input-area {
@@ -639,7 +632,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem; /* Espacio entre el ícono y el texto */
+    gap: 0.5rem; 
     transition: all 0.3s ease;
 }
 
@@ -650,10 +643,10 @@
 }
 
 #button_chats:active {
-    transform: scale(0.98); /* Pequeño efecto de "click" físico */
+    transform: scale(0.98); /
 }
 /* =========================================
-   BOTÓN DE WHATSAPP (RECTANGULAR PREMIUM)
+   BOTÓN DE WHATSAPP
    ========================================= */
 #btn_w_Mycar {
     display: flex;

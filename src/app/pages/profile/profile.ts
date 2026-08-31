@@ -78,8 +78,6 @@ export class Profile implements OnInit, OnDestroy{
     this.profileService.getMyReservations().subscribe({
       next: (response) => {this.myReservations = response},
       error: (error) => {
-        // Error silencioso: no mostramos alert para no interrumpir la navegación
-        // ni disparar la cadena de logout del interceptor
         console.warn('No se pudieron cargar las reservas:', error?.status, error?.message);
         this.myReservations = [];
       }
@@ -178,10 +176,9 @@ export class Profile implements OnInit, OnDestroy{
     });
   }
 
-  // Método para cuando el usuario hace clic en el corazón desde su propio perfil
+
   quitarFavorito(id: number) {
     this.profileService.toggleFavorito(id).subscribe(() => {
-      // Recargamos la lista para que desaparezca la tarjeta instantáneamente
       this.cargarFavoritos(); 
     });
   }
@@ -192,17 +189,14 @@ export class Profile implements OnInit, OnDestroy{
     img.onerror = null;
   }
 
-  // Abre el cartel
   openDeleteAccountModal() {
     this.showDeleteAccountModal = true;
   }
 
-  // Cierra el cartel sin hacer nada
   closeDeleteAccountModal() {
     this.showDeleteAccountModal = false;
   }
 
-  // Se ejecuta SOLO cuando aprietan "Aceptar" en el cartel verde
   confirmarEliminarCuenta() {
     if (this.user) {
       this.profileService.deleteAccount().subscribe({

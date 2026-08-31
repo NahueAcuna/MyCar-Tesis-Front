@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-// 1. Importamos el environment (verificá los niveles de carpetas con los ../)
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  // 2. Reemplazamos localhost por la variable dinámica en las tres URLs
+
   private url = `${environment.apiUrl}publicacion`;
   private url2 = `${environment.apiUrl}reserva`;
   private url3 = `${environment.apiUrl}usuario`;

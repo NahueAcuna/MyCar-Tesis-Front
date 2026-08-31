@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'; // <-- Sumamos OnDestroy
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PublicationService } from '../../services/publication-service';
 import { PublicationResponse } from '../../models/PublicationResponse';
@@ -7,18 +7,18 @@ import { Header } from '../../Components/user-layout/header/header';
 import { Footer } from '../../Components/footer/footer';
 import { ReservaService } from '../../services/reserva-service';
 import { ReservaRequest } from '../../models/reserva-request';
-import { FormsModule } from '@angular/forms'; // <-- Sumamos FormsModule para el chat
+import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat-service';
 import { ToastService } from '../../services/toast-service';
 
 
 @Component({
   selector: 'app-publication-detail',
-  imports: [CommonModule, Header, Footer, FormsModule], // <-- Lo inyectamos acá
+  imports: [CommonModule, Header, Footer, FormsModule], 
   templateUrl: './publication-detail.html',
   styleUrl: './publication-detail.css',
 })
-export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementamos OnDestroy
+export class PublicationDetail implements OnInit, OnDestroy { 
 
   publicationSelected!: PublicationResponse;
   selectedImage: string = '';
@@ -36,7 +36,7 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
   constructor(
     public publicationService: PublicationService,
     private reservaService: ReservaService, 
-    private chatService: ChatService, // <-- Inyectamos el ChatService
+    private chatService: ChatService, 
     private route: ActivatedRoute, 
     public router: Router, 
     private location: Location,
@@ -46,11 +46,8 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
   ngOnInit(): void {
     const idPublication = this.route.snapshot.params['id'];
     this.getPublicationById(idPublication);
-
-    // Recuperamos el email del usuario logueado (si no hay, le ponemos Invitado)
     this.emailUsuarioActual = localStorage.getItem('usuario_email') || 'invitado@mail.com';
-    
-    // Escuchamos los mensajes en tiempo real para pintar el HTML
+
     this.chatService.mensajes$.subscribe(mensajes => {
       this.listaDeMensajes = mensajes;
       });
@@ -58,23 +55,18 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
 
   irAChats() {
     const idActual = Number(this.route.snapshot.params['id']);
-    
-    // 🔥 ACÁ APLICAMOS LA CORRECCIÓN DEL EMAIL 🔥
-    // Usamos el emailVendedor que te pedí que agregues al DTO del backend
+ 
     const emailDelVendedor = this.publicationSelected.emailVendedor; 
 
-    // Si por algún motivo no hay email, frenamos
     if (!emailDelVendedor) {
       this.toast.error("No se pudo obtener el contacto del vendedor.");
       return;
     }
 
-    // Le pedimos al backend que cree o busque la sala
     this.chatService.obtenerSalaPrivada(idActual, this.emailUsuarioActual, emailDelVendedor)
       .subscribe({
         next: (respuestaSala) => {
-          // La sala ya existe en la base de datos de Spring Boot.
-          // Ahora sí, lo mandamos a la bandeja de entrada.
+          
           this.router.navigate(['/chats']);
         },
         error: (err) => {
@@ -84,7 +76,6 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
       });
   }
 
-  // Desconectamos el socket al salir del detalle del auto
   ngOnDestroy(): void {
     this.chatService.desconectar();
   }
@@ -93,12 +84,11 @@ export class PublicationDetail implements OnInit, OnDestroy { // <-- Implementam
    enviarMensajeChat() {
     if (!this.nuevoMensaje.trim() || this.conversacionIdActual === 0) return; 
     
-    // Mandamos el mensaje a la sala privada
+   
     this.chatService.enviarMensaje(this.conversacionIdActual, this.emailUsuarioActual, this.nuevoMensaje);
     this.nuevoMensaje = ''; 
   }
 
-  // ... (Dejamos intactas las demás funciones que ya tenías: onMouseMove, onMouseLeave, goBack, getPublicationById, isVideo, todasLasMedia, seleccionarMedia, getImageUrl, onImageError, pagarReserva) ...
 
   onMouseMove(event: MouseEvent) {
     const element = event.target as HTMLElement;

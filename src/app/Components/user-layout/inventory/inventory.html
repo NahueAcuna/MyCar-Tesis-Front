@@ -137,9 +137,7 @@
           </div>
         </div>
 
-        <!-- 3. Grilla de Autos -->
         <div id="cars">
-          <!-- ... (Acá sigue tu código del @for de los autos igual que antes) ... -->
           @for (
             publication of filteredPublications | slice: startIndex : endIndex;
             track publication.id
@@ -157,13 +155,11 @@
                 (error)="onImageError($event)"
               />
               <div id="information">
-                <!-- FILA SUPERIOR: Marca/Modelo (Izquierda) - Precio (Derecha) -->
                 <div id="name_price">
                   <p>{{ publication.auto.marca }} {{ publication.auto.modelo }}</p>
                   <span>${{ publication.auto.precio | number: '1.0-0' }} </span>
                 </div>
 
-                <!-- FILA INFERIOR: Año/Descripción (Izquierda) - Corazón (Derecha) -->
                 <div class="info-footer">
                   <div id="anio_description">
                     <span>{{ publication.auto.anio }} </span>

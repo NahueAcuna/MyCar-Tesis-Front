@@ -36,7 +36,6 @@ export class AuthService {
     return user ? JSON.parse(user) : null;
   }
   
-  // Decodifica el payload del JWT guardado en localStorage
   private getPayload(): any {
     const token = localStorage.getItem('token');
     if (!token) return null;

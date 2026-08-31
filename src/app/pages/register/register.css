@@ -191,7 +191,7 @@ form{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: black;  /* Color de fondo para que tape la línea */
+    background: black;
     padding: 0 10px;
     color: #888;
     font-size: 14px;
@@ -240,7 +240,6 @@ form{
     box-shadow:0 0 18px rgba(255,140,0,0.22);
 }
 
-/* Este es el icono de la IZQUIERDA (Candado, Persona, etc.) */
 .input-group > .material-symbols-outlined:first-child {
     position: absolute;
     left: 12px;
@@ -249,21 +248,21 @@ form{
     color: orange;
     font-size: 20px;
     z-index: 2;
-    pointer-events: none; /* Importante para que no moleste al clickear el input */
+    pointer-events: none; 
 }
 
-/* Este es el icono de la DERECHA (El Ojo) */
+
 .eye-icon {
     position: absolute;
-    right: 12px; /* IMPORTANTE: este va a la derecha */
+    right: 12px; 
     top: 22px;
     transform: translateY(-50%);
     color: #8f8f8f;
     cursor: pointer;
-    z-index: 3; /* Un nivel más arriba para asegurar el click */
+    z-index: 3; 
     font-size: 20px;
     transition: color 0.3s;
-    pointer-events: auto !important; /* Para que el click funcione sí o sí */
+    pointer-events: auto !important; 
 }
 
 .eye-icon:hover {

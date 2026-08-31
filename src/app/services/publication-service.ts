@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PublicationResponse } from '../models/PublicationResponse';
-// 1. Importamos el environment
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -9,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class PublicationService {
   
-  // 2. Reemplazamos el localhost por la variable de entorno
+
   readonly url = `${environment.apiUrl}publicacion`;
 
   constructor(private http: HttpClient) {}
@@ -46,7 +45,6 @@ export class PublicationService {
   updatePublication(id: number, publicacion: any, files: File[]) {
     const formData = new FormData();
 
-    // Convertimos el JSON a un Blob indicando explícitamente el tipo 'application/json'
     const publicacionBlob = new Blob([JSON.stringify(publicacion)], {
       type: 'application/json'
     });

@@ -32,7 +32,7 @@ export const routes: Routes = [
     { path: 'mis-reservas', component: MyReservations, canActivate: [authGuard] },
     { path: 'gestionar', component: GestionAdmin, canActivate: [adminGuard] },
     { path: 'editar/:id', component: PublicationForm, canActivate: [authGuard] },
-    // Nuevo recuperar cuenta //
+    // Nuevo recuperar cuenta //    
     { path: 'olvide-password', component: ForgotPassword },
     { path: 'restablecer-password', component: ResetPassword }
 ];

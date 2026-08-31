@@ -19,7 +19,6 @@ import { ToastService } from '../../services/toast-service';
 })
 export class GestionAdmin implements OnInit {
 
-  // Tab activo: 'dashboard', 'publicaciones' o 'reservas'
   tabActivo: 'dashboard' | 'publicaciones' | 'reservas' = 'dashboard';
 
   publicacionesPendientes: PublicationResponse[] = [];

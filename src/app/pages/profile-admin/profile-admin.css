@@ -160,23 +160,23 @@
     outline: none;
     padding: 0;
     text-align: left;
-    width: 100%; /* Hace que el botón ocupe el resto de la caja */
+    width: 100%; 
 }
 
-/* Efecto al pasar el mouse (General) */
+
 .action-btn:hover {
     transform: translateX(5px);
     border-color: rgba(255,140,0,0.6);
     background: rgba(255,140,0,0.12);
 }
 
-/* Estilos específicos para Cerrar Sesión (Logout) */
+
 .action-btn.logout {
     border: 1px solid rgba(255,140,0,0.35);
 }
 
 .action-btn.logout button {
-    border: #ff6b6b; /* Color rojizo */
+    border: #ff6b6b; 
 }
 
 .action-btn.logout:hover {
@@ -457,9 +457,9 @@ button.view-all{
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.85); /* Fondo oscuro general */
-    backdrop-filter: blur(8px); /* Difumina lo que está de fondo */
-    z-index: 10000; /* Asegura que quede por encima del header */
+    background: rgba(0, 0, 0, 0.85); 
+    backdrop-filter: blur(8px); 
+    z-index: 10000; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -581,8 +581,6 @@ button.view-all{
     transform: none;
 }
 
-/* --- Ajustes para la tarjeta de Favoritos --- */
-
 .fav-header {
     display: flex;
     justify-content: space-between;
@@ -604,7 +602,7 @@ button.view-all{
 }
 
 .btn-remove-fav .material-symbols-outlined {
-    font-variation-settings: 'FILL' 1; /* Corazón sólido */
+    font-variation-settings: 'FILL' 1; 
     font-size: 24px;
 }
 

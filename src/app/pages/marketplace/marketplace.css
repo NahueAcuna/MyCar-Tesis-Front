@@ -39,7 +39,7 @@ h1 span{
     gap: 24px;
     height: fit-content;
     position: sticky;
-    top: 100px; /* Hace que el filtro acompañe al hacer scroll */
+    top: 100px; 
 }
 
 #header-filter {
@@ -113,7 +113,7 @@ h1 span{
     font-size: 15px;
     transition: all 0.3s ease;
     box-sizing: border-box;
-    appearance: none; /* Quita la flecha nativa del select */
+    appearance: none; 
 }
 
 #filters input[type="number"]:focus, 
@@ -128,7 +128,6 @@ h1 span{
     color: #555;
 }
 
-/* Contenedor relativo para poner el ícono sobre el select */
 .select-wrapper {
     position: relative;
     width: 100%;
@@ -140,7 +139,7 @@ h1 span{
     top: 50%;
     transform: translateY(-50%);
     color: #888;
-    pointer-events: none; /* Para que no bloquee el click al select */
+    pointer-events: none;
 }
 
 /* --- RANGOS DE PRECIO --- */
@@ -172,7 +171,6 @@ h1 span{
     font-size: 14px;
 }
 
-/* Estilización moderna para la barra de rango */
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
@@ -337,8 +335,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* --- AJUSTES FLEXBOX PARA LA INFORMACIÓN Y EL CORAZÓN --- */
 #information {
     display: flex;
-    flex-direction: column; /* Apila la fila superior y la fila inferior */
-    gap: 12px; /* Separación entre el bloque de arriba y el de abajo */
+    flex-direction: column; 
+    gap: 12px; 
     width: 100%;
 }
 
@@ -346,8 +344,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
 #name_price {
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* Título a la izq, precio a la der */
-    align-items: flex-start; /* Los mantiene alineados arriba */
+    justify-content: space-between; 
+    align-items: flex-start; 
     width: 100%;
 }
 
@@ -355,8 +353,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
     margin: 0;
     font-size: 16px;
     color: white;
-    font-weight: 600; /* Un poco de grosor para que destaque la marca */
-    max-width: 65%; /* Evita que un nombre muy largo empuje al precio */
+    font-weight: 600; 
+    max-width: 65%; 
 }
 
 #name_price span {
@@ -371,8 +369,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .info-footer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* Textos a la izq, corazón a la der */
-    align-items: flex-end; /* Empuja el corazón bien hacia abajo */
+    justify-content: space-between; 
+    align-items: flex-end; 
     width: 100%;
 }
 
@@ -380,7 +378,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     color: #727070;
     display: flex;
     flex-direction: column;
-    gap: 4px; /* Separación entre año y descripción */
+    gap: 4px; 
 }
 
 #anio_description span, #anio_description p {
@@ -410,18 +408,18 @@ input[type="range"] {
 
 #top-bar {
     display: flex;
-    justify-content: space-between; /* Lupa a la izquierda, paginación a la derecha */
-    align-items: center; /* Las centra verticalmente */
+    justify-content: space-between; 
+    align-items: center;
     width: 100%;
     margin-bottom: 20px;
 }
 
-/* Modificamos ligeramente el pagination para que no desentone al estar arriba */
+
 #pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px; /* Un poco menos de espacio que antes */
+    gap: 15px; 
     color: white;
     font-weight: 500;
 }
@@ -462,21 +460,21 @@ input[type="range"] {
 
 /* --- ESTILOS DE FAVORITOS EN LA CARD --- */
 
-/* Evita que el botón de favoritos tome los estilos del botón "Ver auto" */
+
 .car_publication button.btn-fav {
     padding: 0;
     border: none;
     background: transparent;
-    color: #8f8b8b; /* Corazón gris por defecto */
+    color: #8f8b8b; 
     width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2px; /* Margen sutil para que no choque abajo */
+    margin-bottom: 2px; 
 }
 
 .car_publication button.btn-fav:hover {
-    background-image: none; /* Quitamos el degradado naranja al pasar el mouse */
+    background-image: none; 
     transform: scale(1.1);
 }
 
@@ -485,8 +483,8 @@ input[type="range"] {
     transition: color 0.3s ease;
 }
 
-/* Clase que se activa cuando el auto está en favoritos */
+
 .car_publication button.btn-fav span.material-symbols-outlined.activo {
     color: #ff8c00; 
-    font-variation-settings: 'FILL' 1; /* Esto hace que el ícono de Google se rellene de color sólido */
+    font-variation-settings: 'FILL' 1; 
 }

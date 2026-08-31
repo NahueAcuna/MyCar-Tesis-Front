@@ -122,7 +122,6 @@ export class Marketplace implements OnInit {
   }
 
   getPublications() {
-    // ATENCIÓN: Acá usamos getUserPublications() como lo tenías originalmente en Marketplace
     this.publicationService.getUserPublications().subscribe({
       next: (data) => {
         this.publications = data;
