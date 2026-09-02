@@ -173,6 +173,17 @@
             </div>
 
             <div class="reserva-body">
+              <!-- Info del auto -->
+              @if (reserva.publicacion?.auto) {
+                <div class="reserva-auto-info">
+                  <span class="material-symbols-outlined">directions_car</span>
+                  <span class="auto-name">{{ reserva.publicacion.auto.marca }} {{ reserva.publicacion.auto.modelo }}</span>
+                  @if (reserva.publicacion.auto.anio) {
+                    <span class="auto-anio">{{ reserva.publicacion.auto.anio }}</span>
+                  }
+                </div>
+              }
+
               <div class="reserva-info">
                 <div class="info-row">
                   <span class="info-label">Usuario</span>
@@ -191,14 +202,15 @@
                   <span class="info-value">{{ formatFecha(reserva.fecha) }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Publicación</span>
-                  <span class="info-value link" (click)="verDetalle(reserva.publicacion.id)">#{{ reserva.publicacion.id }}</span>
-                </div>
-                <div class="info-row">
                   <span class="info-label">Monto</span>
                   <span class="info-value monto">${{ reserva.montoReserva }}</span>
                 </div>
               </div>
+
+              <a class="btn-ver-publicacion" [routerLink]="['/publicacion', reserva.publicacion.id]" target="_blank">
+                <span class="material-symbols-outlined">visibility</span>
+                Ver publicación #{{ reserva.publicacion.id }}
+              </a>
             </div>
 
             <div class="reserva-actions">

@@ -36,18 +36,6 @@ export class AuthService {
     return user ? JSON.parse(user) : null;
   }
   
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  saveEmail(email: string): void {
-    localStorage.setItem('usuario_email', email);
-  }
-
-  getEmail(): string {
-    return localStorage.getItem('usuario_email') || '';
-  }
-  
   private getPayload(): any {
     const token = localStorage.getItem('token');
     if (!token) return null;

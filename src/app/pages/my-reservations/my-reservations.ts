@@ -24,8 +24,6 @@ export class MyReservations implements OnInit {
     this.profileService.getMyReservations().subscribe({
       next: (response) => {this.misReservas = response},
       error: (error) => {
-        // Error silencioso: no mostramos alert para no interrumpir la navegación
-        // ni disparar la cadena de logout del interceptor
         console.warn('No se pudieron cargar las reservas:', error?.status, error?.message);
         this.misReservas = [];
       }
