@@ -68,35 +68,44 @@
           <h2>Mis Publicaciones</h2>
         </div>
 
-        <a class="view-all" routerLink="/mis-publicaciones" target="_blank">
-          Ver todas
-          <span class="material-symbols-outlined">arrow_forward</span>
-        </a>
+        <div class="header-actions">
+          <button class="toggle-btn" (click)="showAllPosts = !showAllPosts" title="Desplegar publicaciones">
+            <span class="material-symbols-outlined">
+              {{ showAllPosts ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+            </span>
+          </button>
+        </div>
       </div>
 
-      <div class="post-container">
-        @for (post of myPosts.slice(0, 2); track post.id) {
-          <div class="post-card">
-            <div class="post-img-container" [routerLink]="['/publicacion', post.id]">
-              <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto" />
-            </div>
+      @if (showAllPosts) {
+        <div class="post-container">
+          @for (post of myPosts.slice(0, 2); track post.id) {
+            <div class="post-card">
+              <a class="post-img-container" [routerLink]="['/publicacion', post.id]" target="_blank">
+                <img [src]="getImageUrl(post.auto.imagenesUrl[0])" alt="Imagen del auto" />
+              </a>
 
-            <div class="post-info">
-              <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
-
-              <p class="year-km">{{ post.auto.anio }} - {{ post.auto.km }} km</p>
-
-              <p class="price">${{ post.auto.precio }}</p>
-
-              <div class="status">
-                {{ post.estado }}
+              <div class="post-info">
+                <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
+                <p class="year-km">{{ post.auto.anio }} - {{ post.auto.km }} km</p>
+                <p class="price">${{ post.auto.precio }}</p>
+                <div class="status">
+                  {{ post.estado }}
+                </div>
               </div>
             </div>
-          </div>
-        }
-      </div>
+          }
+        </div>
+        
+        <div class="view-all-container">
+          <a class="view-all" routerLink="/mis-publicaciones" target="_blank">
+            Ver todas
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+      }
     </div>
-  </div>
+</div>
 
   @if (isEditModalOpen) {
     <div class="custom-modal-overlay" (click)="closeEditModal()">
