@@ -29,12 +29,10 @@ export class MyFavorites implements OnInit {
     });
   }
 
-  // Recibe el evento para frenar la navegación del routerLink
   quitarFavorito(event: Event, id: number) {
-    event.stopPropagation(); // Evita que se abra la publicación al hacer clic en el corazón
+    event.stopPropagation();
     
     this.profileService.toggleFavorito(id).subscribe(() => {
-      // Recargamos la lista para que la tarjeta desaparezca instantáneamente
       this.cargarFavoritos(); 
     });
   }

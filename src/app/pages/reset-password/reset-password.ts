@@ -18,7 +18,7 @@ export class ResetPassword implements OnInit {
   constructor(private route: ActivatedRoute, private authService: AuthService, private toast: ToastService, private router: Router) {}
 
   ngOnInit() {
-    // Atrapamos el token de la URL: http://localhost:4200/restablecer-password?token=1234
+   
     this.route.queryParams.subscribe(params => {
       this.token = params['token'];
       if (!this.token) {

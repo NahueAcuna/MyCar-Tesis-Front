@@ -72,13 +72,12 @@ export class PublicationForm implements OnInit {
     if (files && files.length > 0) {
       const nuevosArchivos = Array.from(files) as File[];
       
-      // Acumulamos los nuevos archivos junto con los que ya estaban seleccionados
       this.selectedFiles = [...this.selectedFiles, ...nuevosArchivos];
 
       nuevosArchivos.forEach((file: File) => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          // Agregamos la previsualización al array visual sin borrar las anteriores
+
           this.publicationData.imagenes.push(e.target.result);
           
           // Si no hay foto principal o era el placeholder, seteamos esta como vista previa principal
@@ -95,8 +94,6 @@ export class PublicationForm implements OnInit {
     const files = event.target.files;
     if (files && files.length > 0) {
       const nuevosVideos = Array.from(files) as File[];
-      
-      // Acumulamos los nuevos videos con los anteriores
       this.selectedVideoFiles = [...this.selectedVideoFiles, ...nuevosVideos];
 
       nuevosVideos.forEach((file: File) => {
@@ -242,7 +239,6 @@ export class PublicationForm implements OnInit {
       return;
     }
     this.errorMessage = '';
-    // Estandarizar textos del paso 1
     this.publicationData.marca = this.titleCase(this.publicationData.marca);
     this.publicationData.modelo = this.titleCase(this.publicationData.modelo);
     this.publicationData.descripcion = this.capitalizarPrimeraLetra(this.publicationData.descripcion);
@@ -282,7 +278,7 @@ export class PublicationForm implements OnInit {
     }
 
     this.errorMessage = '';
-    // Estandarizar textos del paso 2
+   
     this.publicationData.combustible = this.titleCase(this.publicationData.combustible);
     this.publicationData.color = this.titleCase(this.publicationData.color);
     this.publicationData.motor = this.publicationData.motor.trim();
@@ -320,20 +316,17 @@ export class PublicationForm implements OnInit {
         const imagenesReales: string[] = [];
         const videosReales: string[] = [];
 
-        // Filtramos y separamos las URLs
         (data.auto.imagenesUrl || []).forEach((url: any) => {
           if (!url) return;
           const urlStr = String(url).trim();
           if (urlStr === '' || urlStr === 'null' || urlStr === 'undefined' || urlStr === 'http://localhost:8080') return;
 
           const urlCompleta = urlStr.startsWith('http') ? urlStr : 'http://localhost:8080' + (urlStr.startsWith('/') ? '' : '/') + urlStr;
-
-          // Verificamos si la URL es de un video por su extensión
           const urlMinuscula = urlCompleta.toLowerCase();
           if (urlMinuscula.endsWith('.mp4') || urlMinuscula.endsWith('.webm') || urlMinuscula.endsWith('.mov')) {
-            videosReales.push(urlCompleta); // Lo mandamos al array de videos
+            videosReales.push(urlCompleta); 
           } else {
-            imagenesReales.push(urlCompleta); // Lo mandamos al array de imágenes
+            imagenesReales.push(urlCompleta); 
           }
         });
 
@@ -351,8 +344,8 @@ export class PublicationForm implements OnInit {
           combustible: data.auto.fichaTecnica?.combustible || '',
           caja: data.auto.fichaTecnica?.caja || '',
           fotoUrl: imagenesReales.length > 0 ? imagenesReales[0] : 'https://via.placeholder.com/300x200/1a1a1a/ff8c00?text=Vista+Previa',
-          imagenes: imagenesReales, // Acá van solo las fotos
-          videos: videosReales      // Acá van solo los videos
+          imagenes: imagenesReales, 
+          videos: videosReales      
         };
       }
     });

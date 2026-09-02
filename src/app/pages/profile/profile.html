@@ -190,13 +190,39 @@
                     <span class="material-symbols-outlined">favorite</span>
                   </button>
                 </div>
-                <p class="year-km">
-                  {{ favorite.auto.anio }} - {{ favorite.auto.km }} km
-                </p>
-                <p class="price">
-                  ${{ favorite.auto.precio | number:'1.0-0' }}
-                </p>
-              </div>
+
+                <a class="view-all" routerLink="/mis-favoritos" target="_blank">
+                   Ver todas
+                  <span class="material-symbols-outlined">arrow_forward</span>
+              </a>
+            </div>
+    
+            <div class="post-container">
+                @for(favorite of myFavorites.slice(0,2); track favorite.id){
+                    <div class="post-card">
+                        <a class="post-img-container" [routerLink]="['/publicacion', favorite.id]" target="_blank">
+                          <img [src]="getImageUrl(favorite.auto.imagenesUrl[0])" alt="Imagen del auto">
+                        </a>
+                        
+                        <div class="post-info">
+                            <div class="fav-header">
+                                <h3>{{ favorite.auto.marca }} {{ favorite.auto.modelo }}</h3>
+              
+                                <button class="btn-remove-fav" (click)="quitarFavorito(favorite.id)" title="Quitar de favoritos">
+                                    <span class="material-symbols-outlined">favorite</span>
+                                </button>
+                            </div>
+                            
+                            <p class="year-km">
+                                {{ favorite.auto.anio }} - {{ favorite.auto.km }} km
+                            </p>
+
+                            <p class="price">
+                                ${{ favorite.auto.precio | number:'1.0-0' }}
+                            </p>
+                        </div>
+                    </div>
+                }
             </div>
           }
         </div>

@@ -32,7 +32,7 @@
 .page-header p {
     color: #aaa;
     font-size: 16px;
-    margin-left: 55px; /* Para alinearlo con el texto del h1 */
+    margin-left: 55px; 
 }
 
 /* ================= GRID DE RESERVAS ================= */
@@ -42,7 +42,6 @@
     gap: 30px;
 }
 
-/* Reutilizamos los estilos de tus tarjetas */
 .post-card {
     display: flex;
     gap: 18px;
@@ -79,7 +78,7 @@
 .post-img-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover queda mejor para que todas las fotos se vean del mismo tamaño */
+    object-fit: cover; 
 }
 
 .post-info {
@@ -122,7 +121,7 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Colores dinámicos para los estados (opcional) */
+
 .status.PENDIENTE { background: rgba(255, 140, 0, 0.2); color: orange; }
 .status.ACEPTADA { background: rgba(0, 200, 83, 0.2); color: #00c853; }
 .status.RECHAZADA, .status.CANCELADA { background: rgba(255, 80, 80, 0.2); color: #ff5050; }

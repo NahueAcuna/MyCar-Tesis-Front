@@ -24,9 +24,9 @@ export class Browser implements OnInit {
   }
 
   animarContadores() {
-    const duracion = 2000; // Duración total de la animación en milisegundos (2 segundos)
+    const duracion = 2000;
 
-    // Animación para "Años de experiencia" (0 a 10)
+   
     const targetExp = 10;
     const tiempoPasoExp = Math.abs(Math.floor(duracion / targetExp));
     
@@ -37,10 +37,8 @@ export class Browser implements OnInit {
       }
     }, tiempoPasoExp);
 
-    // Animación para "Clientes Satisfechos" (0 a 430)
-    // Como 430 es un número más grande, sumamos de a "saltos" más grandes para que termine a tiempo
     const targetClientes = 430;
-    const fotogramas = 60; // Cantidad de veces que se actualizará el número en los 2 segundos
+    const fotogramas = 60; 
     const tiempoPasoClientes = duracion / fotogramas; 
     const incrementoClientes = Math.ceil(targetClientes / fotogramas); 
     
@@ -49,7 +47,7 @@ export class Browser implements OnInit {
       clientesActual += incrementoClientes;
       
       if (clientesActual >= targetClientes) {
-        this.clientesCount = targetClientes; // Nos aseguramos de que termine exacto en 430
+        this.clientesCount = targetClientes; 
         clearInterval(intervaloClientes);
       } else {
         this.clientesCount = clientesActual;
