@@ -203,17 +203,24 @@ export class GestionAdmin implements OnInit {
   }
 
   cambiarEstadoReserva(reserva: ReservaResponse, nuevoEstado: 'PENDIENTE' | 'ACEPTADA' | 'CANCELADA') {
+    console.log('=== cambiarEstadoReserva LLAMADO ===');
+    console.log('Reserva ID:', reserva.id, '| Nuevo estado:', nuevoEstado);
     const reservaModificada: ReservaResponse = { ...reserva, estadoReserva: nuevoEstado };
+    console.log('Objeto a enviar:', JSON.stringify(reservaModificada));
 
     this.adminService.modificarReserva(reservaModificada).subscribe({
       next: (actualizada) => {
+        console.log('=== RESPUESTA EXITOSA del backend ===', actualizada);
         const index = this.reservas.findIndex(r => r.id === reserva.id);
         if (index !== -1) {
           this.reservas[index] = actualizada;
         }
         this.toast.success(`Reserva #${reserva.id} actualizada a ${nuevoEstado}.`);
       },
-      error: () => this.toast.error('Error al modificar la reserva.')
+      error: (err) => {
+        console.error('=== ERROR del backend ===', err);
+        this.toast.error('Error al modificar la reserva.');
+      }
     });
   }
 
