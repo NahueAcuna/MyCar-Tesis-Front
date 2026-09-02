@@ -584,6 +584,42 @@ button.view-all{
     font-size: 24px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #ff8c00; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background-color: rgba(255, 140, 0, 0.1); 
+  transform: translateY(-2px);
+}
+
+.toggle-btn .material-symbols-outlined {
+  font-size: 28px; 
+}
+
+.view-all-container {
+  display: flex;
+  justify-content: flex-end; 
+  width: 100%;
+  margin-top: 15px; 
+  padding-right: 10px; 
+}
+
 
 /* ================= RESPONSIVE ================= */
 
