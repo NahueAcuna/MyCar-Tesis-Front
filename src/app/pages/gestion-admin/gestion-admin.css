@@ -576,6 +576,68 @@
     flex-wrap: wrap;
 }
 
+/* ---- Auto info inside reservation card ---- */
+.reserva-auto-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    background: rgba(255, 140, 0, 0.08);
+    border: 1px solid rgba(255, 140, 0, 0.15);
+    border-radius: 10px;
+}
+
+.reserva-auto-info .material-symbols-outlined {
+    font-size: 22px;
+    color: #ff8c00;
+}
+
+.auto-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+}
+
+.auto-anio {
+    font-size: 12px;
+    color: #888;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: auto;
+}
+
+/* ---- Ver publicación button ---- */
+.btn-ver-publicacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 9px 16px;
+    background: rgba(255, 140, 0, 0.1);
+    border: 1px solid rgba(255, 140, 0, 0.25);
+    border-radius: 10px;
+    color: #ff8c00;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-ver-publicacion:hover {
+    background: rgba(255, 140, 0, 0.2);
+    border-color: #ff8c00;
+    box-shadow: 0 0 12px rgba(255, 140, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.btn-ver-publicacion .material-symbols-outlined {
+    font-size: 18px;
+}
+
 .btn-reserva {
     padding: 7px 14px;
     border: none;

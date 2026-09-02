@@ -5,7 +5,7 @@
   display: flex;
   height: 80vh; /* Ocupa casi toda la pantalla entre el header y el footer */
   max-width: 1200px;
-  margin: 2rem auto;
+  margin: 6rem auto 2rem;
   background-color: #1a1a1a;
   border-radius: 12px;
   border: 1px solid #333;
