@@ -81,6 +81,7 @@ export class GestionAdmin implements OnInit {
   filtroEstado: string = 'TODAS';
   cargandoReservas = false;
   errorReservas = '';
+  reservaToDelete: ReservaResponse | null = null;
 
   constructor(
     private adminService: AdminService, 
@@ -225,16 +226,28 @@ export class GestionAdmin implements OnInit {
   }
 
   eliminarReserva(reserva: ReservaResponse) {
-    if (!confirm(`¿Estás seguro de eliminar la reserva #${reserva.id} de ${reserva.usuarioReserva?.nombre || reserva.usuarioReserva?.email}?`)) {
-      return;
-    }
+    this.reservaToDelete = reserva;
+  }
 
-    this.adminService.eliminarReserva(reserva.id).subscribe({
+  cancelDelete() {
+    this.reservaToDelete = null;
+  }
+
+  executeDelete() {
+    if (!this.reservaToDelete) return;
+
+    const idAEliminar = this.reservaToDelete.id;
+
+    this.adminService.eliminarReserva(idAEliminar).subscribe({
       next: () => {
-        this.reservas = this.reservas.filter(r => r.id !== reserva.id);
-        this.toast.success(`Reserva #${reserva.id} eliminada.`);
+        this.reservas = this.reservas.filter(r => r.id !== idAEliminar);
+        this.toast.success(`Reserva #${idAEliminar} eliminada.`);
+        this.reservaToDelete = null;
       },
-      error: () => this.toast.error('Error al eliminar la reserva.')
+      error: () => {
+        this.toast.error('Error al eliminar la reserva.');
+        this.reservaToDelete = null;
+      }
     });
   }
 
@@ -251,8 +264,12 @@ export class GestionAdmin implements OnInit {
     if (!fecha) return '-';
     const date = new Date(fecha);
     return date.toLocaleDateString('es-AR', {
-      day: '2-digit', month: '2-digit', year: 'numeric',
-      hour: '2-digit', minute: '2-digit'
+      day: '2-digit', 
+      month: '2-digit', 
+      year: 'numeric',
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: false
     });
   }
 }
