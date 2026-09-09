@@ -172,7 +172,13 @@ export class PublicationDetail implements OnInit, OnDestroy {
     this.cargandoPago = true;
     const emailUsuarioLogueado = localStorage.getItem('usuario_email') || '';
     const idActual = Number(this.route.snapshot.params['id']);
-    const fechaParaJava = new Date().toISOString().substring(0, 19);
+    const ahora = new Date();
+    const fechaParaJava = ahora.getFullYear() + '-' +
+      String(ahora.getMonth() + 1).padStart(2, '0') + '-' +
+      String(ahora.getDate()).padStart(2, '0') + 'T' +
+      String(ahora.getHours()).padStart(2, '0') + ':' +
+      String(ahora.getMinutes()).padStart(2, '0') + ':' +
+      String(ahora.getSeconds()).padStart(2, '0');
 
     const reservaRequest: ReservaRequest = {
       idPublicacion: idActual,
