@@ -14,6 +14,8 @@ export class ResetPassword implements OnInit {
   nuevaPassword: string = '';
   confirmarPassword: string = '';
   token: string = '';
+  hidePassword1: boolean = true;
+  hidePassword2: boolean = true;
 
   constructor(private route: ActivatedRoute, private authService: AuthService, private toast: ToastService, private router: Router) {}
 
@@ -48,5 +50,13 @@ export class ResetPassword implements OnInit {
         this.toast.error(error.error || 'Error al restablecer la contraseña. El enlace puede haber expirado.');
       }
     });
+  }
+
+  togglePassword1() {
+    this.hidePassword1 = !this.hidePassword1;
+  }
+
+  togglePassword2() {
+    this.hidePassword2 = !this.hidePassword2;
   }
 }

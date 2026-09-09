@@ -232,4 +232,16 @@
   }
 </div>
 
-
+@if (reservaToDelete !== null) {
+  <div class="modal-overlay-confirm">
+      <div class="modal-content">
+          <span class="material-symbols-outlined warning-icon">warning</span>
+          <h3>Eliminar Reserva</h3>
+          <p>¿Usted desea eliminar la reserva #{{ reservaToDelete.id }} de forma permanente?</p>
+          <div class="modal-actions">
+              <button class="btn-cancelar" (click)="cancelDelete()">Cancelar</button>
+              <button class="btn-aceptar" (click)="executeDelete()">Aceptar</button>
+          </div>
+      </div>
+  </div>
+}

@@ -269,6 +269,85 @@
     box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
 }
 
+.modal-overlay-confirm {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #121212 0%, #1e1104 100%);
+    border: 1px solid #ff8c00;
+    border-radius: 12px;
+    padding: 30px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.warning-icon {
+    font-size: 48px;
+    color: #ff4d4d;
+    margin-bottom: 10px;
+}
+
+.modal-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 22px;
+}
+
+.modal-content p {
+    color: #a5a5a5;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.modal-actions button {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+
+.btn-cancelar {
+    background: transparent;
+    color: #a5a5a5;
+    border: 1px solid #555 !important;
+}
+
+.btn-cancelar:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-aceptar {
+    background: #00c853;
+    color: white;
+}
+
+.btn-aceptar:hover {
+    background: #00a843;
+}
+
+
 /* ================= PROXIMAMENTE ================= */
 .proximamente {
     text-align: center;

@@ -14,7 +14,9 @@ export class ForgotPassword {
   email: string = '';
   cargando: boolean = false;
 
-  constructor(private authService: AuthService, private toast: ToastService, private router: Router){}
+  constructor(private authService: AuthService, private toast: ToastService, private router: Router){
+    
+  }
 
   enviarCorreo() {
     if (!this.email) {
