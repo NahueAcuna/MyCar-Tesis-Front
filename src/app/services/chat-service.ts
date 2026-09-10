@@ -14,10 +14,8 @@ export class ChatService {
   public mensajes$ = this.mensajesSubject.asObservable();
   private mensajesActuales: any[] = [];
 
-
   private noLeidosSubject = new BehaviorSubject<number>(0);
   public cantidadNoLeidos$ = this.noLeidosSubject.asObservable();
-
 
   private baseUrl = environment.apiUrl;
 
@@ -74,6 +72,7 @@ export class ChatService {
     this.mensajesActuales = [];
     this.mensajesSubject.next([]);
   }
+  
   obtenerMisChats(email: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}conversacion/mis-chats?emailUsuario=${email}`);
   }

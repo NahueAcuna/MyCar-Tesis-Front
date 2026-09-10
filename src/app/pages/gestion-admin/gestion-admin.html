@@ -6,7 +6,6 @@
     <p class="subtitle">Administrá publicaciones y reservas de la plataforma</p>
   </div>
 
-  <!-- Tabs -->
   <div class="tabs">
     <button class="tab-btn" [class.active]="tabActivo === 'dashboard'" (click)="cambiarTab('dashboard')">
       Dashboard
@@ -22,7 +21,6 @@
     </button>
   </div>
 
-  <!-- Tab: Dashboard -->
   @if (tabActivo === 'dashboard') {
     <div class="tab-content dashboard-content">
       <h2>Dashboard de <span class="highlight">Estadísticas</span></h2>
@@ -36,7 +34,6 @@
       }
 
       @if (!cargando && !error) {
-        <!-- Metric Cards -->
         <div class="metrics-grid">
           <div class="metric-card">
             <span class="material-symbols-outlined">directions_car</span>
@@ -63,7 +60,6 @@
           </div>
         </div>
 
-        <!-- Charts Grid -->
         <div class="charts-grid">
           <div class="chart-container">
             <h3>Distribución de Publicaciones</h3>
@@ -86,7 +82,6 @@
     </div>
   }
 
-  <!-- Tab: Publicaciones -->
   @if (tabActivo === 'publicaciones') {
     <div class="tab-content">
       <h2>Publicaciones Pendientes</h2>
@@ -134,7 +129,6 @@
     </div>
   }
 
-  <!-- Tab: Reservas -->
   @if (tabActivo === 'reservas') {
     <div class="tab-content">
       <div class="reservas-header">
@@ -173,7 +167,6 @@
             </div>
 
             <div class="reserva-body">
-              <!-- Info del auto -->
               @if (reserva.publicacion?.auto) {
                 <div class="reserva-auto-info">
                   <span class="material-symbols-outlined">directions_car</span>

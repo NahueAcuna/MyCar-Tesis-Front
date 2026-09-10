@@ -80,7 +80,6 @@ export class PublicationForm implements OnInit {
 
           this.publicationData.imagenes.push(e.target.result);
           
-          // Si no hay foto principal o era el placeholder, seteamos esta como vista previa principal
           if (!this.publicationData.fotoUrl || this.publicationData.fotoUrl.includes('placeholder')) {
             this.publicationData.fotoUrl = e.target.result;
           }
@@ -106,16 +105,10 @@ export class PublicationForm implements OnInit {
     }
   }
 
-  // --- MÉTODOS NUEVOS PARA ELIMINAR SELECCIONES ---
-
   eliminarFoto(index: number) {
-    // 1. Eliminamos el objeto File real que se va a enviar
     this.selectedFiles.splice(index, 1);
-    
-    // 2. Eliminamos la previsualización visual (Base64)
     this.publicationData.imagenes.splice(index, 1);
 
-    // 3. Mini Fix: Si eliminamos la foto principal, seteamos la primera disponible o el placeholder
     if (this.publicationData.imagenes.length > 0) {
       this.publicationData.fotoUrl = this.publicationData.imagenes[0];
     } else {
@@ -124,15 +117,11 @@ export class PublicationForm implements OnInit {
   }
 
   eliminarVideo(index: number) {
-    // 1. Eliminamos el objeto File real del video
     this.selectedVideoFiles.splice(index, 1);
-    
-    // 2. Eliminamos la previsualización visual
     this.publicationData.videos.splice(index, 1);
   }
 
  publicarVehiculo() {
-    // Verificar si hay token válido antes de intentar el request
     const token = localStorage.getItem('token');
     if (!token) {
       this.toast.warning('Tu sesión expiró. Por favor, iniciá sesión nuevamente.');
@@ -191,7 +180,6 @@ export class PublicationForm implements OnInit {
     }
   }
 
-  // --- Helpers de estandarización ---
   private titleCase(texto: string): string {
     return texto.trim().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
   }

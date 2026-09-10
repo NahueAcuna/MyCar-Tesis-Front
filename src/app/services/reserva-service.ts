@@ -9,7 +9,6 @@ import { environment } from '../../environments/environment';
 })
 export class ReservaService {
 
-
   readonly URL = `${environment.apiUrl}reserva`;
 
   constructor(private http: HttpClient) {}
@@ -18,7 +17,6 @@ export class ReservaService {
     
     let headers = new HttpHeaders();
     const token = localStorage.getItem('token'); 
-    
 
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);

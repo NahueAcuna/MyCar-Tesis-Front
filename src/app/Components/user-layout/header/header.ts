@@ -33,16 +33,13 @@ export class Header implements AfterViewInit, OnInit, OnDestroy {
     if (this.authService.isLoggedIn()) {
       const email = localStorage.getItem('usuario_email') || '';
       if (email) {
-        // Inicializa el servicio global de notificaciones (WebSocket + polling)
         this.notificationService.init(email);
       }
 
-      // Suscripción al contador de no leídos con teardown automático
       this.notificationService.contadorNoLeidos$
         .pipe(takeUntil(this.destroy$))
         .subscribe(cantidad => this.cantidadNoLeidos = cantidad);
 
-      // Suscripción a notificaciones push para mostrar toast
       this.notificationService.notificacion$
         .pipe(takeUntil(this.destroy$))
         .subscribe(() => {

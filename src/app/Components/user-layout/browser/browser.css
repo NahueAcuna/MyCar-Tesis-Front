@@ -34,13 +34,11 @@ span {
     color: transparent; 
 }
 
-/*-- Las Cajas --*/
-
-
 #boxes{
     display: flex;
     gap: 30px;
 }
+
 #boxes .box{
     display: flex;
     flex-direction: column;
@@ -56,6 +54,7 @@ span {
     padding: 15px 15px 0 15px;
     transition: 0.4s ease-in-out;
 }
+
 #call_btn{
     display: flex;
     flex-direction: column;
@@ -66,39 +65,29 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-
     border-radius: 24px;
-
     border: 1px solid #a16817;
     background: linear-gradient(135deg, #180b02 5%, #683a0c);
     border: 1px solid rgba(255,255,255,0.08);
-
     text-decoration: none;
-
     box-shadow:
     0 10px 25px rgba(255,140,0,0.22),
     inset 0 1px 0 rgba(255,255,255,0.2);
-
     position: relative;
     overflow: hidden;
-
     transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
     filter 0.25s ease;
 }
 
-
 #call_btn::before{
     content: '';
-
     position: absolute;
     top: -40%;
     left: -120%;
-
     width: 80%;
     height: 180%;
-
     background:
     linear-gradient(
         90deg,
@@ -106,11 +95,10 @@ span {
         rgba(255,255,255,0.35),
         transparent
     );
-
     transform: rotate(25deg);
-
     animation: shineLoop 4s ease-in-out infinite;
 }
+
 #call_btn p{
     color:white;
     font-size: 14px;
@@ -123,11 +111,9 @@ span {
 
 #call_btn:hover{
     transform: translateY(-4px);
-
     box-shadow:
     0 16px 35px rgba(255,140,0,0.35),
     inset 0 1px 0 rgba(255,255,255,0.25);
-
     filter: brightness(1.05);
 }
 
@@ -144,11 +130,9 @@ span {
 #call_icon span{
     font-size: 38px !important;
     color: orange !important;
-
     background: none !important;
     -webkit-background-clip: unset !important;
     background-clip: unset !important;
-
     transition:
     transform 0.25s ease;
 }
@@ -156,28 +140,34 @@ span {
 #call_btn:hover #call_icon span{
     transform: scale(1.08) rotate(-8deg);
 }
+
 #boxes div:hover{
     transform: translateY(-2px);
 }
+
 #boxes div span{
     font-size: 45px;
     margin-bottom: 10px;
 }
+
 #boxes div p{
     position: relative;
 }
+
 #boxes div p::before{
-position: absolute;
-content: '';
-width: 130px;
-border-top: 2px solid orange;
-left: 50%;
-transform: translateX(-50%);
-top: -15%;
+    position: absolute;
+    content: '';
+    width: 130px;
+    border-top: 2px solid orange;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -15%;
 }
+
 .plus{
     font-size: 25px !important;
 }
+
 #arrow{
     position: absolute;
     bottom:1%;
@@ -187,6 +177,7 @@ top: -15%;
     animation: flecha 0.8s infinite ease-in-out alternate;
     color: #4b4b4b;
 }
+
 #location_icon{
     display: flex;
     position: absolute;
@@ -199,11 +190,13 @@ top: -15%;
     text-decoration: none;
     transition: 0.3s ease;
 }
+
 #location_icon:hover{
     color: orange;
 }
+
 #location_icon span{
-font-size: 44px;
+    font-size: 44px;
     color: orange;
 }
 
@@ -216,6 +209,7 @@ font-size: 44px;
         opacity: 0.5;
     }
 }
+
 @keyframes shineLoop{
 
     0%{
@@ -241,8 +235,6 @@ font-size: 44px;
         left: 140%;
     }
 }
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width: 768px){
     #title{

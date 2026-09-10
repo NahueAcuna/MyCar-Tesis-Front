@@ -29,7 +29,6 @@ export class PublicationDetail implements OnInit, OnDestroy {
   cargandoPago: boolean = false;
   esDeMarketplace: boolean = false; 
 
-  // --- VARIABLES DEL CHAT ---
   listaDeMensajes: any[] = [];
   nuevoMensaje: string = '';
   emailUsuarioActual: string = '';
@@ -90,15 +89,12 @@ export class PublicationDetail implements OnInit, OnDestroy {
     this.chatService.desconectar();
   }
 
-  // --- FUNCIÓN PARA ENVIAR EL MENSAJE ---
    enviarMensajeChat() {
     if (!this.nuevoMensaje.trim() || this.conversacionIdActual === 0) return; 
     
-   
     this.chatService.enviarMensaje(this.conversacionIdActual, this.emailUsuarioActual, this.nuevoMensaje);
     this.nuevoMensaje = ''; 
   }
-
 
   onMouseMove(event: MouseEvent) {
     const element = event.target as HTMLElement;
@@ -209,7 +205,6 @@ export class PublicationDetail implements OnInit, OnDestroy {
 
   formatearNumero(valor: number | string | undefined | null): string {
     if (valor === undefined || valor === null || valor === '') return '0';
-    // toLocaleString('es-AR') le pone el punto a los miles automáticamente
     return Number(valor).toLocaleString('es-AR');
   }
 }

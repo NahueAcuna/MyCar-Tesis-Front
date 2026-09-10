@@ -11,8 +11,6 @@
     color: white;
 }
 
-/* ================= OVERLAY ================= */
-
 .overlay{
     position: absolute;
     inset: 0;
@@ -20,7 +18,6 @@
     z-index: 1;
 }
 
-/* ================= GRID DE FAVORITOS ================= */
 .post-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 360px)); 
@@ -31,7 +28,6 @@
     z-index: 2;
 }
 
-/* ================= CARD (Estilo Inventory) ================= */
 .car_publication {
     display: flex;
     flex-direction: column;
@@ -58,7 +54,6 @@
     object-fit: cover;
 }
 
-/* --- INFORMACIÓN INTERNA --- */
 .information {
     display: flex;
     flex-direction: column;
@@ -111,7 +106,6 @@
     font-size: 14px;
 }
 
-/* --- BOTÓN FAVORITO (CORAZÓN) --- */
 .car_publication button.btn-fav {
     padding: 0;
     border: none;
@@ -135,8 +129,6 @@
     color: #ff8c00; 
     font-variation-settings: 'FILL' 1;
 }
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width: 1200px){
     .post-container{

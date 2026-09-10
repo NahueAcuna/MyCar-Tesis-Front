@@ -80,7 +80,6 @@ export class AuthService {
     });
   }
 
-  // Nuevo recuperar cuenta //
   olvidePassword(email: string): Observable<any> {
     return this.http.post(`${this.url}/olvide-password`, { email });
   }

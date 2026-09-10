@@ -4,7 +4,6 @@
     color: white;
 }
 
-/* ================= HEADER ================= */
 .page-header {
     margin-bottom: 40px;
     border-bottom: 1px solid rgba(255, 140, 0, 0.2);
@@ -35,7 +34,6 @@
     margin-left: 55px; 
 }
 
-/* ================= GRID DE RESERVAS ================= */
 .reservas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -121,12 +119,10 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-
 .status.PENDIENTE { background: rgba(255, 140, 0, 0.2); color: orange; }
 .status.ACEPTADA { background: rgba(0, 200, 83, 0.2); color: #00c853; }
 .status.RECHAZADA, .status.CANCELADA { background: rgba(255, 80, 80, 0.2); color: #ff5050; }
 
-/* ================= EMPTY STATE ================= */
 .empty-state {
     display: flex;
     flex-direction: column;
@@ -170,7 +166,6 @@
     box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
 }
 
-/* ================= RESPONSIVE ================= */
 @media(max-width: 768px) {
     .reservas-page {
         padding: 100px 20px 40px;
