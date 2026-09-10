@@ -92,4 +92,9 @@ export class MyPosts implements OnInit {
   editPost(id: number) {
     this.router.navigate(['/editar', id]);
   }
+
+  formatearNumero(valor: number | string | undefined | null): string {
+    if (valor === undefined || valor === null || valor === '') return '0';
+    return Number(valor).toLocaleString('es-AR');
+  }
 }

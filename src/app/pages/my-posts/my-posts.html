@@ -14,7 +14,7 @@
                     
                     <div class="name_price">
                         <p>{{ post.auto.marca }} {{ post.auto.modelo }}</p>
-                        <span>${{ post.auto.precio | number:'1.0-0' }}</span>
+                        <span>${{ formatearNumero(post.auto.precio) }}</span>
                     </div>
                     
                     <div class="info-footer">
