@@ -93,7 +93,7 @@
               <div class="post-info">
                 <h3>{{ post.auto.marca }} {{ post.auto.modelo }}</h3>
                 <p class="year-km">{{ post.auto.anio }} - {{ post.auto.km }} km</p>
-                <p class="price">${{ post.auto.precio }}</p>
+                <p class="price">${{ formatearNumero(post.auto.precio) }}</p>
                 <div class="status">
                   {{ post.estado }}
                 </div>
@@ -191,7 +191,7 @@
                 </p>
 
                 <p class="price">
-                  ${{ favorite.auto.precio | number:'1.0-0' }}
+                  ${{ formatearNumero(favorite.auto.precio) }}
                 </p>
               </div>
             </div>

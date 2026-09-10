@@ -217,4 +217,9 @@ export class Profile implements OnInit, OnDestroy {
       });
     }
   }
+
+  formatearNumero(valor: number | string | undefined | null): string {
+    if (valor === undefined || valor === null || valor === '') return '0';
+    return Number(valor).toLocaleString('es-AR');
+  }
 }
