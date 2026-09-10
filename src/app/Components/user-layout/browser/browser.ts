@@ -8,7 +8,6 @@ import { DOCUMENT } from '@angular/common';
   styleUrl: './browser.css',
 })
 export class Browser implements OnInit {
-  // Variables que arrancan en 0
   expCount: number = 0;
   clientesCount: number = 0;
 
@@ -25,8 +24,6 @@ export class Browser implements OnInit {
 
   animarContadores() {
     const duracion = 2000;
-
-   
     const targetExp = 10;
     const tiempoPasoExp = Math.abs(Math.floor(duracion / targetExp));
     

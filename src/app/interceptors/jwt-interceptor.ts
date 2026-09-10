@@ -34,9 +34,6 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.status === 401) {
         const tokenActual = localStorage.getItem('token');
 
-        // Solo cerrar sesión si el token está realmente expirado o ausente.
-        // Si el token sigue siendo válido, el 401 es por otra razón (permisos,
-        // endpoint específico, etc.) y NO debemos destruir la sesión.
         if (!tokenActual || isTokenExpired(tokenActual)) {
           console.warn('[JWT Interceptor] Token expirado o ausente. Cerrando sesión...');
           localStorage.removeItem('token');

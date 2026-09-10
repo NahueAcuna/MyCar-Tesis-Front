@@ -109,19 +109,15 @@ export class GestionAdmin implements OnInit {
       estadisticas: this.adminService.getEstadisticas()
     }).subscribe({
       next: (res) => {
-        // Pendientes data
         this.publicacionesPendientes = res.pendientes;
         
-        // Use stats from backend
         const stats = res.estadisticas;
         this.totalPendientes = stats.pendientes || 0;
         this.totalConcesionaria = stats.concesionaria || 0;
         this.totalComunidad = stats.usuario || 0;
 
-        // Update Pie Chart
         this.pieChartData.datasets[0].data = [this.totalConcesionaria, this.totalComunidad];
         
-        // Update Bar Chart (Top Marcas)
         if (stats.topMarcas) {
           const marcas = Object.keys(stats.topMarcas);
           const counts = Object.values(stats.topMarcas) as number[];
@@ -129,7 +125,6 @@ export class GestionAdmin implements OnInit {
           this.barChartData.datasets[0].data = counts;
         }
 
-        // Force chart update assignment hack for ng2-charts change detection
         this.pieChartData = { ...this.pieChartData };
         this.barChartData = { ...this.barChartData };
 

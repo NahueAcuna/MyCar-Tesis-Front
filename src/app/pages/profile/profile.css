@@ -1,5 +1,3 @@
-/* ================= PAGE ================= */
-
 .profile-page{
     position: relative;
     min-height: 100vh;
@@ -11,8 +9,6 @@
     color: white;
 }
 
-/* ================= OVERLAY ================= */
-
 .overlay{
     position: absolute;
     inset: 0;
@@ -20,14 +16,10 @@
     z-index: 1;
 }
 
-/* ================= CONTENT ================= */
-
 .left-content, .right-content{
     position: relative;
     z-index: 2;
 }
-
-/* ================= LEFT PANEL ================= */
 
 .left-content{
     width: 380px;
@@ -41,8 +33,6 @@
     
 }
 
-/* ================= USER NAME ================= */
-
 .left-content p{
     font-size: 34px;
     font-weight: 800;
@@ -51,16 +41,12 @@
     text-align: center;
 }
 
-/* ================= LINE ================= */
-
 .line{
     width: 100%;
     height: 2px;
     background: rgba(255,255,255,0.08);
     margin: 25px 0;
 }
-
-/* ================= EMAIL ================= */
 
 .email-box{
     display: flex;
@@ -86,8 +72,6 @@
     color: orange;
     font-size: 22px;
 }
-
-/* ================= POSTS / RESERVATIONS ================= */
 
 .pr-box{
     background: rgba(255,255,255,0.04);
@@ -119,8 +103,6 @@
     font-size: 22px;
     font-weight: 500;
 }
-
-/* ================= ACTION BUTTONS ================= */
 
 .action-btn {
     display: flex;
@@ -157,8 +139,6 @@
     background: rgba(255,80,80,0.08);
 }
 
-/* ================= CHAT BADGE ================= */
-
 .chat-action{
     position: relative;
 }
@@ -194,8 +174,6 @@
     flex-direction: column;
     gap: 16px;
 }
-
-/* ================= WELCOME ================= */
 
 .welcome {
     position: relative; 
@@ -242,8 +220,6 @@
     color: orange;
 }
 
-/* ================= WELCOME IMAGE ================= */
-
 .welcome-image {
     position: absolute; 
     top: 0;
@@ -262,8 +238,6 @@
     mask-image: linear-gradient(to right, transparent 0%, black 40%);
 }
 
-/* ================= SECTIONS ================= */
-
 .my-post, .my-reservations, .my-favorite{
     background: rgba(0,0,0,0.60);
     border: 1px solid rgba(255,140,0,0.35);
@@ -277,8 +251,6 @@
     color: orange;
 }
 
-/* ================= TITLES ================= */
-
 .my-post h2, .my-reservations h2, .my-favorite h2{
     margin: 0;
     color: white;
@@ -291,8 +263,6 @@
     vertical-align: middle;
 }
 
-/* ================= POSTS ================= */
-
 .my-post{
     background: rgba(0,0,0,0.60);
     border: 1px solid rgba(255,140,0,0.35);
@@ -300,8 +270,6 @@
     padding: 30px;
     backdrop-filter: blur(10px);
 }
-
-/* ================= HEADER ================= */
 
 .section-header{
     display: flex;
@@ -326,8 +294,6 @@
     font-size: 30px;
     color: white;
 }
-
-/* ================= VIEW ALL ================= */
 
 .view-all{
     display: flex;
@@ -368,15 +334,11 @@ button.view-all{
     outline: none;
 }
 
-/* ================= POST CONTAINER ================= */
-
 .post-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 22px;
 }
-
-/* ================= POST CARD ================= */
 
 .post-card{
     display: flex;
@@ -397,8 +359,6 @@ button.view-all{
     box-shadow: 0 0 20px rgba(255,140,0,0.10);
 }
 
-/* ================= IMAGE ================= */
-
 .post-img-container {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -416,8 +376,6 @@ button.view-all{
     height: 100%;
     object-fit: contain;
 }
-
-/* ================= INFO ================= */
 
 .post-info{
     display: flex;
@@ -450,8 +408,6 @@ button.view-all{
     font-size: 13px;
     font-weight: 700;
 }
-
-/* ================= CUSTOM MODAL ================= */
 
 .custom-modal-overlay {
     position: fixed;
@@ -566,8 +522,6 @@ button.view-all{
     box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
 }
 
-/* ================= VALIDACIONES ================= */
-
 .custom-modal p.msjError {
     color: #ff4d4d;
     font-size: 13px;
@@ -582,8 +536,6 @@ button.view-all{
     cursor: not-allowed;
     transform: none;
 }
-
-
 
 .fav-header {
     display: flex;
@@ -610,7 +562,6 @@ button.view-all{
     font-size: 24px;
 }
 
-/* ================= MODAL ADVERTENCIA (ELIMINAR) ================= */
 .warning-modal {
   border: 1px solid #ff8c00; 
   text-align: center;
@@ -673,18 +624,16 @@ button.view-all{
   background-color: #00e676; 
 }
 
-/* Contenedor para alinear Ver todas y la flecha */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 15px; /* Espacio entre el enlace y el botón desplegable */
+  gap: 15px; 
 }
 
-/* Estilo para el botón de la flecha */
 .toggle-btn {
   background: none;
   border: none;
-  color: #ff8c00; /* Naranja característico de tu diseño */
+  color: #ff8c00; 
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -695,25 +644,21 @@ button.view-all{
 }
 
 .toggle-btn:hover {
-  background-color: rgba(255, 140, 0, 0.1); /* Efecto sutil al pasar el mouse */
+  background-color: rgba(255, 140, 0, 0.1); 
   transform: translateY(-2px);
 }
 
 .toggle-btn .material-symbols-outlined {
-  font-size: 28px; /* Tamaño de la flecha */
+  font-size: 28px;
 }
 
-/* Contenedor para alinear el botón Ver Todas abajo a la derecha */
 .view-all-container {
   display: flex;
-  justify-content: flex-end; /* Empuja el botón a la derecha */
+  justify-content: flex-end; 
   width: 100%;
-  margin-top: 15px; /* Separación con las tarjetas de los autos */
-  padding-right: 10px; /* Un pequeño margen para que no toque el borde exacto */
+  margin-top: 15px; 
+  padding-right: 10px; 
 }
-
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width: 1200px){
 

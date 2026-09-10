@@ -11,8 +11,6 @@
     color: white;
 }
 
-/* ================= OVERLAY ================= */
-
 .overlay{
     position: absolute;
     inset: 0;
@@ -20,7 +18,6 @@
     z-index: 1;
 }
 
-/* ================= GRID DE PUBLICACIONES ================= */
 .post-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 360px)); 
@@ -32,7 +29,6 @@
     align-content: start;
 }
 
-/* ================= CARD IGUAL AL INVENTORY ================= */
 .car_publication {
     display: flex;
     flex-direction: column;
@@ -60,7 +56,6 @@
     object-fit: cover;
 }
 
-/* --- INFORMACIÓN INTERNA --- */
 .information {
     display: flex;
     flex-direction: column;
@@ -113,7 +108,6 @@
     font-size: 14px;
 }
 
-/* ================= BOTONES DE ACCIÓN (EDITAR / ELIMINAR) ================= */
 .action-buttons {
     display: flex;
     justify-content: center;
@@ -160,7 +154,6 @@
     font-size: 18px;
 }
 
-/* ================= MODAL DE CONFIRMACIÓN ================= */
 .modal-overlay-confirm {
     position: fixed;
     top: 0;
@@ -239,7 +232,6 @@
     background: #00a843;
 }
 
-/* ================= ESTADO ESTILO MIS RESERVAS ================= */
 .status-badge {
     padding: 6px 14px;
     border-radius: 30px; 
@@ -269,8 +261,6 @@
     color: #ff5050; 
     border: none;
 }
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width: 1200px){
 

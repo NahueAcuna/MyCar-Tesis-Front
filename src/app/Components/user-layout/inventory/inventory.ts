@@ -16,7 +16,6 @@ import { ToastService } from '../../../services/toast-service';
   styleUrl: './inventory.css',
 })
 export class Inventory implements OnInit {
-
   isSearchShowed: Boolean = false;
 
   publications: PublicationResponse[] = [];
@@ -29,17 +28,14 @@ export class Inventory implements OnInit {
   precioMaximo: number = 1000000;
   
   miEmail: string = '';
-
-  // --- ARRAY DE FAVORITOS ---
+  
   misFavoritosIds: number[] = [];
 
   isLoggedIn: boolean = false;
 
-  // --- VARIABLES DE PAGINACIÓN ---
   currentPage: number = 1; 
   itemsPerPage: number = 6;
 
-  // --- GETTERS DE PAGINACIÓN ---
   get totalPages(): number {
     return Math.ceil(this.filteredPublications.length / this.itemsPerPage);
   }
@@ -68,7 +64,6 @@ export class Inventory implements OnInit {
   constructor(private publicationService: PublicationService, public router: Router, public profileService: ProfileService, private authService: AuthService, private toast: ToastService) {
     this.made = new FormControl('');
     this.model = new FormControl('');
-    // Reemplazamos 'anio' por un rango
     this.minAnio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
     this.maxAnio = new FormControl('', [Validators.min(1950), Validators.max(2026)]);
     
@@ -86,7 +81,7 @@ export class Inventory implements OnInit {
       maxPrice: this.maxPrice,
       minKm: this.minKm,
       maxKm: this.maxKm
-    }, { validators: [this.rangoKmValidator, this.rangoAnioValidator] }); // Agregamos ambos validadores
+    }, { validators: [this.rangoKmValidator, this.rangoAnioValidator] }); 
   }
 
   ngOnInit(): void {
@@ -104,7 +99,6 @@ export class Inventory implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn();
   }
 
-  // --- VALIDADORES PERSONALIZADOS ---
   rangoKmValidator(control: AbstractControl): ValidationErrors | null {
     const min = control.get('minKm')?.value;
     const max = control.get('maxKm')?.value;
@@ -134,8 +128,6 @@ export class Inventory implements OnInit {
       next: (data) => {
         this.publications = data;
         this.filteredPublications = data;
-        
-        // Limpiamos los arrays para evitar basura
         this.mades = [];
         this.models = [];
 
@@ -251,18 +243,18 @@ export class Inventory implements OnInit {
         return false;
       }
 
-      // --- FILTRO DE RANGO DE AÑO ---
       if (filters.minAnio != null && filters.minAnio !== "" && car.anio < filters.minAnio) {
         return false;
       }
+
       if (filters.maxAnio != null && filters.maxAnio !== "" && car.anio > filters.maxAnio) {
         return false;
       }
 
-      // --- FILTRO DE KILOMETRAJE ---
       if (filters.minKm != null && filters.minKm !== "" && car.km < filters.minKm) {
         return false;
       }
+
       if (filters.maxKm != null && filters.maxKm !== "" && car.km > filters.maxKm) {
         return false;
       }
@@ -290,7 +282,6 @@ export class Inventory implements OnInit {
     this.currentPage = 1; 
   }
 
-  // --- FUNCIONES DE BOTONES DE PAGINACIÓN ---
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -303,7 +294,6 @@ export class Inventory implements OnInit {
     }
   }
 
-  // --- LÓGICA DE FAVORITOS ---
   cargarFavoritos() {
     this.profileService.getFavoritos().subscribe({
       next: (data) => {
@@ -347,7 +337,6 @@ export class Inventory implements OnInit {
 
   formatearNumero(valor: number | string | undefined | null): string {
     if (valor === undefined || valor === null || valor === '') return '0';
-    // toLocaleString('es-AR') le pone el punto a los miles automáticamente
     return Number(valor).toLocaleString('es-AR');
   }
 }

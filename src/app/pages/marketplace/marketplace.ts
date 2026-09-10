@@ -130,29 +130,25 @@ export class Marketplace implements OnInit {
       next: (data) => {
         this.publications = data;
         this.filteredPublications = data;
-        
-        // Limpiamos los arrays para evitar basura
         this.mades = [];
         this.models = [];
 
         data.forEach(p => {
           const marcaLimpia = p.auto.marca.trim();
           const modeloLimpio = p.auto.modelo.trim();
-
-          // Evitar marcas duplicadas por mayúsculas o espacios
           const marcaExiste = this.mades.some(m => m.toLowerCase() === marcaLimpia.toLowerCase());
+
           if (!marcaExiste && marcaLimpia !== '') {
             this.mades.push(marcaLimpia);
           }
           
-          // Evitar modelos duplicados
           const modeloExiste = this.models.some(m => m.toLowerCase() === modeloLimpio.toLowerCase());
+
           if (!modeloExiste && modeloLimpio !== '') {
             this.models.push(modeloLimpio);
           }
         });
 
-        // Ordenamos alfabéticamente
         this.mades.sort();
         this.models.sort();
       }
@@ -235,18 +231,18 @@ export class Marketplace implements OnInit {
         return false;
       }
 
-      // --- FILTRO DE RANGO DE AÑO ---
       if (filters.minAnio != null && filters.minAnio !== "" && car.anio < filters.minAnio) {
         return false;
       }
+
       if (filters.maxAnio != null && filters.maxAnio !== "" && car.anio > filters.maxAnio) {
         return false;
       }
 
-      // --- FILTRO DE KILOMETRAJE ---
       if (filters.minKm != null && filters.minKm !== "" && car.km < filters.minKm) {
         return false;
       }
+
       if (filters.maxKm != null && filters.maxKm !== "" && car.km > filters.maxKm) {
         return false;
       }
@@ -274,7 +270,6 @@ export class Marketplace implements OnInit {
     this.currentPage = 1; 
   }
 
-  // --- FUNCIONES DE BOTONES DE PAGINACIÓN ---
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -299,7 +294,6 @@ export class Marketplace implements OnInit {
     return 'http://localhost:8080' + url;
   }
 
-  // --- MÉTODOS DE FAVORITOS ---
   cargarFavoritos() {
     this.profileService.getFavoritos().subscribe({
       next: (data) => {
@@ -346,7 +340,6 @@ export class Marketplace implements OnInit {
 
   formatearNumero(valor: number | string | undefined | null): string {
     if (valor === undefined || valor === null || valor === '') return '0';
-    // toLocaleString('es-AR') le pone el punto a los miles automáticamente
     return Number(valor).toLocaleString('es-AR');
   }
 }

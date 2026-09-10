@@ -13,11 +13,8 @@
     align-items: center;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
     text-decoration: none; 
- 
-    
     transition: all 0.3s ease; 
 }
-
 
 .whatsapp-flotante::before {
     content: ''; 
@@ -52,7 +49,8 @@
         opacity: 0;
     }
 }
+
 .material-symbols-outlined{
-color: wheat;
-font-size: 40px;
+    color: wheat;
+    font-size: 40px;
 }

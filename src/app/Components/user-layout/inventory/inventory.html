@@ -110,9 +110,7 @@
       </form>
 
       <div id="publications">
-        <!-- CONTENEDOR NUEVO PARA ALINEAR BÚSQUEDA Y PAGINACIÓN -->
         <div id="top-bar">
-          <!-- 1. Barra de Búsqueda -->
           <div id="search" [class.open]="isSearchShowed">
             <button (click)="switchSearchView()">
               <span class="material-symbols-outlined"> search </span>
@@ -120,7 +118,6 @@
             <input #searchInput type="text" (input)="onSearch($event)" name="" id="" />
           </div>
 
-          <!-- 2. Paginación -->
           <div id="pagination">
             <button (click)="prevPage()" [disabled]="currentPage === 1">
               <span class="material-symbols-outlined">chevron_left</span> Anterior

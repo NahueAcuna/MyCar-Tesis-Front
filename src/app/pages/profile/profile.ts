@@ -54,7 +54,6 @@ export class Profile implements OnInit, OnDestroy {
     this.myReservation();
     this.cargarFavoritos();
 
-    // Suscripción al contador de mensajes no leídos con teardown automático
     this.notificationService.contadorNoLeidos$
       .pipe(takeUntil(this.destroy$))
       .subscribe(cantidad => this.cantidadNoLeidos = cantidad);

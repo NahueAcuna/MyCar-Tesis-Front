@@ -4,21 +4,24 @@ h1{
     font-size: 58px;
     font-weight: 800;
 }
+
 h1 span{
     background: linear-gradient(to bottom, #ffb347 0%, #ffe5b4 20%, #ff8c00 50%, #1a1a1a 80%, #000000 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent; 
 }
+
 #total_container {
     
 }
+
 #inventory{
     display: flex;
     gap: 20px;
     padding: 100px;
 }
-/* ================= FILTROS ================= */
+
 #filters {
     display: flex;
     flex-direction: column;
@@ -32,7 +35,7 @@ h1 span{
     gap: 24px;
     height: fit-content;
     position: sticky;
-    top: 100px; /* Hace que el filtro acompañe al hacer scroll */
+    top: 100px; 
 }
 
 #header-filter {
@@ -80,7 +83,6 @@ h1 span{
     font-size: 18px;
 }
 
-/* --- INPUTS Y SELECTS --- */
 .input_filter {
     display: flex;
     flex-direction: column;
@@ -121,7 +123,6 @@ h1 span{
     color: #555;
 }
 
-/* Contenedor relativo para poner el ícono sobre el select */
 .select-wrapper {
     position: relative;
     width: 100%;
@@ -133,10 +134,9 @@ h1 span{
     top: 50%;
     transform: translateY(-50%);
     color: #888;
-    pointer-events: none; /* Para que no bloquee el click al select */
+    pointer-events: none; 
 }
 
-/* --- RANGOS DE PRECIO --- */
 .range-group {
     display: flex;
     flex-direction: column;
@@ -165,7 +165,6 @@ h1 span{
     font-size: 14px;
 }
 
-
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
@@ -193,8 +192,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transform: scale(1.2);
 }
 
-/* --- KILOMETRAJE --- */
-
 #kilometraje, #rango-anio {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -212,7 +209,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     color: #ccc;
 }
 
-/* --- BOTÓN APLICAR --- */
 #btn-apply {
     margin-top: 10px;
     padding: 14px;
@@ -246,7 +242,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     flex: 1;
     min-width: 0;
 }
-/* //////// Boton de busqueda //////// */ 
 
 #search{
     display: flex;
@@ -262,6 +257,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     align-items: center;
     width: fit-content;
 }
+
 #search button{
     width: 43px;
     height: 43px;
@@ -271,6 +267,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     cursor: pointer;
     color: wheat;
 }
+
 #search input{
     height: 30px;
     width: 0;
@@ -282,11 +279,13 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transition: 0.8s ease-in-out;
     border: 1px solid #472504;
 }
+
 #search input:focus{
      border: 1px solid #472504;
      box-shadow: 0 0 1px #5e3206;
      outline: none; 
 }
+
  #search .material-symbols-outlined{
     font-size: 28px;
 }
@@ -296,6 +295,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     padding: 10px;
     opacity: 1;
 }
+
 #search.open{
     padding-right: 5px;
     gap: 5px;
@@ -306,6 +306,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     grid-template-columns: repeat(3, 380px);
     gap: 40px;
 }
+
 .car_publication{
     display: flex;
     flex-direction: column;
@@ -318,9 +319,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transition: 0.4s;
     gap: 10px;
 }
+
 .car_publication:hover{
     box-shadow: -4px 3px 32px #693806;
 }
+
 .car_publication img{
     width: 100%;
     height: 190px;
@@ -328,14 +331,12 @@ input[type="range"]::-webkit-slider-thumb:hover {
     object-fit: cover;
 }
 
-
 #information {
     display: flex;
     flex-direction: column; 
     gap: 12px; 
     width: 100%;
 }
-
 
 #name_price {
     display: flex;
@@ -361,7 +362,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     text-align: right;
 }
 
-
 .info-footer {
     display: flex;
     flex-direction: row;
@@ -381,7 +381,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
     margin: 0;
     font-size: 14px;
 }
-/* -------------------------------------------------------- */
 
 .car_publication button{
     padding: 5px 10px 5px 10px;
@@ -393,9 +392,11 @@ input[type="range"]::-webkit-slider-thumb:hover {
     cursor: pointer;
     transition: 0.4s ease-in-out;
 }
+
 .car_publication button:hover{
     background-image: linear-gradient(to right, #241203 32%, #965412);
 }
+
 input[type="range"] {
   accent-color: #ff8c00; 
 }
@@ -407,7 +408,6 @@ input[type="range"] {
     width: 100%;
     margin-bottom: 20px;
 }
-
 
 #pagination {
     display: flex;
@@ -452,8 +452,6 @@ input[type="range"] {
     font-size: 18px; 
 }
 
-
-
 .car_publication button.btn-fav {
     padding: 0;
     border: none;
@@ -480,7 +478,7 @@ input[type="range"] {
     color: #ff8c00; 
     font-variation-settings: 'FILL' 1; 
 }
-/* ================= ALERTAS DE ERROR FACHERAS ================= */
+
 .error-box {
     display: flex;
     align-items: center;
@@ -491,8 +489,6 @@ input[type="range"] {
     padding: 10px 12px;
     border-radius: 6px;
     margin-top: 5px;
-    
-    /* Animación de entrada fluida */
     opacity: 0;
     transform: translateY(-5px);
     animation: slideInError 0.3s ease-out forwards;
@@ -517,7 +513,6 @@ input[type="range"] {
     }
 }
 
-/* ================= BOTÓN DESHABILITADO ================= */
 #filters button:disabled {
     background: #1a0e05;
     border: 1px solid #3d2310;
@@ -526,8 +521,6 @@ input[type="range"] {
     box-shadow: none;
     transform: none;
 }
-
-/* ================= RESPONSIVE ================= */
 
 @media(max-width: 1200px){
     #inventory{

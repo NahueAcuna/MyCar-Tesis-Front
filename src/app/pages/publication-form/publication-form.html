@@ -48,15 +48,17 @@
       <div class="input-group" style="width: 100%;">
         <div class="label-header">
           <label>Descripción</label>
-          <span class="char-counter" [class.limit-warning]="(publicationData.descripcion?.length || 0) >= 450">
-            {{ publicationData.descripcion?.length || 0 }}/500 caracteres
+          <span class="char-counter" [class.limit-warning]="(publicationData.descripcion?.length || 0) >= 1000">
+            {{ publicationData.descripcion?.length || 0 }}/1000 caracteres
           </span>
         </div>
         <textarea placeholder="Describe el estado general del vehículo..." [(ngModel)]="publicationData.descripcion"
-          rows="3" maxlength="500"></textarea>
+          rows="3" maxlength="1000"></textarea>
       </div>
     </div>
-    <p class="error-msg" *ngIf="errorMessage && mostrarPagina1">{{ errorMessage }}</p>
+    @if (errorMessage && mostrarPagina1) {
+      <p class="error-msg">{{ errorMessage }}</p>
+    }
     <div class="form-actions">
       <button class="btn secondary" (click)="cancelar()">Cancelar</button>
       <button class="btn primary" (click)="irAPagina2()">Continuar</button>
@@ -109,7 +111,9 @@
         <input type="number" placeholder="Ej: 2021" [(ngModel)]="publicationData.anio" (keyup.enter)="irAPagina3()">
       </div>
     </div>
-    <p class="error-msg" *ngIf="errorMessage && mostrarPagina2">{{ errorMessage }}</p>
+    @if (errorMessage && mostrarPagina2) {
+      <p class="error-msg">{{ errorMessage }}</p>
+    }
     <div class="form-actions">
       <button class="btn secondary" (click)="irAPagina1()">Atrás</button>
       <button class="btn primary" (click)="irAPagina3()">Continuar</button>
@@ -128,11 +132,9 @@
       @if (publicationData.imagenes.length > 0) {
       <div class="media-preview">
         @for (img of publicationData.imagenes; track img; let i = $index) {
-          <!-- Envolvemos en un contenedor relativo -->
           <div class="preview-container">
             <img [src]="img" class="media-thumb" alt="Vista previa de foto">
             
-            <!-- Botón de eliminar (cruz) -->
             <button type="button" class="btn-delete-media" (click)="eliminarFoto(i)" title="Eliminar foto">
               <span class="material-symbols-outlined">close</span>
             </button>
@@ -147,11 +149,9 @@
       @if (publicationData.videos.length > 0) {
       <div class="media-preview">
         @for (vid of publicationData.videos; track vid; let i = $index) {
-          <!-- Envolvemos en un contenedor relativo -->
           <div class="preview-container">
             <video [src]="vid" class="media-thumb" controls muted></video>
             
-            <!-- Botón de eliminar (cruz) -->
             <button type="button" class="btn-delete-media" (click)="eliminarVideo(i)" title="Eliminar video">
               <span class="material-symbols-outlined">close</span>
             </button>
@@ -164,7 +164,9 @@
         <input type="number" placeholder="Ej: 25000" [(ngModel)]="publicationData.precio" (keyup.enter)="irAPagina4()">
       </div>
     </div>
-    <p class="error-msg" *ngIf="errorMessage && mostrarPagina3">{{ errorMessage }}</p>
+    @if (errorMessage && mostrarPagina3) {
+      <p class="error-msg">{{ errorMessage }}</p>
+    }
     <div class="form-actions">
       <button class="btn secondary" (click)="irAPagina2()">Atrás</button>
       <button class="btn primary" (click)="irAPagina4()">Continuar</button>
