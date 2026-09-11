@@ -203,9 +203,13 @@
 
     <div class="form-actions">
       <button class="btn secondary" (click)="irAPagina3()">Modificar</button>
-      <button class="btn primary" (click)="publicarVehiculo()">
-        {{ editMode ? 'Guardar Cambios' : 'Publicar Vehículo' }}
-      </button>
+      <button class="btn primary" (click)="publicarVehiculo()" [disabled]="cargandoPublicacion">
+  @if (cargandoPublicacion) {
+    <span>Cargando publicación...</span>
+  } @else {
+    <span>{{ editMode ? 'Guardar Cambios' : 'Publicar Vehículo' }}</span>
+  }
+</button>
       <button class="btn secondary outline" (click)="cancelar()">Cancelar</button>
     </div>
   </div>
