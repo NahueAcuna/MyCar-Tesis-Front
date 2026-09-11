@@ -19,6 +19,8 @@ export class PublicationForm implements OnInit {
   mostrarPagina3 = false;
   mostrarPagina4 = false;
 
+  cargandoPublicacion: boolean = false;
+
   errorMessage = '';
   campoNumeroError: { [key: string]: boolean } = {};
 
@@ -128,6 +130,7 @@ export class PublicationForm implements OnInit {
       return;
     }
 
+    this.cargandoPublicacion = true;
     const fotosViejasQueQuedan = this.publicationData.imagenes.filter(url => url.startsWith('http'));
     const videosViejosQueQuedan = this.publicationData.videos.filter(url => url.startsWith('http'));
 
@@ -158,10 +161,12 @@ export class PublicationForm implements OnInit {
     if (this.editMode && this.publicationId) {
       this.publicationService.updatePublication(this.publicationId, publicacionRequestDTO, todosLosArchivos).subscribe({
         next: () => {
+          this.cargandoPublicacion = false;
           this.toast.success('Publicación actualizada correctamente.');
           this.router.navigate(['/mis-publicaciones']);
         },
         error: (err) => {
+          this.cargandoPublicacion = false;
           console.error(err);
           this.toast.error('Formato no soportado. Subí una foto (.jpg, .jpeg, .png y .webp) o un video (.mp4, .mov, .avi y .webm).');
         }
@@ -169,10 +174,12 @@ export class PublicationForm implements OnInit {
     } else {
       this.publicationService.createPublication(publicacionRequestDTO, todosLosArchivos).subscribe({
         next: () => {
+          this.cargandoPublicacion = false;
           this.toast.success('Publicación creada con éxito.');
           this.router.navigate(['/']);
         },
         error: (err) => {
+          this.cargandoPublicacion = false;
           console.error(err);
           this.toast.error('Formato no soportado. Subí una foto (.jpg, .jpeg, .png y .webp) o un video (.mp4, .mov, .avi y .webm).');
         }

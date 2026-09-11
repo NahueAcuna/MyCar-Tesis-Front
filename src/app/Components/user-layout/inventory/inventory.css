@@ -540,7 +540,8 @@ input[type="range"] {
         flex-direction: column;
         padding: 20px 12px;
     }
-    #filters{
+    #filters {
+        position: static; /* ¡Esta es la palabra mágica que apaga el sticky! */
         max-height: none;
         padding: 20px;
         gap: 14px;
